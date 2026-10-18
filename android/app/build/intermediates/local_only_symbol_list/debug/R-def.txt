@@ -1,0 +1,9 @@
+R_DEF: Internal format may change without notice
+local
+font noto_sans_jp
+mipmap ic_launcher
+mipmap ic_launcher_round
+string app_name
+style Theme.MusicPlayer
+xml backup_rules
+xml data_extraction_rules

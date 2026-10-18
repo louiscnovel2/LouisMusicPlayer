@@ -1,0 +1,51 @@
+com.portable.musicplayer.app-core-ktx-1.10.1-0 C:\Users\02375\.gradle\caches\transforms-3\00c25068ebc2f2335c75d858fdd0f0be\transformed\core-ktx-1.10.1\res
+com.portable.musicplayer.app-material-icons-extended-1.4.3-1 C:\Users\02375\.gradle\caches\transforms-3\0122fa9cf96ea230206e96a39b84e518\transformed\material-icons-extended-1.4.3\res
+com.portable.musicplayer.app-lifecycle-viewmodel-savedstate-2.6.2-2 C:\Users\02375\.gradle\caches\transforms-3\12c7650ec764cd3d20160e1bd4a6103f\transformed\lifecycle-viewmodel-savedstate-2.6.2\res
+com.portable.musicplayer.app-savedstate-1.2.1-3 C:\Users\02375\.gradle\caches\transforms-3\1ea97d581a6892d00c4c5d2bff191797\transformed\savedstate-1.2.1\res
+com.portable.musicplayer.app-ui-unit-1.4.3-4 C:\Users\02375\.gradle\caches\transforms-3\2457304f25c2ae74d9ac6b669be7a5c4\transformed\ui-unit-1.4.3\res
+com.portable.musicplayer.app-lifecycle-process-2.6.2-5 C:\Users\02375\.gradle\caches\transforms-3\28249ecb70f1c0358e9ed1187de42611\transformed\lifecycle-process-2.6.2\res
+com.portable.musicplayer.app-ui-1.4.3-6 C:\Users\02375\.gradle\caches\transforms-3\2ab6e3b6b06c2da1718c9766ab1c4310\transformed\ui-1.4.3\res
+com.portable.musicplayer.app-lifecycle-livedata-core-2.6.2-7 C:\Users\02375\.gradle\caches\transforms-3\30e137d0ab6c2952b362c0212284628b\transformed\lifecycle-livedata-core-2.6.2\res
+com.portable.musicplayer.app-material-ripple-1.4.3-8 C:\Users\02375\.gradle\caches\transforms-3\341fe9119cd93dc34df75a106f4149c7\transformed\material-ripple-1.4.3\res
+com.portable.musicplayer.app-annotation-experimental-1.3.0-9 C:\Users\02375\.gradle\caches\transforms-3\347734dc79393e17f0bc9a50bfd226da\transformed\annotation-experimental-1.3.0\res
+com.portable.musicplayer.app-savedstate-ktx-1.2.1-10 C:\Users\02375\.gradle\caches\transforms-3\3c0f56416aa437373a6ceb3eba817fec\transformed\savedstate-ktx-1.2.1\res
+com.portable.musicplayer.app-lifecycle-viewmodel-ktx-2.6.2-11 C:\Users\02375\.gradle\caches\transforms-3\410005911a8bd0e4b15c06659fa0ce97\transformed\lifecycle-viewmodel-ktx-2.6.2\res
+com.portable.musicplayer.app-material3-1.1.1-12 C:\Users\02375\.gradle\caches\transforms-3\41282434fe61475e533a98012f8179a1\transformed\material3-1.1.1\res
+com.portable.musicplayer.app-lifecycle-runtime-ktx-2.6.2-13 C:\Users\02375\.gradle\caches\transforms-3\53d2e95fc27f0792eff63ccfde6ae186\transformed\lifecycle-runtime-ktx-2.6.2\res
+com.portable.musicplayer.app-ui-tooling-1.4.3-14 C:\Users\02375\.gradle\caches\transforms-3\588d014cd0a00feaccd39eaeec69619d\transformed\ui-tooling-1.4.3\res
+com.portable.musicplayer.app-startup-runtime-1.1.1-15 C:\Users\02375\.gradle\caches\transforms-3\611d009f1c3db1527d563a2e836b5afd\transformed\startup-runtime-1.1.1\res
+com.portable.musicplayer.app-ui-util-1.4.3-16 C:\Users\02375\.gradle\caches\transforms-3\630a6eb2126e739764cd8cb242355dac\transformed\ui-util-1.4.3\res
+com.portable.musicplayer.app-ui-text-1.4.3-17 C:\Users\02375\.gradle\caches\transforms-3\63c11c4165337f2072320d36967940ba\transformed\ui-text-1.4.3\res
+com.portable.musicplayer.app-lifecycle-viewmodel-compose-2.6.2-18 C:\Users\02375\.gradle\caches\transforms-3\65e64a66c8352537089e01f8e4d6d625\transformed\lifecycle-viewmodel-compose-2.6.2\res
+com.portable.musicplayer.app-activity-1.7.2-19 C:\Users\02375\.gradle\caches\transforms-3\6add75115a332758b9a3c34dfbc5901e\transformed\activity-1.7.2\res
+com.portable.musicplayer.app-runtime-1.4.3-20 C:\Users\02375\.gradle\caches\transforms-3\6d56d8747160f9caf6f3f3924106ec5a\transformed\runtime-1.4.3\res
+com.portable.musicplayer.app-profileinstaller-1.3.0-21 C:\Users\02375\.gradle\caches\transforms-3\7389ee448c55e277e2897fda65bd7f46\transformed\profileinstaller-1.3.0\res
+com.portable.musicplayer.app-media-1.6.0-22 C:\Users\02375\.gradle\caches\transforms-3\7e669a2cbdde8567778bd788f2567de5\transformed\media-1.6.0\res
+com.portable.musicplayer.app-material-1.4.3-23 C:\Users\02375\.gradle\caches\transforms-3\837e6cba248d8de6edb417e7a61df4e7\transformed\material-1.4.3\res
+com.portable.musicplayer.app-customview-poolingcontainer-1.0.0-24 C:\Users\02375\.gradle\caches\transforms-3\8b5dcd96f3c88585101c6b96bc847dfa\transformed\customview-poolingcontainer-1.0.0\res
+com.portable.musicplayer.app-material-icons-core-1.4.3-25 C:\Users\02375\.gradle\caches\transforms-3\97b13b7adc88dd240448a5419ea8124b\transformed\material-icons-core-1.4.3\res
+com.portable.musicplayer.app-runtime-saveable-1.4.3-26 C:\Users\02375\.gradle\caches\transforms-3\b1a701e8028afcb0913f62ab8ed16630\transformed\runtime-saveable-1.4.3\res
+com.portable.musicplayer.app-animation-core-1.4.3-27 C:\Users\02375\.gradle\caches\transforms-3\b40e97e05f4d73bf3ab4670143d709a8\transformed\animation-core-1.4.3\res
+com.portable.musicplayer.app-ui-tooling-data-1.4.3-28 C:\Users\02375\.gradle\caches\transforms-3\b65edfbefcca31adf7cee0a0c58b36a2\transformed\ui-tooling-data-1.4.3\res
+com.portable.musicplayer.app-activity-compose-1.7.2-29 C:\Users\02375\.gradle\caches\transforms-3\c02ca84a6a431fccaa17f358f68b1af6\transformed\activity-compose-1.7.2\res
+com.portable.musicplayer.app-media3-exoplayer-1.1.1-30 C:\Users\02375\.gradle\caches\transforms-3\c04cdb877f5a616cd41234a3b2dcb12c\transformed\media3-exoplayer-1.1.1\res
+com.portable.musicplayer.app-core-runtime-2.2.0-31 C:\Users\02375\.gradle\caches\transforms-3\cb7c234a19add4fc8efe0a9292c86250\transformed\core-runtime-2.2.0\res
+com.portable.musicplayer.app-ui-tooling-preview-1.4.3-32 C:\Users\02375\.gradle\caches\transforms-3\d8f9ff2e01d303620a04545aa278341b\transformed\ui-tooling-preview-1.4.3\res
+com.portable.musicplayer.app-activity-ktx-1.7.2-33 C:\Users\02375\.gradle\caches\transforms-3\d920d920003b5e7d83f7c4c8df7d8d0e\transformed\activity-ktx-1.7.2\res
+com.portable.musicplayer.app-media3-session-1.1.1-34 C:\Users\02375\.gradle\caches\transforms-3\da449bf3689afa64f3d3d82c3f826a96\transformed\media3-session-1.1.1\res
+com.portable.musicplayer.app-core-1.10.1-35 C:\Users\02375\.gradle\caches\transforms-3\de7941b2a92dc3b96d635e42c86c0f75\transformed\core-1.10.1\res
+com.portable.musicplayer.app-emoji2-1.3.0-36 C:\Users\02375\.gradle\caches\transforms-3\e63c71d7be89eb229dd04e348c4c97c3\transformed\emoji2-1.3.0\res
+com.portable.musicplayer.app-ui-geometry-1.4.3-37 C:\Users\02375\.gradle\caches\transforms-3\e6fc11b3525193c94b0d718d0f791a06\transformed\ui-geometry-1.4.3\res
+com.portable.musicplayer.app-foundation-1.4.3-38 C:\Users\02375\.gradle\caches\transforms-3\eb5cee75da12afa15ed33ae8ae065f4e\transformed\foundation-1.4.3\res
+com.portable.musicplayer.app-lifecycle-runtime-2.6.2-39 C:\Users\02375\.gradle\caches\transforms-3\ed723f71a1f4612439bd6c2f78a52d1d\transformed\lifecycle-runtime-2.6.2\res
+com.portable.musicplayer.app-lifecycle-viewmodel-2.6.2-40 C:\Users\02375\.gradle\caches\transforms-3\efffbc30b4e8ef1db0323e668cfbc3e7\transformed\lifecycle-viewmodel-2.6.2\res
+com.portable.musicplayer.app-animation-1.4.3-41 C:\Users\02375\.gradle\caches\transforms-3\f435105348f10d754db3b902f5d64fb1\transformed\animation-1.4.3\res
+com.portable.musicplayer.app-foundation-layout-1.4.3-42 C:\Users\02375\.gradle\caches\transforms-3\feabcad9aa0c958c9c0e12ad06a4ac29\transformed\foundation-layout-1.4.3\res
+com.portable.musicplayer.app-ui-graphics-1.4.3-43 C:\Users\02375\.gradle\caches\transforms-3\fef1d23d6f44be332920e7790b60062b\transformed\ui-graphics-1.4.3\res
+com.portable.musicplayer.app-resValues-44 C:\Users\02375\Documents\Default Project\Music Player\android\app\build\generated\res\resValues\debug
+com.portable.musicplayer.app-rs-45 C:\Users\02375\Documents\Default Project\Music Player\android\app\build\generated\res\rs\debug
+com.portable.musicplayer.app-packageDebugResources-46 C:\Users\02375\Documents\Default Project\Music Player\android\app\build\intermediates\incremental\debug\packageDebugResources\merged.dir
+com.portable.musicplayer.app-packageDebugResources-47 C:\Users\02375\Documents\Default Project\Music Player\android\app\build\intermediates\incremental\debug\packageDebugResources\stripped.dir
+com.portable.musicplayer.app-merged_res-48 C:\Users\02375\Documents\Default Project\Music Player\android\app\build\intermediates\merged_res\debug
+com.portable.musicplayer.app-debug-49 C:\Users\02375\Documents\Default Project\Music Player\android\app\src\debug\res
+com.portable.musicplayer.app-main-50 C:\Users\02375\Documents\Default Project\Music Player\android\app\src\main\res
