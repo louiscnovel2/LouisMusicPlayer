@@ -12,6 +12,7 @@ from PySide6.QtWidgets import (
     QLabel,
     QListWidget,
     QListWidgetItem,
+    QPushButton,
     QSizePolicy,
     QStyle,
     QStyledItemDelegate,
@@ -25,6 +26,23 @@ from . import icons
 from .widgets import CoverArt, ElidedLabel, SeekBar, StatusBar, TransportButton, _GlyphButton
 
 _ART_CACHE: dict[str, QPixmap | None] = {}
+
+_LIVE_BTN_QSS = """
+QPushButton {
+    background: rgba(255,255,255,16);
+    color: #E9E9EC;
+    border: 1px solid rgba(255,255,255,40);
+    border-radius: 3px;
+    padding: 3px 9px;
+}
+QPushButton:hover { background: rgba(255,255,255,34); }
+QPushButton:disabled { color: #6C727A; border-color: rgba(255,255,255,18); }
+QPushButton:checked {
+    background: rgba(203,173,119,85);
+    border-color: #CBAD77;
+    color: #FFFFFF;
+}
+"""
 
 
 def cover_to_pixmap(track: Track) -> QPixmap | None:
@@ -118,6 +136,8 @@ class NowPlayingPage(QWidget):
     repeatClicked = Signal()
     shuffleClicked = Signal()
     detailsClicked = Signal()
+    liveToggled = Signal(bool)
+    cheerClicked = Signal()
 
     def __init__(self, parent: QWidget | None = None) -> None:
         super().__init__(parent)
@@ -214,6 +234,37 @@ class NowPlayingPage(QWidget):
         transport.addWidget(self.repeat_btn)
         transport.addStretch(1)
         root.addLayout(transport)
+
+        # live effect row
+        live_row = QHBoxLayout()
+        live_row.setContentsMargins(16, 2, 16, 0)
+        live_row.setSpacing(8)
+        self.live_btn = QPushButton("LIVE")
+        self.live_btn.setCheckable(True)
+        self.live_btn.setStyleSheet(_LIVE_BTN_QSS)
+        self.live_btn.setFont(theme.font(9, QFont.Weight.Medium))
+        self.live_btn.setToolTip("Live Effect（会場の響き＋観客の歓声）")
+        self.live_btn.clicked.connect(self.liveToggled)
+        self.live_venue = ElidedLabel("", 8, color=theme.TEXT_MUTED,
+                                      align=Qt.AlignmentFlag.AlignLeft, parent=self)
+        self.cheer_btn = QPushButton("歓声を追加")
+        self.cheer_btn.setStyleSheet(_LIVE_BTN_QSS)
+        self.cheer_btn.setFont(theme.font(9))
+        self.cheer_btn.setToolTip("いま鳴っている位置に観客の歓声を追加します")
+        self.cheer_btn.clicked.connect(self.cheerClicked)
+        self.cheer_btn.setEnabled(False)
+        live_row.addWidget(self.live_btn)
+        live_row.addWidget(self.live_venue, 1)
+        live_row.addWidget(self.cheer_btn)
+        root.addLayout(live_row)
+
+    # -- live effect ----------------------------------------------------------
+    def set_live(self, enabled: bool, venue: str = "") -> None:
+        self.live_btn.blockSignals(True)
+        self.live_btn.setChecked(bool(enabled))
+        self.live_btn.blockSignals(False)
+        self.cheer_btn.setEnabled(bool(enabled))
+        self.live_venue.set_text(venue if enabled else "")
 
     # -- sizing ---------------------------------------------------------------
     def resizeEvent(self, event) -> None:

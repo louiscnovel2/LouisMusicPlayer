@@ -1,4 +1,4 @@
-('C:\\Users\\02375\\Documents\\Default Project\\Music Player\\build\\Louis '
+('C:\\Users\\02375\\Documents\\Default Project\\LouisMusicPlayer\\build\\Louis '
  'Music Player\\Louis Music Player.pkg',
  {'BINARY': True,
   'DATA': True,
@@ -11,274 +11,279 @@
   'SYMLINK': False},
  [('pyi-contents-directory _internal', '', 'OPTION'),
   ('PYZ-00.pyz',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music Player\\build\\Louis '
-   'Music Player\\PYZ-00.pyz',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\build\\Louis Music Player\\PYZ-00.pyz',
    'PYZ'),
   ('struct',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music Player\\build\\Louis '
-   'Music Player\\localpycs\\struct.pyc',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\build\\Louis Music '
+   'Player\\localpycs\\struct.pyc',
    'PYMODULE'),
   ('pyimod01_archive',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music Player\\build\\Louis '
-   'Music Player\\localpycs\\pyimod01_archive.pyc',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\build\\Louis Music '
+   'Player\\localpycs\\pyimod01_archive.pyc',
    'PYMODULE'),
   ('pyimod02_importers',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music Player\\build\\Louis '
-   'Music Player\\localpycs\\pyimod02_importers.pyc',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\build\\Louis Music '
+   'Player\\localpycs\\pyimod02_importers.pyc',
    'PYMODULE'),
   ('pyimod03_ctypes',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music Player\\build\\Louis '
-   'Music Player\\localpycs\\pyimod03_ctypes.pyc',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\build\\Louis Music '
+   'Player\\localpycs\\pyimod03_ctypes.pyc',
    'PYMODULE'),
   ('pyimod04_pywin32',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music Player\\build\\Louis '
-   'Music Player\\localpycs\\pyimod04_pywin32.pyc',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\build\\Louis Music '
+   'Player\\localpycs\\pyimod04_pywin32.pyc',
    'PYMODULE'),
   ('pyiboot01_bootstrap',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PyInstaller\\loader\\pyiboot01_bootstrap.py',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PyInstaller\\loader\\pyiboot01_bootstrap.py',
    'PYSOURCE'),
   ('pyi_rth_inspect',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks\\pyi_rth_inspect.py',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks\\pyi_rth_inspect.py',
    'PYSOURCE'),
   ('pyi_rth_pkgutil',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks\\pyi_rth_pkgutil.py',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks\\pyi_rth_pkgutil.py',
    'PYSOURCE'),
   ('pyi_rth_multiprocessing',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks\\pyi_rth_multiprocessing.py',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks\\pyi_rth_multiprocessing.py',
    'PYSOURCE'),
   ('pyi_rth_pyside6',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks\\pyi_rth_pyside6.py',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks\\pyi_rth_pyside6.py',
    'PYSOURCE'),
   ('main',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music Player\\main.py',
+   'C:\\Users\\02375\\Documents\\Default Project\\LouisMusicPlayer\\main.py',
    'PYSOURCE'),
   ('_sounddevice_data\\portaudio-binaries\\libportaudio32bit-asio.dll',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\_sounddevice_data\\portaudio-binaries\\libportaudio32bit-asio.dll',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\_sounddevice_data\\portaudio-binaries\\libportaudio32bit-asio.dll',
    'BINARY'),
   ('_sounddevice_data\\portaudio-binaries\\libportaudio32bit.dll',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\_sounddevice_data\\portaudio-binaries\\libportaudio32bit.dll',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\_sounddevice_data\\portaudio-binaries\\libportaudio32bit.dll',
    'BINARY'),
   ('_sounddevice_data\\portaudio-binaries\\libportaudio64bit-asio.dll',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\_sounddevice_data\\portaudio-binaries\\libportaudio64bit-asio.dll',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\_sounddevice_data\\portaudio-binaries\\libportaudio64bit-asio.dll',
    'BINARY'),
   ('_sounddevice_data\\portaudio-binaries\\libportaudio64bit.dll',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\_sounddevice_data\\portaudio-binaries\\libportaudio64bit.dll',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\_sounddevice_data\\portaudio-binaries\\libportaudio64bit.dll',
    'BINARY'),
   ('_sounddevice_data\\portaudio-binaries\\libportaudioarm64-asio.dll',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\_sounddevice_data\\portaudio-binaries\\libportaudioarm64-asio.dll',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\_sounddevice_data\\portaudio-binaries\\libportaudioarm64-asio.dll',
    'BINARY'),
   ('_sounddevice_data\\portaudio-binaries\\libportaudioarm64.dll',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\_sounddevice_data\\portaudio-binaries\\libportaudioarm64.dll',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\_sounddevice_data\\portaudio-binaries\\libportaudioarm64.dll',
    'BINARY'),
   ('python314.dll',
    'C:\\Users\\02375\\AppData\\Local\\Python\\pythoncore-3.14-64\\python314.dll',
    'BINARY'),
-  ('av.libs\\libsharpyuv-90c3f670f207c806d3e44db799e78832.dll',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\av.libs\\libsharpyuv-90c3f670f207c806d3e44db799e78832.dll',
-   'BINARY'),
-  ('av.libs\\avformat-63-e8c4f8fc30664f2b7e85dcc683bd4b0d.dll',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\av.libs\\avformat-63-e8c4f8fc30664f2b7e85dcc683bd4b0d.dll',
-   'BINARY'),
-  ('av.libs\\libopus-0-278e2dd25a2793d306204c9d966fe0de.dll',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\av.libs\\libopus-0-278e2dd25a2793d306204c9d966fe0de.dll',
-   'BINARY'),
-  ('av.libs\\zlib1-4d767210e087ff082d94ef0a09ddc7f8.dll',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\av.libs\\zlib1-4d767210e087ff082d94ef0a09ddc7f8.dll',
-   'BINARY'),
-  ('av.libs\\libwebp-abac96c4759f9eb9b31588c8a839816c.dll',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\av.libs\\libwebp-abac96c4759f9eb9b31588c8a839816c.dll',
-   'BINARY'),
-  ('av.libs\\libx265-ee9d492f3fb55d0a3b564bb1bf4f6822.dll',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\av.libs\\libx265-ee9d492f3fb55d0a3b564bb1bf4f6822.dll',
-   'BINARY'),
-  ('av.libs\\libwebpmux-0b9545d83accdb1110a7efa5d1c54007.dll',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\av.libs\\libwebpmux-0b9545d83accdb1110a7efa5d1c54007.dll',
-   'BINARY'),
-  ('av.libs\\libdav1d-5469d6ef7baf7426269a9483c24587b7.dll',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\av.libs\\libdav1d-5469d6ef7baf7426269a9483c24587b7.dll',
-   'BINARY'),
-  ('av.libs\\libiconv-2-5e7e51fe6a6e182df6c9f30f41700345.dll',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\av.libs\\libiconv-2-5e7e51fe6a6e182df6c9f30f41700345.dll',
-   'BINARY'),
-  ('av.libs\\avcodec-63-2756d4fffb772585dcdece87427716a4.dll',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\av.libs\\avcodec-63-2756d4fffb772585dcdece87427716a4.dll',
+  ('av.libs\\swscale-10-9af0a10ad7003982e48548ff39e98465.dll',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\av.libs\\swscale-10-9af0a10ad7003982e48548ff39e98465.dll',
    'BINARY'),
   ('av.libs\\swresample-7-4f9462a1fb73b949ccad2774dd941624.dll',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\av.libs\\swresample-7-4f9462a1fb73b949ccad2774dd941624.dll',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\av.libs\\swresample-7-4f9462a1fb73b949ccad2774dd941624.dll',
    'BINARY'),
-  ('av.libs\\libvpl-45cd70cb42c579529a30ad6fc282c626.dll',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\av.libs\\libvpl-45cd70cb42c579529a30ad6fc282c626.dll',
+  ('av.libs\\avformat-63-e8c4f8fc30664f2b7e85dcc683bd4b0d.dll',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\av.libs\\avformat-63-e8c4f8fc30664f2b7e85dcc683bd4b0d.dll',
    'BINARY'),
-  ('av.libs\\libx264-165-0f71f37cf3f3ee0e2ecac2b06829e9ff.dll',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\av.libs\\libx264-165-0f71f37cf3f3ee0e2ecac2b06829e9ff.dll',
-   'BINARY'),
-  ('av.libs\\libgcc_s_seh-1-3e3b83c1f8de213bb810010a5622b180.dll',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\av.libs\\libgcc_s_seh-1-3e3b83c1f8de213bb810010a5622b180.dll',
-   'BINARY'),
-  ('av.libs\\libSvtAv1Enc-7a2b2046575991edd70ef501ca085458.dll',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\av.libs\\libSvtAv1Enc-7a2b2046575991edd70ef501ca085458.dll',
+  ('av.libs\\libsharpyuv-90c3f670f207c806d3e44db799e78832.dll',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\av.libs\\libsharpyuv-90c3f670f207c806d3e44db799e78832.dll',
    'BINARY'),
   ('av.libs\\avutil-61-e540ec7976bbd26a4a94dc737be3001c.dll',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\av.libs\\avutil-61-e540ec7976bbd26a4a94dc737be3001c.dll',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\av.libs\\avutil-61-e540ec7976bbd26a4a94dc737be3001c.dll',
    'BINARY'),
-  ('av.libs\\libvmaf-e1698aa5c58a07400697833b5f19b0a3.dll',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\av.libs\\libvmaf-e1698aa5c58a07400697833b5f19b0a3.dll',
+  ('av.libs\\libSvtAv1Enc-7a2b2046575991edd70ef501ca085458.dll',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\av.libs\\libSvtAv1Enc-7a2b2046575991edd70ef501ca085458.dll',
    'BINARY'),
-  ('av.libs\\libwinpthread-1-3e9f18fdf7e856e1e9fedd138e84e874.dll',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\av.libs\\libwinpthread-1-3e9f18fdf7e856e1e9fedd138e84e874.dll',
-   'BINARY'),
-  ('av.libs\\swscale-10-9af0a10ad7003982e48548ff39e98465.dll',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\av.libs\\swscale-10-9af0a10ad7003982e48548ff39e98465.dll',
+  ('av.libs\\libopus-0-278e2dd25a2793d306204c9d966fe0de.dll',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\av.libs\\libopus-0-278e2dd25a2793d306204c9d966fe0de.dll',
    'BINARY'),
   ('av.libs\\libstdc++-6-7ad22040206bf70776b13a24ec3f87b2.dll',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\av.libs\\libstdc++-6-7ad22040206bf70776b13a24ec3f87b2.dll',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\av.libs\\libstdc++-6-7ad22040206bf70776b13a24ec3f87b2.dll',
+   'BINARY'),
+  ('av.libs\\libwebp-abac96c4759f9eb9b31588c8a839816c.dll',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\av.libs\\libwebp-abac96c4759f9eb9b31588c8a839816c.dll',
+   'BINARY'),
+  ('av.libs\\libgcc_s_seh-1-3e3b83c1f8de213bb810010a5622b180.dll',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\av.libs\\libgcc_s_seh-1-3e3b83c1f8de213bb810010a5622b180.dll',
+   'BINARY'),
+  ('av.libs\\avcodec-63-2756d4fffb772585dcdece87427716a4.dll',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\av.libs\\avcodec-63-2756d4fffb772585dcdece87427716a4.dll',
+   'BINARY'),
+  ('av.libs\\libx264-165-0f71f37cf3f3ee0e2ecac2b06829e9ff.dll',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\av.libs\\libx264-165-0f71f37cf3f3ee0e2ecac2b06829e9ff.dll',
    'BINARY'),
   ('av.libs\\avdevice-63-2b26d22512639c049532c0bc6f6c022f.dll',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\av.libs\\avdevice-63-2b26d22512639c049532c0bc6f6c022f.dll',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\av.libs\\avdevice-63-2b26d22512639c049532c0bc6f6c022f.dll',
+   'BINARY'),
+  ('av.libs\\libx265-ee9d492f3fb55d0a3b564bb1bf4f6822.dll',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\av.libs\\libx265-ee9d492f3fb55d0a3b564bb1bf4f6822.dll',
+   'BINARY'),
+  ('av.libs\\libiconv-2-5e7e51fe6a6e182df6c9f30f41700345.dll',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\av.libs\\libiconv-2-5e7e51fe6a6e182df6c9f30f41700345.dll',
    'BINARY'),
   ('av.libs\\libvpx-1-dd81d2b55a771749d485047772201cc1.dll',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\av.libs\\libvpx-1-dd81d2b55a771749d485047772201cc1.dll',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\av.libs\\libvpx-1-dd81d2b55a771749d485047772201cc1.dll',
+   'BINARY'),
+  ('av.libs\\libwinpthread-1-3e9f18fdf7e856e1e9fedd138e84e874.dll',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\av.libs\\libwinpthread-1-3e9f18fdf7e856e1e9fedd138e84e874.dll',
+   'BINARY'),
+  ('av.libs\\libvpl-45cd70cb42c579529a30ad6fc282c626.dll',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\av.libs\\libvpl-45cd70cb42c579529a30ad6fc282c626.dll',
    'BINARY'),
   ('av.libs\\avfilter-12-87c7677b784d3ea4ecceb3e6cae9c9f1.dll',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\av.libs\\avfilter-12-87c7677b784d3ea4ecceb3e6cae9c9f1.dll',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\av.libs\\avfilter-12-87c7677b784d3ea4ecceb3e6cae9c9f1.dll',
    'BINARY'),
-  ('numpy.libs\\libscipy_openblas64_-ed4f167a5330424524f45258e7ca2c8d.dll',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\numpy.libs\\libscipy_openblas64_-ed4f167a5330424524f45258e7ca2c8d.dll',
+  ('av.libs\\libwebpmux-0b9545d83accdb1110a7efa5d1c54007.dll',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\av.libs\\libwebpmux-0b9545d83accdb1110a7efa5d1c54007.dll',
+   'BINARY'),
+  ('av.libs\\zlib1-4d767210e087ff082d94ef0a09ddc7f8.dll',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\av.libs\\zlib1-4d767210e087ff082d94ef0a09ddc7f8.dll',
+   'BINARY'),
+  ('av.libs\\libvmaf-e1698aa5c58a07400697833b5f19b0a3.dll',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\av.libs\\libvmaf-e1698aa5c58a07400697833b5f19b0a3.dll',
+   'BINARY'),
+  ('av.libs\\libdav1d-5469d6ef7baf7426269a9483c24587b7.dll',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\av.libs\\libdav1d-5469d6ef7baf7426269a9483c24587b7.dll',
    'BINARY'),
   ('numpy.libs\\msvcp140-a4c2229bdc2a2a630acdc095b4d86008.dll',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\numpy.libs\\msvcp140-a4c2229bdc2a2a630acdc095b4d86008.dll',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\numpy.libs\\msvcp140-a4c2229bdc2a2a630acdc095b4d86008.dll',
+   'BINARY'),
+  ('numpy.libs\\libscipy_openblas64_-ed4f167a5330424524f45258e7ca2c8d.dll',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\numpy.libs\\libscipy_openblas64_-ed4f167a5330424524f45258e7ca2c8d.dll',
    'BINARY'),
   ('PySide6\\plugins\\styles\\qmodernwindowsstyle.dll',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\plugins\\styles\\qmodernwindowsstyle.dll',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\plugins\\styles\\qmodernwindowsstyle.dll',
    'BINARY'),
   ('PySide6\\opengl32sw.dll',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\opengl32sw.dll',
-   'BINARY'),
-  ('PySide6\\plugins\\tls\\qschannelbackend.dll',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\plugins\\tls\\qschannelbackend.dll',
-   'BINARY'),
-  ('PySide6\\plugins\\tls\\qcertonlybackend.dll',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\plugins\\tls\\qcertonlybackend.dll',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\opengl32sw.dll',
    'BINARY'),
   ('PySide6\\plugins\\tls\\qopensslbackend.dll',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\plugins\\tls\\qopensslbackend.dll',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\plugins\\tls\\qopensslbackend.dll',
+   'BINARY'),
+  ('PySide6\\plugins\\networkinformation\\qnetworklistmanager.dll',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\plugins\\networkinformation\\qnetworklistmanager.dll',
+   'BINARY'),
+  ('PySide6\\plugins\\tls\\qschannelbackend.dll',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\plugins\\tls\\qschannelbackend.dll',
    'BINARY'),
   ('libcrypto-3-x64.dll',
    'C:\\Windows\\System32\\libcrypto-3-x64.dll',
    'BINARY'),
-  ('PySide6\\plugins\\networkinformation\\qnetworklistmanager.dll',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\plugins\\networkinformation\\qnetworklistmanager.dll',
-   'BINARY'),
   ('libssl-3-x64.dll', 'C:\\Windows\\System32\\libssl-3-x64.dll', 'BINARY'),
-  ('PySide6\\plugins\\iconengines\\qsvgicon.dll',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\plugins\\iconengines\\qsvgicon.dll',
-   'BINARY'),
-  ('PySide6\\plugins\\platforms\\qdirect2d.dll',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\plugins\\platforms\\qdirect2d.dll',
-   'BINARY'),
-  ('PySide6\\plugins\\imageformats\\qgif.dll',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\plugins\\imageformats\\qgif.dll',
-   'BINARY'),
-  ('PySide6\\plugins\\platforms\\qoffscreen.dll',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\plugins\\platforms\\qoffscreen.dll',
-   'BINARY'),
-  ('PySide6\\plugins\\platforminputcontexts\\qtvirtualkeyboardplugin.dll',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\plugins\\platforminputcontexts\\qtvirtualkeyboardplugin.dll',
-   'BINARY'),
-  ('PySide6\\plugins\\platforms\\qwindows.dll',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\plugins\\platforms\\qwindows.dll',
+  ('PySide6\\plugins\\tls\\qcertonlybackend.dll',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\plugins\\tls\\qcertonlybackend.dll',
    'BINARY'),
   ('PySide6\\plugins\\imageformats\\qwbmp.dll',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\plugins\\imageformats\\qwbmp.dll',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\plugins\\imageformats\\qwbmp.dll',
    'BINARY'),
-  ('PySide6\\plugins\\imageformats\\qsvg.dll',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\plugins\\imageformats\\qsvg.dll',
+  ('PySide6\\plugins\\platforms\\qdirect2d.dll',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\plugins\\platforms\\qdirect2d.dll',
    'BINARY'),
-  ('PySide6\\plugins\\imageformats\\qjpeg.dll',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\plugins\\imageformats\\qjpeg.dll',
-   'BINARY'),
-  ('PySide6\\plugins\\generic\\qtuiotouchplugin.dll',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\plugins\\generic\\qtuiotouchplugin.dll',
-   'BINARY'),
-  ('PySide6\\plugins\\imageformats\\qwebp.dll',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\plugins\\imageformats\\qwebp.dll',
-   'BINARY'),
-  ('PySide6\\plugins\\imageformats\\qpdf.dll',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\plugins\\imageformats\\qpdf.dll',
+  ('PySide6\\plugins\\imageformats\\qgif.dll',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\plugins\\imageformats\\qgif.dll',
    'BINARY'),
   ('PySide6\\plugins\\imageformats\\qtiff.dll',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\plugins\\imageformats\\qtiff.dll',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\plugins\\imageformats\\qtiff.dll',
    'BINARY'),
-  ('PySide6\\plugins\\imageformats\\qtga.dll',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\plugins\\imageformats\\qtga.dll',
+  ('PySide6\\plugins\\platforminputcontexts\\qtvirtualkeyboardplugin.dll',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\plugins\\platforminputcontexts\\qtvirtualkeyboardplugin.dll',
    'BINARY'),
-  ('PySide6\\plugins\\platforms\\qminimal.dll',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\plugins\\platforms\\qminimal.dll',
+  ('PySide6\\plugins\\imageformats\\qjpeg.dll',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\plugins\\imageformats\\qjpeg.dll',
+   'BINARY'),
+  ('PySide6\\plugins\\imageformats\\qsvg.dll',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\plugins\\imageformats\\qsvg.dll',
+   'BINARY'),
+  ('PySide6\\plugins\\iconengines\\qsvgicon.dll',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\plugins\\iconengines\\qsvgicon.dll',
    'BINARY'),
   ('PySide6\\plugins\\imageformats\\qico.dll',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\plugins\\imageformats\\qico.dll',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\plugins\\imageformats\\qico.dll',
+   'BINARY'),
+  ('PySide6\\plugins\\platforms\\qminimal.dll',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\plugins\\platforms\\qminimal.dll',
+   'BINARY'),
+  ('PySide6\\plugins\\platforms\\qwindows.dll',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\plugins\\platforms\\qwindows.dll',
+   'BINARY'),
+  ('PySide6\\plugins\\imageformats\\qpdf.dll',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\plugins\\imageformats\\qpdf.dll',
+   'BINARY'),
+  ('PySide6\\plugins\\imageformats\\qwebp.dll',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\plugins\\imageformats\\qwebp.dll',
+   'BINARY'),
+  ('PySide6\\plugins\\platforms\\qoffscreen.dll',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\plugins\\platforms\\qoffscreen.dll',
+   'BINARY'),
+  ('PySide6\\plugins\\generic\\qtuiotouchplugin.dll',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\plugins\\generic\\qtuiotouchplugin.dll',
    'BINARY'),
   ('PySide6\\plugins\\imageformats\\qicns.dll',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\plugins\\imageformats\\qicns.dll',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\plugins\\imageformats\\qicns.dll',
+   'BINARY'),
+  ('PySide6\\plugins\\imageformats\\qtga.dll',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\plugins\\imageformats\\qtga.dll',
    'BINARY'),
   ('_zstd.pyd',
    'C:\\Users\\02375\\AppData\\Local\\Python\\pythoncore-3.14-64\\DLLs\\_zstd.pyd',
@@ -320,219 +325,219 @@
    'C:\\Users\\02375\\AppData\\Local\\Python\\pythoncore-3.14-64\\DLLs\\_queue.pyd',
    'EXTENSION'),
   ('av\\video\\reformatter.pyd',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\av\\video\\reformatter.pyd',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\av\\video\\reformatter.pyd',
    'EXTENSION'),
   ('av\\video\\plane.pyd',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\av\\video\\plane.pyd',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\av\\video\\plane.pyd',
    'EXTENSION'),
   ('av\\utils.pyd',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\av\\utils.pyd',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\av\\utils.pyd',
    'EXTENSION'),
   ('av\\subtitles\\subtitle.pyd',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\av\\subtitles\\subtitle.pyd',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\av\\subtitles\\subtitle.pyd',
    'EXTENSION'),
   ('av\\subtitles\\stream.pyd',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\av\\subtitles\\stream.pyd',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\av\\subtitles\\stream.pyd',
    'EXTENSION'),
   ('av\\subtitles\\codeccontext.pyd',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\av\\subtitles\\codeccontext.pyd',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\av\\subtitles\\codeccontext.pyd',
    'EXTENSION'),
   ('av\\stream.pyd',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\av\\stream.pyd',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\av\\stream.pyd',
    'EXTENSION'),
   ('av\\sidedata\\sidedata.pyd',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\av\\sidedata\\sidedata.pyd',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\av\\sidedata\\sidedata.pyd',
    'EXTENSION'),
   ('av\\sidedata\\motionvectors.pyd',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\av\\sidedata\\motionvectors.pyd',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\av\\sidedata\\motionvectors.pyd',
    'EXTENSION'),
   ('av\\sidedata\\encparams.pyd',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\av\\sidedata\\encparams.pyd',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\av\\sidedata\\encparams.pyd',
    'EXTENSION'),
   ('av\\plane.pyd',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\av\\plane.pyd',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\av\\plane.pyd',
    'EXTENSION'),
   ('av\\opaque.pyd',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\av\\opaque.pyd',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\av\\opaque.pyd',
    'EXTENSION'),
   ('av\\index.pyd',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\av\\index.pyd',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\av\\index.pyd',
    'EXTENSION'),
   ('av\\frame.pyd',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\av\\frame.pyd',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\av\\frame.pyd',
    'EXTENSION'),
   ('av\\filter\\loudnorm.pyd',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\av\\filter\\loudnorm.pyd',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\av\\filter\\loudnorm.pyd',
    'EXTENSION'),
   ('av\\filter\\link.pyd',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\av\\filter\\link.pyd',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\av\\filter\\link.pyd',
    'EXTENSION'),
   ('av\\filter\\graph.pyd',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\av\\filter\\graph.pyd',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\av\\filter\\graph.pyd',
    'EXTENSION'),
   ('av\\filter\\filter.pyd',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\av\\filter\\filter.pyd',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\av\\filter\\filter.pyd',
    'EXTENSION'),
   ('av\\filter\\context.pyd',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\av\\filter\\context.pyd',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\av\\filter\\context.pyd',
    'EXTENSION'),
   ('av\\dictionary.pyd',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\av\\dictionary.pyd',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\av\\dictionary.pyd',
    'EXTENSION'),
   ('av\\container\\streams.pyd',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\av\\container\\streams.pyd',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\av\\container\\streams.pyd',
    'EXTENSION'),
   ('av\\container\\pyio.pyd',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\av\\container\\pyio.pyd',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\av\\container\\pyio.pyd',
    'EXTENSION'),
   ('av\\container\\output.pyd',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\av\\container\\output.pyd',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\av\\container\\output.pyd',
    'EXTENSION'),
   ('av\\container\\input.pyd',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\av\\container\\input.pyd',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\av\\container\\input.pyd',
    'EXTENSION'),
   ('av\\container\\core.pyd',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\av\\container\\core.pyd',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\av\\container\\core.pyd',
    'EXTENSION'),
   ('av\\codec\\hwaccel.pyd',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\av\\codec\\hwaccel.pyd',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\av\\codec\\hwaccel.pyd',
    'EXTENSION'),
   ('av\\buffer.pyd',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\av\\buffer.pyd',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\av\\buffer.pyd',
    'EXTENSION'),
   ('av\\audio\\plane.pyd',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\av\\audio\\plane.pyd',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\av\\audio\\plane.pyd',
    'EXTENSION'),
   ('av\\_cyutil.pyd',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\av\\_cyutil.pyd',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\av\\_cyutil.pyd',
    'EXTENSION'),
   ('av\\video\\stream.pyd',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\av\\video\\stream.pyd',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\av\\video\\stream.pyd',
    'EXTENSION'),
   ('av\\video\\frame.pyd',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\av\\video\\frame.pyd',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\av\\video\\frame.pyd',
    'EXTENSION'),
   ('av\\video\\format.pyd',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\av\\video\\format.pyd',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\av\\video\\format.pyd',
    'EXTENSION'),
   ('av\\video\\codeccontext.pyd',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\av\\video\\codeccontext.pyd',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\av\\video\\codeccontext.pyd',
    'EXTENSION'),
   ('av\\error.pyd',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\av\\error.pyd',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\av\\error.pyd',
    'EXTENSION'),
   ('av\\rational.pyd',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\av\\rational.pyd',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\av\\rational.pyd',
    'EXTENSION'),
   ('av\\packet.pyd',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\av\\packet.pyd',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\av\\packet.pyd',
    'EXTENSION'),
   ('av\\format.pyd',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\av\\format.pyd',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\av\\format.pyd',
    'EXTENSION'),
   ('av\\device.pyd',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\av\\device.pyd',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\av\\device.pyd',
    'EXTENSION'),
   ('av\\codec\\context.pyd',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\av\\codec\\context.pyd',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\av\\codec\\context.pyd',
    'EXTENSION'),
   ('av\\codec\\codec.pyd',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\av\\codec\\codec.pyd',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\av\\codec\\codec.pyd',
    'EXTENSION'),
   ('av\\bitstream.pyd',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\av\\bitstream.pyd',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\av\\bitstream.pyd',
    'EXTENSION'),
   ('av\\audio\\stream.pyd',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\av\\audio\\stream.pyd',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\av\\audio\\stream.pyd',
    'EXTENSION'),
   ('av\\audio\\resampler.pyd',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\av\\audio\\resampler.pyd',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\av\\audio\\resampler.pyd',
    'EXTENSION'),
   ('av\\audio\\layout.pyd',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\av\\audio\\layout.pyd',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\av\\audio\\layout.pyd',
    'EXTENSION'),
   ('av\\audio\\frame.pyd',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\av\\audio\\frame.pyd',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\av\\audio\\frame.pyd',
    'EXTENSION'),
   ('av\\audio\\format.pyd',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\av\\audio\\format.pyd',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\av\\audio\\format.pyd',
    'EXTENSION'),
   ('av\\audio\\fifo.pyd',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\av\\audio\\fifo.pyd',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\av\\audio\\fifo.pyd',
    'EXTENSION'),
   ('av\\audio\\codeccontext.pyd',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\av\\audio\\codeccontext.pyd',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\av\\audio\\codeccontext.pyd',
    'EXTENSION'),
   ('av\\logging.pyd',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\av\\logging.pyd',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\av\\logging.pyd',
    'EXTENSION'),
   ('av\\_core.pyd',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\av\\_core.pyd',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\av\\_core.pyd',
    'EXTENSION'),
   ('_cffi_backend.cp314-win_amd64.pyd',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\_cffi_backend.cp314-win_amd64.pyd',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\_cffi_backend.cp314-win_amd64.pyd',
    'EXTENSION'),
   ('_wmi.pyd',
    'C:\\Users\\02375\\AppData\\Local\\Python\\pythoncore-3.14-64\\DLLs\\_wmi.pyd',
    'EXTENSION'),
   ('numpy\\_core\\_multiarray_tests.cp314-win_amd64.pyd',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\numpy\\_core\\_multiarray_tests.cp314-win_amd64.pyd',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\numpy\\_core\\_multiarray_tests.cp314-win_amd64.pyd',
    'EXTENSION'),
   ('numpy\\_core\\_multiarray_umath.cp314-win_amd64.pyd',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\numpy\\_core\\_multiarray_umath.cp314-win_amd64.pyd',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\numpy\\_core\\_multiarray_umath.cp314-win_amd64.pyd',
    'EXTENSION'),
   ('_overlapped.pyd',
    'C:\\Users\\02375\\AppData\\Local\\Python\\pythoncore-3.14-64\\DLLs\\_overlapped.pyd',
@@ -541,80 +546,71 @@
    'C:\\Users\\02375\\AppData\\Local\\Python\\pythoncore-3.14-64\\DLLs\\_asyncio.pyd',
    'EXTENSION'),
   ('numpy\\linalg\\_umath_linalg.cp314-win_amd64.pyd',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\numpy\\linalg\\_umath_linalg.cp314-win_amd64.pyd',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\numpy\\linalg\\_umath_linalg.cp314-win_amd64.pyd',
    'EXTENSION'),
   ('numpy\\random\\mtrand.cp314-win_amd64.pyd',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\numpy\\random\\mtrand.cp314-win_amd64.pyd',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\numpy\\random\\mtrand.cp314-win_amd64.pyd',
    'EXTENSION'),
   ('numpy\\random\\bit_generator.cp314-win_amd64.pyd',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\numpy\\random\\bit_generator.cp314-win_amd64.pyd',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\numpy\\random\\bit_generator.cp314-win_amd64.pyd',
    'EXTENSION'),
   ('numpy\\random\\_sfc64.cp314-win_amd64.pyd',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\numpy\\random\\_sfc64.cp314-win_amd64.pyd',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\numpy\\random\\_sfc64.cp314-win_amd64.pyd',
    'EXTENSION'),
   ('numpy\\random\\_philox.cp314-win_amd64.pyd',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\numpy\\random\\_philox.cp314-win_amd64.pyd',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\numpy\\random\\_philox.cp314-win_amd64.pyd',
    'EXTENSION'),
   ('numpy\\random\\_pcg64.cp314-win_amd64.pyd',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\numpy\\random\\_pcg64.cp314-win_amd64.pyd',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\numpy\\random\\_pcg64.cp314-win_amd64.pyd',
    'EXTENSION'),
   ('numpy\\random\\_mt19937.cp314-win_amd64.pyd',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\numpy\\random\\_mt19937.cp314-win_amd64.pyd',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\numpy\\random\\_mt19937.cp314-win_amd64.pyd',
    'EXTENSION'),
   ('numpy\\random\\_generator.cp314-win_amd64.pyd',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\numpy\\random\\_generator.cp314-win_amd64.pyd',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\numpy\\random\\_generator.cp314-win_amd64.pyd',
    'EXTENSION'),
   ('numpy\\random\\_common.cp314-win_amd64.pyd',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\numpy\\random\\_common.cp314-win_amd64.pyd',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\numpy\\random\\_common.cp314-win_amd64.pyd',
    'EXTENSION'),
   ('numpy\\random\\_bounded_integers.cp314-win_amd64.pyd',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\numpy\\random\\_bounded_integers.cp314-win_amd64.pyd',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\numpy\\random\\_bounded_integers.cp314-win_amd64.pyd',
    'EXTENSION'),
   ('numpy\\fft\\_pocketfft_umath.cp314-win_amd64.pyd',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\numpy\\fft\\_pocketfft_umath.cp314-win_amd64.pyd',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\numpy\\fft\\_pocketfft_umath.cp314-win_amd64.pyd',
    'EXTENSION'),
   ('PySide6\\QtWidgets.pyd',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\QtWidgets.pyd',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\QtWidgets.pyd',
    'EXTENSION'),
   ('shiboken6\\Shiboken.pyd',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\shiboken6\\Shiboken.pyd',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\shiboken6\\Shiboken.pyd',
    'EXTENSION'),
   ('PySide6\\QtNetwork.pyd',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\QtNetwork.pyd',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\QtNetwork.pyd',
    'EXTENSION'),
   ('PySide6\\QtGui.pyd',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\QtGui.pyd',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\QtGui.pyd',
    'EXTENSION'),
   ('PySide6\\QtCore.pyd',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\QtCore.pyd',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\QtCore.pyd',
    'EXTENSION'),
-  ('api-ms-win-crt-string-l1-1-0.dll',
-   'C:\\Program Files\\Java\\jdk-21\\bin\\api-ms-win-crt-string-l1-1-0.dll',
-   'BINARY'),
-  ('VCRUNTIME140.dll',
-   'C:\\Users\\02375\\AppData\\Local\\Python\\pythoncore-3.14-64\\VCRUNTIME140.dll',
-   'BINARY'),
-  ('api-ms-win-crt-process-l1-1-0.dll',
-   'C:\\Program Files\\Java\\jdk-21\\bin\\api-ms-win-crt-process-l1-1-0.dll',
-   'BINARY'),
-  ('api-ms-win-crt-stdio-l1-1-0.dll',
-   'C:\\Program Files\\Java\\jdk-21\\bin\\api-ms-win-crt-stdio-l1-1-0.dll',
+  ('api-ms-win-crt-heap-l1-1-0.dll',
+   'C:\\Program Files\\Java\\jdk-21\\bin\\api-ms-win-crt-heap-l1-1-0.dll',
    'BINARY'),
   ('api-ms-win-crt-runtime-l1-1-0.dll',
    'C:\\Program Files\\Java\\jdk-21\\bin\\api-ms-win-crt-runtime-l1-1-0.dll',
@@ -622,30 +618,36 @@
   ('api-ms-win-crt-filesystem-l1-1-0.dll',
    'C:\\Program Files\\Java\\jdk-21\\bin\\api-ms-win-crt-filesystem-l1-1-0.dll',
    'BINARY'),
-  ('api-ms-win-crt-math-l1-1-0.dll',
-   'C:\\Program Files\\Java\\jdk-21\\bin\\api-ms-win-crt-math-l1-1-0.dll',
-   'BINARY'),
   ('api-ms-win-crt-conio-l1-1-0.dll',
    'C:\\Program Files\\Java\\jdk-21\\bin\\api-ms-win-crt-conio-l1-1-0.dll',
-   'BINARY'),
-  ('api-ms-win-crt-time-l1-1-0.dll',
-   'C:\\Program Files\\Java\\jdk-21\\bin\\api-ms-win-crt-time-l1-1-0.dll',
-   'BINARY'),
-  ('api-ms-win-crt-convert-l1-1-0.dll',
-   'C:\\Program Files\\Java\\jdk-21\\bin\\api-ms-win-crt-convert-l1-1-0.dll',
    'BINARY'),
   ('api-ms-win-crt-environment-l1-1-0.dll',
    'C:\\Program '
    'Files\\Java\\jdk-21\\bin\\api-ms-win-crt-environment-l1-1-0.dll',
    'BINARY'),
+  ('api-ms-win-crt-time-l1-1-0.dll',
+   'C:\\Program Files\\Java\\jdk-21\\bin\\api-ms-win-crt-time-l1-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-crt-math-l1-1-0.dll',
+   'C:\\Program Files\\Java\\jdk-21\\bin\\api-ms-win-crt-math-l1-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-crt-convert-l1-1-0.dll',
+   'C:\\Program Files\\Java\\jdk-21\\bin\\api-ms-win-crt-convert-l1-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-crt-string-l1-1-0.dll',
+   'C:\\Program Files\\Java\\jdk-21\\bin\\api-ms-win-crt-string-l1-1-0.dll',
+   'BINARY'),
   ('api-ms-win-crt-locale-l1-1-0.dll',
    'C:\\Program Files\\Java\\jdk-21\\bin\\api-ms-win-crt-locale-l1-1-0.dll',
    'BINARY'),
-  ('api-ms-win-crt-heap-l1-1-0.dll',
-   'C:\\Program Files\\Java\\jdk-21\\bin\\api-ms-win-crt-heap-l1-1-0.dll',
+  ('api-ms-win-crt-process-l1-1-0.dll',
+   'C:\\Program Files\\Java\\jdk-21\\bin\\api-ms-win-crt-process-l1-1-0.dll',
    'BINARY'),
-  ('api-ms-win-crt-private-l1-1-0.dll',
-   'C:\\Program Files\\Java\\jdk-21\\bin\\api-ms-win-crt-private-l1-1-0.dll',
+  ('api-ms-win-crt-stdio-l1-1-0.dll',
+   'C:\\Program Files\\Java\\jdk-21\\bin\\api-ms-win-crt-stdio-l1-1-0.dll',
+   'BINARY'),
+  ('VCRUNTIME140.dll',
+   'C:\\Users\\02375\\AppData\\Local\\Python\\pythoncore-3.14-64\\VCRUNTIME140.dll',
    'BINARY'),
   ('api-ms-win-crt-utility-l1-1-0.dll',
    'C:\\Program Files\\Java\\jdk-21\\bin\\api-ms-win-crt-utility-l1-1-0.dll',
@@ -653,37 +655,40 @@
   ('VCRUNTIME140_1.dll',
    'C:\\Users\\02375\\AppData\\Local\\Python\\pythoncore-3.14-64\\VCRUNTIME140_1.dll',
    'BINARY'),
-  ('PySide6\\Qt6Core.dll',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\Qt6Core.dll',
-   'BINARY'),
-  ('PySide6\\Qt6Gui.dll',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\Qt6Gui.dll',
-   'BINARY'),
-  ('shiboken6\\MSVCP140.dll',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\shiboken6\\MSVCP140.dll',
+  ('api-ms-win-crt-private-l1-1-0.dll',
+   'C:\\Program Files\\Java\\jdk-21\\bin\\api-ms-win-crt-private-l1-1-0.dll',
    'BINARY'),
   ('PySide6\\Qt6Widgets.dll',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\Qt6Widgets.dll',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\Qt6Widgets.dll',
+   'BINARY'),
+  ('shiboken6\\MSVCP140.dll',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\shiboken6\\MSVCP140.dll',
+   'BINARY'),
+  ('PySide6\\Qt6Gui.dll',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\Qt6Gui.dll',
+   'BINARY'),
+  ('PySide6\\Qt6Core.dll',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\Qt6Core.dll',
    'BINARY'),
   ('PySide6\\Qt6Network.dll',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\Qt6Network.dll',
-   'BINARY'),
-  ('PySide6\\Qt6Svg.dll',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\Qt6Svg.dll',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\Qt6Network.dll',
    'BINARY'),
   ('PySide6\\Qt6VirtualKeyboard.dll',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\Qt6VirtualKeyboard.dll',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\Qt6VirtualKeyboard.dll',
+   'BINARY'),
+  ('PySide6\\Qt6Svg.dll',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\Qt6Svg.dll',
    'BINARY'),
   ('PySide6\\Qt6Pdf.dll',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\Qt6Pdf.dll',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\Qt6Pdf.dll',
    'BINARY'),
   ('libcrypto-3.dll',
    'C:\\Users\\02375\\AppData\\Local\\Python\\pythoncore-3.14-64\\DLLs\\libcrypto-3.dll',
@@ -698,701 +703,701 @@
    'C:\\Users\\02375\\AppData\\Local\\Python\\pythoncore-3.14-64\\python3.dll',
    'BINARY'),
   ('PySide6\\VCRUNTIME140_1.dll',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\VCRUNTIME140_1.dll',
-   'BINARY'),
-  ('PySide6\\MSVCP140.dll',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\MSVCP140.dll',
-   'BINARY'),
-  ('PySide6\\VCRUNTIME140.dll',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\VCRUNTIME140.dll',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\VCRUNTIME140_1.dll',
    'BINARY'),
   ('PySide6\\pyside6.abi3.dll',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\pyside6.abi3.dll',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\pyside6.abi3.dll',
    'BINARY'),
   ('shiboken6\\shiboken6.abi3.dll',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\shiboken6\\shiboken6.abi3.dll',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\shiboken6\\shiboken6.abi3.dll',
    'BINARY'),
-  ('shiboken6\\VCRUNTIME140_1.dll',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\shiboken6\\VCRUNTIME140_1.dll',
+  ('PySide6\\MSVCP140.dll',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\MSVCP140.dll',
+   'BINARY'),
+  ('PySide6\\VCRUNTIME140.dll',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\VCRUNTIME140.dll',
    'BINARY'),
   ('shiboken6\\VCRUNTIME140.dll',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\shiboken6\\VCRUNTIME140.dll',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\shiboken6\\VCRUNTIME140.dll',
+   'BINARY'),
+  ('shiboken6\\VCRUNTIME140_1.dll',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\shiboken6\\VCRUNTIME140_1.dll',
    'BINARY'),
   ('PySide6\\MSVCP140_2.dll',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\MSVCP140_2.dll',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\MSVCP140_2.dll',
    'BINARY'),
   ('ucrtbase.dll',
    'C:\\Program Files\\Java\\jdk-21\\bin\\ucrtbase.dll',
    'BINARY'),
+  ('PySide6\\MSVCP140_1.dll',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\MSVCP140_1.dll',
+   'BINARY'),
   ('api-ms-win-core-synch-l1-2-0.dll',
    'C:\\Program Files\\Java\\jdk-21\\bin\\api-ms-win-core-synch-l1-2-0.dll',
    'BINARY'),
-  ('PySide6\\MSVCP140_1.dll',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\MSVCP140_1.dll',
+  ('PySide6\\Qt6Quick.dll',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\Qt6Quick.dll',
    'BINARY'),
   ('PySide6\\Qt6Qml.dll',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\Qt6Qml.dll',
-   'BINARY'),
-  ('PySide6\\Qt6Quick.dll',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\Qt6Quick.dll',
-   'BINARY'),
-  ('api-ms-win-core-timezone-l1-1-0.dll',
-   'C:\\Program Files\\Java\\jdk-21\\bin\\api-ms-win-core-timezone-l1-1-0.dll',
-   'BINARY'),
-  ('api-ms-win-core-processenvironment-l1-1-0.dll',
-   'C:\\Program '
-   'Files\\Java\\jdk-21\\bin\\api-ms-win-core-processenvironment-l1-1-0.dll',
-   'BINARY'),
-  ('api-ms-win-core-sysinfo-l1-1-0.dll',
-   'C:\\Program Files\\Java\\jdk-21\\bin\\api-ms-win-core-sysinfo-l1-1-0.dll',
-   'BINARY'),
-  ('api-ms-win-core-interlocked-l1-1-0.dll',
-   'C:\\Program '
-   'Files\\Java\\jdk-21\\bin\\api-ms-win-core-interlocked-l1-1-0.dll',
-   'BINARY'),
-  ('api-ms-win-core-console-l1-1-0.dll',
-   'C:\\Program Files\\Java\\jdk-21\\bin\\api-ms-win-core-console-l1-1-0.dll',
-   'BINARY'),
-  ('api-ms-win-core-memory-l1-1-0.dll',
-   'C:\\Program Files\\Java\\jdk-21\\bin\\api-ms-win-core-memory-l1-1-0.dll',
-   'BINARY'),
-  ('api-ms-win-core-datetime-l1-1-0.dll',
-   'C:\\Program Files\\Java\\jdk-21\\bin\\api-ms-win-core-datetime-l1-1-0.dll',
-   'BINARY'),
-  ('api-ms-win-core-rtlsupport-l1-1-0.dll',
-   'C:\\Program '
-   'Files\\Java\\jdk-21\\bin\\api-ms-win-core-rtlsupport-l1-1-0.dll',
-   'BINARY'),
-  ('api-ms-win-core-file-l1-2-0.dll',
-   'C:\\Program Files\\Java\\jdk-21\\bin\\api-ms-win-core-file-l1-2-0.dll',
-   'BINARY'),
-  ('api-ms-win-core-fibers-l1-1-0.dll',
-   'C:\\Program Files\\Java\\jdk-21\\bin\\api-ms-win-core-fibers-l1-1-0.dll',
-   'BINARY'),
-  ('api-ms-win-core-string-l1-1-0.dll',
-   'C:\\Program Files\\Java\\jdk-21\\bin\\api-ms-win-core-string-l1-1-0.dll',
-   'BINARY'),
-  ('api-ms-win-core-heap-l1-1-0.dll',
-   'C:\\Program Files\\Java\\jdk-21\\bin\\api-ms-win-core-heap-l1-1-0.dll',
-   'BINARY'),
-  ('api-ms-win-core-profile-l1-1-0.dll',
-   'C:\\Program Files\\Java\\jdk-21\\bin\\api-ms-win-core-profile-l1-1-0.dll',
-   'BINARY'),
-  ('api-ms-win-core-file-l1-1-0.dll',
-   'C:\\Program Files\\Java\\jdk-21\\bin\\api-ms-win-core-file-l1-1-0.dll',
-   'BINARY'),
-  ('api-ms-win-core-synch-l1-1-0.dll',
-   'C:\\Program Files\\Java\\jdk-21\\bin\\api-ms-win-core-synch-l1-1-0.dll',
-   'BINARY'),
-  ('api-ms-win-core-processthreads-l1-1-0.dll',
-   'C:\\Program '
-   'Files\\Java\\jdk-21\\bin\\api-ms-win-core-processthreads-l1-1-0.dll',
-   'BINARY'),
-  ('api-ms-win-core-debug-l1-1-0.dll',
-   'C:\\Program Files\\Java\\jdk-21\\bin\\api-ms-win-core-debug-l1-1-0.dll',
-   'BINARY'),
-  ('api-ms-win-core-libraryloader-l1-1-0.dll',
-   'C:\\Program '
-   'Files\\Java\\jdk-21\\bin\\api-ms-win-core-libraryloader-l1-1-0.dll',
-   'BINARY'),
-  ('api-ms-win-core-handle-l1-1-0.dll',
-   'C:\\Program Files\\Java\\jdk-21\\bin\\api-ms-win-core-handle-l1-1-0.dll',
-   'BINARY'),
-  ('api-ms-win-core-file-l2-1-0.dll',
-   'C:\\Program Files\\Java\\jdk-21\\bin\\api-ms-win-core-file-l2-1-0.dll',
-   'BINARY'),
-  ('api-ms-win-core-util-l1-1-0.dll',
-   'C:\\Program Files\\Java\\jdk-21\\bin\\api-ms-win-core-util-l1-1-0.dll',
-   'BINARY'),
-  ('api-ms-win-core-namedpipe-l1-1-0.dll',
-   'C:\\Program Files\\Java\\jdk-21\\bin\\api-ms-win-core-namedpipe-l1-1-0.dll',
-   'BINARY'),
-  ('api-ms-win-core-localization-l1-2-0.dll',
-   'C:\\Program '
-   'Files\\Java\\jdk-21\\bin\\api-ms-win-core-localization-l1-2-0.dll',
-   'BINARY'),
-  ('api-ms-win-core-errorhandling-l1-1-0.dll',
-   'C:\\Program '
-   'Files\\Java\\jdk-21\\bin\\api-ms-win-core-errorhandling-l1-1-0.dll',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\Qt6Qml.dll',
    'BINARY'),
   ('api-ms-win-core-processthreads-l1-1-1.dll',
    'C:\\Program '
    'Files\\Java\\jdk-21\\bin\\api-ms-win-core-processthreads-l1-1-1.dll',
    'BINARY'),
-  ('PySide6\\Qt6QmlMeta.dll',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\Qt6QmlMeta.dll',
+  ('api-ms-win-core-console-l1-1-0.dll',
+   'C:\\Program Files\\Java\\jdk-21\\bin\\api-ms-win-core-console-l1-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-core-file-l2-1-0.dll',
+   'C:\\Program Files\\Java\\jdk-21\\bin\\api-ms-win-core-file-l2-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-core-errorhandling-l1-1-0.dll',
+   'C:\\Program '
+   'Files\\Java\\jdk-21\\bin\\api-ms-win-core-errorhandling-l1-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-core-handle-l1-1-0.dll',
+   'C:\\Program Files\\Java\\jdk-21\\bin\\api-ms-win-core-handle-l1-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-core-string-l1-1-0.dll',
+   'C:\\Program Files\\Java\\jdk-21\\bin\\api-ms-win-core-string-l1-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-core-fibers-l1-1-0.dll',
+   'C:\\Program Files\\Java\\jdk-21\\bin\\api-ms-win-core-fibers-l1-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-core-file-l1-1-0.dll',
+   'C:\\Program Files\\Java\\jdk-21\\bin\\api-ms-win-core-file-l1-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-core-interlocked-l1-1-0.dll',
+   'C:\\Program '
+   'Files\\Java\\jdk-21\\bin\\api-ms-win-core-interlocked-l1-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-core-processthreads-l1-1-0.dll',
+   'C:\\Program '
+   'Files\\Java\\jdk-21\\bin\\api-ms-win-core-processthreads-l1-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-core-timezone-l1-1-0.dll',
+   'C:\\Program Files\\Java\\jdk-21\\bin\\api-ms-win-core-timezone-l1-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-core-datetime-l1-1-0.dll',
+   'C:\\Program Files\\Java\\jdk-21\\bin\\api-ms-win-core-datetime-l1-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-core-namedpipe-l1-1-0.dll',
+   'C:\\Program Files\\Java\\jdk-21\\bin\\api-ms-win-core-namedpipe-l1-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-core-debug-l1-1-0.dll',
+   'C:\\Program Files\\Java\\jdk-21\\bin\\api-ms-win-core-debug-l1-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-core-processenvironment-l1-1-0.dll',
+   'C:\\Program '
+   'Files\\Java\\jdk-21\\bin\\api-ms-win-core-processenvironment-l1-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-core-synch-l1-1-0.dll',
+   'C:\\Program Files\\Java\\jdk-21\\bin\\api-ms-win-core-synch-l1-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-core-localization-l1-2-0.dll',
+   'C:\\Program '
+   'Files\\Java\\jdk-21\\bin\\api-ms-win-core-localization-l1-2-0.dll',
+   'BINARY'),
+  ('api-ms-win-core-libraryloader-l1-1-0.dll',
+   'C:\\Program '
+   'Files\\Java\\jdk-21\\bin\\api-ms-win-core-libraryloader-l1-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-core-heap-l1-1-0.dll',
+   'C:\\Program Files\\Java\\jdk-21\\bin\\api-ms-win-core-heap-l1-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-core-util-l1-1-0.dll',
+   'C:\\Program Files\\Java\\jdk-21\\bin\\api-ms-win-core-util-l1-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-core-memory-l1-1-0.dll',
+   'C:\\Program Files\\Java\\jdk-21\\bin\\api-ms-win-core-memory-l1-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-core-file-l1-2-0.dll',
+   'C:\\Program Files\\Java\\jdk-21\\bin\\api-ms-win-core-file-l1-2-0.dll',
+   'BINARY'),
+  ('api-ms-win-core-profile-l1-1-0.dll',
+   'C:\\Program Files\\Java\\jdk-21\\bin\\api-ms-win-core-profile-l1-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-core-sysinfo-l1-1-0.dll',
+   'C:\\Program Files\\Java\\jdk-21\\bin\\api-ms-win-core-sysinfo-l1-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-core-rtlsupport-l1-1-0.dll',
+   'C:\\Program '
+   'Files\\Java\\jdk-21\\bin\\api-ms-win-core-rtlsupport-l1-1-0.dll',
    'BINARY'),
   ('PySide6\\Qt6QmlModels.dll',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\Qt6QmlModels.dll',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\Qt6QmlModels.dll',
+   'BINARY'),
+  ('PySide6\\Qt6QmlMeta.dll',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\Qt6QmlMeta.dll',
    'BINARY'),
   ('PySide6\\Qt6OpenGL.dll',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\Qt6OpenGL.dll',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\Qt6OpenGL.dll',
    'BINARY'),
   ('PySide6\\Qt6QmlWorkerScript.dll',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\Qt6QmlWorkerScript.dll',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\Qt6QmlWorkerScript.dll',
    'BINARY'),
   ('_sounddevice_data\\portaudio-binaries\\.github\\dependabot.yml',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\_sounddevice_data\\portaudio-binaries\\.github\\dependabot.yml',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\_sounddevice_data\\portaudio-binaries\\.github\\dependabot.yml',
    'DATA'),
   ('_sounddevice_data\\portaudio-binaries\\.github\\workflows\\build-libs.yml',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\_sounddevice_data\\portaudio-binaries\\.github\\workflows\\build-libs.yml',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\_sounddevice_data\\portaudio-binaries\\.github\\workflows\\build-libs.yml',
    'DATA'),
   ('_sounddevice_data\\portaudio-binaries\\README.md',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\_sounddevice_data\\portaudio-binaries\\README.md',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\_sounddevice_data\\portaudio-binaries\\README.md',
    'DATA'),
   ('_sounddevice_data\\portaudio-binaries\\libportaudio.dylib',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\_sounddevice_data\\portaudio-binaries\\libportaudio.dylib',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\_sounddevice_data\\portaudio-binaries\\libportaudio.dylib',
    'DATA'),
   ('assets\\icon.ico',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\assets\\icon.ico',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\assets\\icon.ico',
    'DATA'),
   ('assets\\icon_128.png',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\assets\\icon_128.png',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\assets\\icon_128.png',
    'DATA'),
   ('assets\\icon_16.png',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\assets\\icon_16.png',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\assets\\icon_16.png',
    'DATA'),
   ('assets\\icon_24.png',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\assets\\icon_24.png',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\assets\\icon_24.png',
    'DATA'),
   ('assets\\icon_256.png',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\assets\\icon_256.png',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\assets\\icon_256.png',
    'DATA'),
   ('assets\\icon_32.png',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\assets\\icon_32.png',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\assets\\icon_32.png',
    'DATA'),
   ('assets\\icon_48.png',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\assets\\icon_48.png',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\assets\\icon_48.png',
    'DATA'),
   ('assets\\icon_512.png',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\assets\\icon_512.png',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\assets\\icon_512.png',
    'DATA'),
   ('assets\\icon_64.png',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\assets\\icon_64.png',
-   'DATA'),
-  ('PySide6\\translations\\qt_lg.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_lg.qm',
-   'DATA'),
-  ('PySide6\\translations\\qt_help_hu.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_help_hu.qm',
-   'DATA'),
-  ('PySide6\\translations\\qt_hu.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_hu.qm',
-   'DATA'),
-  ('PySide6\\translations\\qt_he.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_he.qm',
-   'DATA'),
-  ('PySide6\\translations\\qt_pl.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_pl.qm',
-   'DATA'),
-  ('PySide6\\translations\\qt_ca.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_ca.qm',
-   'DATA'),
-  ('PySide6\\translations\\qt_help_ja.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_help_ja.qm',
-   'DATA'),
-  ('PySide6\\translations\\qt_fr.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_fr.qm',
-   'DATA'),
-  ('PySide6\\translations\\qt_zh_CN.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_zh_CN.qm',
-   'DATA'),
-  ('PySide6\\translations\\qt_help_zh_TW.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_help_zh_TW.qm',
-   'DATA'),
-  ('PySide6\\translations\\qt_pt_PT.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_pt_PT.qm',
-   'DATA'),
-  ('PySide6\\translations\\qt_gd.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_gd.qm',
-   'DATA'),
-  ('PySide6\\translations\\qt_help_ka.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_help_ka.qm',
-   'DATA'),
-  ('PySide6\\translations\\qt_help_da.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_help_da.qm',
-   'DATA'),
-  ('PySide6\\translations\\qt_lv.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_lv.qm',
-   'DATA'),
-  ('PySide6\\translations\\qt_nn.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_nn.qm',
-   'DATA'),
-  ('PySide6\\translations\\qtbase_fr.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qtbase_fr.qm',
-   'DATA'),
-  ('PySide6\\translations\\qtbase_pl.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qtbase_pl.qm',
-   'DATA'),
-  ('PySide6\\translations\\qtbase_es.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qtbase_es.qm',
-   'DATA'),
-  ('PySide6\\translations\\qtbase_it.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qtbase_it.qm',
-   'DATA'),
-  ('PySide6\\translations\\qt_help_bg.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_help_bg.qm',
-   'DATA'),
-  ('PySide6\\translations\\qt_help_pt_BR.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_help_pt_BR.qm',
-   'DATA'),
-  ('PySide6\\translations\\qt_help_ca.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_help_ca.qm',
-   'DATA'),
-  ('PySide6\\translations\\qt_help_nn.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_help_nn.qm',
-   'DATA'),
-  ('PySide6\\translations\\qt_help_uk.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_help_uk.qm',
-   'DATA'),
-  ('PySide6\\translations\\qtbase_fa.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qtbase_fa.qm',
-   'DATA'),
-  ('PySide6\\translations\\qtbase_ru.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qtbase_ru.qm',
-   'DATA'),
-  ('PySide6\\translations\\qtbase_gd.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qtbase_gd.qm',
-   'DATA'),
-  ('PySide6\\translations\\qt_lt.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_lt.qm',
-   'DATA'),
-  ('PySide6\\translations\\qt_help_ko.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_help_ko.qm',
-   'DATA'),
-  ('PySide6\\translations\\qtbase_ca.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qtbase_ca.qm',
-   'DATA'),
-  ('PySide6\\translations\\qtbase_ar.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qtbase_ar.qm',
-   'DATA'),
-  ('PySide6\\translations\\qt_ja.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_ja.qm',
-   'DATA'),
-  ('PySide6\\translations\\qtbase_pt_BR.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qtbase_pt_BR.qm',
-   'DATA'),
-  ('PySide6\\translations\\qt_sk.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_sk.qm',
-   'DATA'),
-  ('PySide6\\translations\\qt_ar.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_ar.qm',
-   'DATA'),
-  ('PySide6\\translations\\qt_help_de.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_help_de.qm',
-   'DATA'),
-  ('PySide6\\translations\\qt_help_sv.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_help_sv.qm',
-   'DATA'),
-  ('PySide6\\translations\\qtbase_tr.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qtbase_tr.qm',
-   'DATA'),
-  ('PySide6\\translations\\qtbase_ko.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qtbase_ko.qm',
-   'DATA'),
-  ('PySide6\\translations\\qt_de.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_de.qm',
-   'DATA'),
-  ('PySide6\\translations\\qtbase_ja.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qtbase_ja.qm',
-   'DATA'),
-  ('PySide6\\translations\\qt_gl.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_gl.qm',
-   'DATA'),
-  ('PySide6\\translations\\qtbase_uk.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qtbase_uk.qm',
-   'DATA'),
-  ('PySide6\\translations\\qt_sv.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_sv.qm',
-   'DATA'),
-  ('PySide6\\translations\\qtbase_bg.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qtbase_bg.qm',
-   'DATA'),
-  ('PySide6\\translations\\qt_fa.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_fa.qm',
-   'DATA'),
-  ('PySide6\\translations\\qtbase_zh_CN.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qtbase_zh_CN.qm',
-   'DATA'),
-  ('PySide6\\translations\\qtbase_nl.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qtbase_nl.qm',
-   'DATA'),
-  ('PySide6\\translations\\qt_pt_BR.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_pt_BR.qm',
-   'DATA'),
-  ('PySide6\\translations\\qt_ko.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_ko.qm',
-   'DATA'),
-  ('PySide6\\translations\\qt_uk.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_uk.qm',
-   'DATA'),
-  ('PySide6\\translations\\qtbase_he.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qtbase_he.qm',
-   'DATA'),
-  ('PySide6\\translations\\qt_sl.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_sl.qm',
-   'DATA'),
-  ('PySide6\\translations\\qtbase_de.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qtbase_de.qm',
-   'DATA'),
-  ('PySide6\\translations\\qtbase_hu.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qtbase_hu.qm',
-   'DATA'),
-  ('PySide6\\translations\\qtbase_zh_TW.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qtbase_zh_TW.qm',
-   'DATA'),
-  ('PySide6\\translations\\qtbase_lv.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qtbase_lv.qm',
-   'DATA'),
-  ('PySide6\\translations\\qt_ka.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_ka.qm',
-   'DATA'),
-  ('PySide6\\translations\\qtbase_en.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qtbase_en.qm',
-   'DATA'),
-  ('PySide6\\translations\\qt_help_en.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_help_en.qm',
-   'DATA'),
-  ('PySide6\\translations\\qt_help_ar.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_help_ar.qm',
-   'DATA'),
-  ('PySide6\\translations\\qtbase_fi.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qtbase_fi.qm',
-   'DATA'),
-  ('PySide6\\translations\\qt_help_pl.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_help_pl.qm',
-   'DATA'),
-  ('PySide6\\translations\\qt_help_cs.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_help_cs.qm',
-   'DATA'),
-  ('PySide6\\translations\\qt_es.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_es.qm',
-   'DATA'),
-  ('PySide6\\translations\\qt_help_ru.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_help_ru.qm',
-   'DATA'),
-  ('PySide6\\translations\\qtbase_cs.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qtbase_cs.qm',
-   'DATA'),
-  ('PySide6\\translations\\qt_help_gl.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_help_gl.qm',
-   'DATA'),
-  ('PySide6\\translations\\qt_nl.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_nl.qm',
-   'DATA'),
-  ('PySide6\\translations\\qt_bg.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_bg.qm',
-   'DATA'),
-  ('PySide6\\translations\\qtbase_da.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qtbase_da.qm',
-   'DATA'),
-  ('PySide6\\translations\\qtbase_kk.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qtbase_kk.qm',
-   'DATA'),
-  ('PySide6\\translations\\qt_da.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_da.qm',
-   'DATA'),
-  ('PySide6\\translations\\qt_ru.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_ru.qm',
-   'DATA'),
-  ('PySide6\\translations\\qt_cs.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_cs.qm',
-   'DATA'),
-  ('PySide6\\translations\\qtbase_ka.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qtbase_ka.qm',
-   'DATA'),
-  ('PySide6\\translations\\qt_help_hr.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_help_hr.qm',
-   'DATA'),
-  ('PySide6\\translations\\qt_help_kk.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_help_kk.qm',
-   'DATA'),
-  ('PySide6\\translations\\qt_help_fr.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_help_fr.qm',
-   'DATA'),
-  ('PySide6\\translations\\qtbase_hr.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qtbase_hr.qm',
-   'DATA'),
-  ('PySide6\\translations\\qtbase_sv.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qtbase_sv.qm',
-   'DATA'),
-  ('PySide6\\translations\\qt_hr.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_hr.qm',
-   'DATA'),
-  ('PySide6\\translations\\qtbase_lg.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qtbase_lg.qm',
-   'DATA'),
-  ('PySide6\\translations\\qt_help_sk.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_help_sk.qm',
-   'DATA'),
-  ('PySide6\\translations\\qt_help_it.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_help_it.qm',
-   'DATA'),
-  ('PySide6\\translations\\qt_help_tr.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_help_tr.qm',
-   'DATA'),
-  ('PySide6\\translations\\qt_en.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_en.qm',
-   'DATA'),
-  ('PySide6\\translations\\qt_kk.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_kk.qm',
-   'DATA'),
-  ('PySide6\\translations\\qt_help_es.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_help_es.qm',
-   'DATA'),
-  ('PySide6\\translations\\qt_help_nl.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_help_nl.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\assets\\icon_64.png',
    'DATA'),
   ('PySide6\\translations\\qt_it.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_it.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_it.qm',
    'DATA'),
-  ('PySide6\\translations\\qt_tr.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_tr.qm',
+  ('PySide6\\translations\\qtbase_ar.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qtbase_ar.qm',
+   'DATA'),
+  ('PySide6\\translations\\qtbase_es.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qtbase_es.qm',
+   'DATA'),
+  ('PySide6\\translations\\qtbase_pt_BR.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qtbase_pt_BR.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_kk.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_kk.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_pt_PT.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_pt_PT.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_ru.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_ru.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_help_fr.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_help_fr.qm',
+   'DATA'),
+  ('PySide6\\translations\\qtbase_fr.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qtbase_fr.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_help_ja.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_help_ja.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_lt.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_lt.qm',
+   'DATA'),
+  ('PySide6\\translations\\qtbase_pl.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qtbase_pl.qm',
+   'DATA'),
+  ('PySide6\\translations\\qtbase_kk.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qtbase_kk.qm',
+   'DATA'),
+  ('PySide6\\translations\\qtbase_tr.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qtbase_tr.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_help_es.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_help_es.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_ko.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_ko.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_ja.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_ja.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_help_it.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_help_it.qm',
+   'DATA'),
+  ('PySide6\\translations\\qtbase_fi.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qtbase_fi.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_sk.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_sk.qm',
+   'DATA'),
+  ('PySide6\\translations\\qtbase_it.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qtbase_it.qm',
+   'DATA'),
+  ('PySide6\\translations\\qtbase_fa.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qtbase_fa.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_en.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_en.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_fa.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_fa.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_gl.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_gl.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_uk.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_uk.qm',
+   'DATA'),
+  ('PySide6\\translations\\qtbase_zh_TW.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qtbase_zh_TW.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_help_nl.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_help_nl.qm',
+   'DATA'),
+  ('PySide6\\translations\\qtbase_lv.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qtbase_lv.qm',
+   'DATA'),
+  ('PySide6\\translations\\qtbase_hr.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qtbase_hr.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_sv.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_sv.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_help_de.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_help_de.qm',
+   'DATA'),
+  ('PySide6\\translations\\qtbase_zh_CN.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qtbase_zh_CN.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_help_uk.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_help_uk.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_gd.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_gd.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_hu.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_hu.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_pt_BR.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_pt_BR.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_ar.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_ar.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_help_kk.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_help_kk.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_hr.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_hr.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_help_nn.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_help_nn.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_lv.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_lv.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_de.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_de.qm',
+   'DATA'),
+  ('PySide6\\translations\\qtbase_ja.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qtbase_ja.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_ka.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_ka.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_zh_CN.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_zh_CN.qm',
    'DATA'),
   ('PySide6\\translations\\qt_fi.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_fi.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_fi.qm',
    'DATA'),
-  ('PySide6\\translations\\qtbase_sk.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qtbase_sk.qm',
+  ('PySide6\\translations\\qtbase_ka.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qtbase_ka.qm',
    'DATA'),
-  ('PySide6\\translations\\qt_help_sl.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_help_sl.qm',
+  ('PySide6\\translations\\qtbase_he.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qtbase_he.qm',
    'DATA'),
-  ('PySide6\\translations\\qt_help_zh_CN.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_help_zh_CN.qm',
-   'DATA'),
-  ('PySide6\\translations\\qtbase_nn.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qtbase_nn.qm',
+  ('PySide6\\translations\\qt_help_pl.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_help_pl.qm',
    'DATA'),
   ('PySide6\\translations\\qt_zh_TW.qm',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_zh_TW.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_zh_TW.qm',
    'DATA'),
-  ('numpy-2.5.4.dist-info\\licenses\\numpy\\random\\src\\sfc64\\LICENSE.md',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\numpy-2.5.4.dist-info\\licenses\\numpy\\random\\src\\sfc64\\LICENSE.md',
+  ('PySide6\\translations\\qtbase_gd.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qtbase_gd.qm',
    'DATA'),
-  ('numpy-2.5.4.dist-info\\REQUESTED',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\numpy-2.5.4.dist-info\\REQUESTED',
+  ('PySide6\\translations\\qtbase_lg.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qtbase_lg.qm',
    'DATA'),
-  ('numpy-2.5.4.dist-info\\entry_points.txt',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\numpy-2.5.4.dist-info\\entry_points.txt',
+  ('PySide6\\translations\\qt_lg.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_lg.qm',
    'DATA'),
-  ('numpy-2.5.4.dist-info\\licenses\\numpy\\_core\\src\\umath\\svml\\LICENSE',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\numpy-2.5.4.dist-info\\licenses\\numpy\\_core\\src\\umath\\svml\\LICENSE',
+  ('PySide6\\translations\\qt_fr.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_fr.qm',
    'DATA'),
-  ('numpy-2.5.4.dist-info\\licenses\\numpy\\random\\src\\philox\\LICENSE.md',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\numpy-2.5.4.dist-info\\licenses\\numpy\\random\\src\\philox\\LICENSE.md',
+  ('PySide6\\translations\\qtbase_uk.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qtbase_uk.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_cs.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_cs.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_help_en.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_help_en.qm',
+   'DATA'),
+  ('PySide6\\translations\\qtbase_sk.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qtbase_sk.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_help_sv.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_help_sv.qm',
+   'DATA'),
+  ('PySide6\\translations\\qtbase_de.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qtbase_de.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_help_sk.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_help_sk.qm',
+   'DATA'),
+  ('PySide6\\translations\\qtbase_cs.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qtbase_cs.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_help_tr.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_help_tr.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_help_ar.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_help_ar.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_help_bg.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_help_bg.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_help_zh_CN.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_help_zh_CN.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_help_gl.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_help_gl.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_tr.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_tr.qm',
+   'DATA'),
+  ('PySide6\\translations\\qtbase_ru.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qtbase_ru.qm',
+   'DATA'),
+  ('PySide6\\translations\\qtbase_ca.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qtbase_ca.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_help_ru.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_help_ru.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_help_sl.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_help_sl.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_ca.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_ca.qm',
+   'DATA'),
+  ('PySide6\\translations\\qtbase_nl.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qtbase_nl.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_help_ka.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_help_ka.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_help_ca.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_help_ca.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_help_hu.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_help_hu.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_help_cs.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_help_cs.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_nn.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_nn.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_help_ko.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_help_ko.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_help_hr.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_help_hr.qm',
+   'DATA'),
+  ('PySide6\\translations\\qtbase_bg.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qtbase_bg.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_pl.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_pl.qm',
+   'DATA'),
+  ('PySide6\\translations\\qtbase_ko.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qtbase_ko.qm',
+   'DATA'),
+  ('PySide6\\translations\\qtbase_hu.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qtbase_hu.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_he.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_he.qm',
+   'DATA'),
+  ('PySide6\\translations\\qtbase_en.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qtbase_en.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_help_pt_BR.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_help_pt_BR.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_bg.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_bg.qm',
+   'DATA'),
+  ('PySide6\\translations\\qtbase_da.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qtbase_da.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_help_zh_TW.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_help_zh_TW.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_da.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_da.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_help_da.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_help_da.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_sl.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_sl.qm',
+   'DATA'),
+  ('PySide6\\translations\\qtbase_nn.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qtbase_nn.qm',
+   'DATA'),
+  ('PySide6\\translations\\qtbase_sv.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qtbase_sv.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_nl.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_nl.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_es.qm',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\PySide6\\translations\\qt_es.qm',
    'DATA'),
   ('numpy-2.5.4.dist-info\\licenses\\numpy\\random\\src\\splitmix64\\LICENSE.md',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\numpy-2.5.4.dist-info\\licenses\\numpy\\random\\src\\splitmix64\\LICENSE.md',
-   'DATA'),
-  ('numpy-2.5.4.dist-info\\licenses\\LICENSE.txt',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\numpy-2.5.4.dist-info\\licenses\\LICENSE.txt',
-   'DATA'),
-  ('numpy-2.5.4.dist-info\\DELVEWHEEL',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\numpy-2.5.4.dist-info\\DELVEWHEEL',
-   'DATA'),
-  ('numpy-2.5.4.dist-info\\licenses\\numpy\\_core\\src\\multiarray\\dragon4_LICENSE.txt',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\numpy-2.5.4.dist-info\\licenses\\numpy\\_core\\src\\multiarray\\dragon4_LICENSE.txt',
-   'DATA'),
-  ('numpy-2.5.4.dist-info\\licenses\\numpy\\random\\src\\mt19937\\LICENSE.md',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\numpy-2.5.4.dist-info\\licenses\\numpy\\random\\src\\mt19937\\LICENSE.md',
-   'DATA'),
-  ('numpy-2.5.4.dist-info\\licenses\\numpy\\_core\\src\\common\\pythoncapi-compat\\COPYING',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\numpy-2.5.4.dist-info\\licenses\\numpy\\_core\\src\\common\\pythoncapi-compat\\COPYING',
-   'DATA'),
-  ('numpy-2.5.4.dist-info\\licenses\\numpy\\fft\\pocketfft\\LICENSE.md',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\numpy-2.5.4.dist-info\\licenses\\numpy\\fft\\pocketfft\\LICENSE.md',
-   'DATA'),
-  ('numpy-2.5.4.dist-info\\WHEEL',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\numpy-2.5.4.dist-info\\WHEEL',
-   'DATA'),
-  ('numpy-2.5.4.dist-info\\licenses\\numpy\\random\\src\\pcg64\\LICENSE.md',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\numpy-2.5.4.dist-info\\licenses\\numpy\\random\\src\\pcg64\\LICENSE.md',
-   'DATA'),
-  ('numpy-2.5.4.dist-info\\RECORD',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\numpy-2.5.4.dist-info\\RECORD',
-   'DATA'),
-  ('numpy-2.5.4.dist-info\\licenses\\numpy\\_core\\src\\npysort\\x86-simd-sort\\LICENSE.md',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\numpy-2.5.4.dist-info\\licenses\\numpy\\_core\\src\\npysort\\x86-simd-sort\\LICENSE.md',
-   'DATA'),
-  ('numpy-2.5.4.dist-info\\INSTALLER',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\numpy-2.5.4.dist-info\\INSTALLER',
-   'DATA'),
-  ('numpy-2.5.4.dist-info\\licenses\\numpy\\random\\LICENSE.md',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\numpy-2.5.4.dist-info\\licenses\\numpy\\random\\LICENSE.md',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\numpy-2.5.4.dist-info\\licenses\\numpy\\random\\src\\splitmix64\\LICENSE.md',
    'DATA'),
   ('numpy-2.5.4.dist-info\\METADATA',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\numpy-2.5.4.dist-info\\METADATA',
-   'DATA'),
-  ('numpy-2.5.4.dist-info\\licenses\\numpy\\random\\src\\distributions\\LICENSE.md',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\numpy-2.5.4.dist-info\\licenses\\numpy\\random\\src\\distributions\\LICENSE.md',
-   'DATA'),
-  ('numpy-2.5.4.dist-info\\licenses\\numpy\\_core\\src\\highway\\LICENSE',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\numpy-2.5.4.dist-info\\licenses\\numpy\\_core\\src\\highway\\LICENSE',
-   'DATA'),
-  ('numpy-2.5.4.dist-info\\licenses\\numpy\\linalg\\lapack_lite\\LICENSE.txt',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\numpy-2.5.4.dist-info\\licenses\\numpy\\linalg\\lapack_lite\\LICENSE.txt',
-   'DATA'),
-  ('numpy-2.5.4.dist-info\\licenses\\numpy\\ma\\LICENSE',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\numpy-2.5.4.dist-info\\licenses\\numpy\\ma\\LICENSE',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\numpy-2.5.4.dist-info\\METADATA',
    'DATA'),
   ('numpy-2.5.4.dist-info\\licenses\\numpy\\_core\\include\\numpy\\libdivide\\LICENSE.txt',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music '
-   'Player\\.venv\\Lib\\site-packages\\numpy-2.5.4.dist-info\\licenses\\numpy\\_core\\include\\numpy\\libdivide\\LICENSE.txt',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\numpy-2.5.4.dist-info\\licenses\\numpy\\_core\\include\\numpy\\libdivide\\LICENSE.txt',
+   'DATA'),
+  ('numpy-2.5.4.dist-info\\licenses\\numpy\\random\\src\\distributions\\LICENSE.md',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\numpy-2.5.4.dist-info\\licenses\\numpy\\random\\src\\distributions\\LICENSE.md',
+   'DATA'),
+  ('numpy-2.5.4.dist-info\\RECORD',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\numpy-2.5.4.dist-info\\RECORD',
+   'DATA'),
+  ('numpy-2.5.4.dist-info\\DELVEWHEEL',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\numpy-2.5.4.dist-info\\DELVEWHEEL',
+   'DATA'),
+  ('numpy-2.5.4.dist-info\\licenses\\numpy\\fft\\pocketfft\\LICENSE.md',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\numpy-2.5.4.dist-info\\licenses\\numpy\\fft\\pocketfft\\LICENSE.md',
+   'DATA'),
+  ('numpy-2.5.4.dist-info\\licenses\\numpy\\linalg\\lapack_lite\\LICENSE.txt',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\numpy-2.5.4.dist-info\\licenses\\numpy\\linalg\\lapack_lite\\LICENSE.txt',
+   'DATA'),
+  ('numpy-2.5.4.dist-info\\licenses\\numpy\\random\\src\\philox\\LICENSE.md',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\numpy-2.5.4.dist-info\\licenses\\numpy\\random\\src\\philox\\LICENSE.md',
+   'DATA'),
+  ('numpy-2.5.4.dist-info\\entry_points.txt',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\numpy-2.5.4.dist-info\\entry_points.txt',
+   'DATA'),
+  ('numpy-2.5.4.dist-info\\licenses\\LICENSE.txt',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\numpy-2.5.4.dist-info\\licenses\\LICENSE.txt',
+   'DATA'),
+  ('numpy-2.5.4.dist-info\\licenses\\numpy\\_core\\src\\multiarray\\dragon4_LICENSE.txt',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\numpy-2.5.4.dist-info\\licenses\\numpy\\_core\\src\\multiarray\\dragon4_LICENSE.txt',
+   'DATA'),
+  ('numpy-2.5.4.dist-info\\licenses\\numpy\\random\\src\\mt19937\\LICENSE.md',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\numpy-2.5.4.dist-info\\licenses\\numpy\\random\\src\\mt19937\\LICENSE.md',
+   'DATA'),
+  ('numpy-2.5.4.dist-info\\licenses\\numpy\\_core\\src\\highway\\LICENSE',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\numpy-2.5.4.dist-info\\licenses\\numpy\\_core\\src\\highway\\LICENSE',
+   'DATA'),
+  ('numpy-2.5.4.dist-info\\WHEEL',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\numpy-2.5.4.dist-info\\WHEEL',
+   'DATA'),
+  ('numpy-2.5.4.dist-info\\licenses\\numpy\\_core\\src\\common\\pythoncapi-compat\\COPYING',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\numpy-2.5.4.dist-info\\licenses\\numpy\\_core\\src\\common\\pythoncapi-compat\\COPYING',
+   'DATA'),
+  ('numpy-2.5.4.dist-info\\licenses\\numpy\\random\\src\\sfc64\\LICENSE.md',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\numpy-2.5.4.dist-info\\licenses\\numpy\\random\\src\\sfc64\\LICENSE.md',
+   'DATA'),
+  ('numpy-2.5.4.dist-info\\licenses\\numpy\\_core\\src\\npysort\\x86-simd-sort\\LICENSE.md',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\numpy-2.5.4.dist-info\\licenses\\numpy\\_core\\src\\npysort\\x86-simd-sort\\LICENSE.md',
+   'DATA'),
+  ('numpy-2.5.4.dist-info\\licenses\\numpy\\_core\\src\\umath\\svml\\LICENSE',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\numpy-2.5.4.dist-info\\licenses\\numpy\\_core\\src\\umath\\svml\\LICENSE',
+   'DATA'),
+  ('numpy-2.5.4.dist-info\\INSTALLER',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\numpy-2.5.4.dist-info\\INSTALLER',
+   'DATA'),
+  ('numpy-2.5.4.dist-info\\licenses\\numpy\\random\\LICENSE.md',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\numpy-2.5.4.dist-info\\licenses\\numpy\\random\\LICENSE.md',
+   'DATA'),
+  ('numpy-2.5.4.dist-info\\licenses\\numpy\\ma\\LICENSE',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\numpy-2.5.4.dist-info\\licenses\\numpy\\ma\\LICENSE',
+   'DATA'),
+  ('numpy-2.5.4.dist-info\\licenses\\numpy\\random\\src\\pcg64\\LICENSE.md',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\numpy-2.5.4.dist-info\\licenses\\numpy\\random\\src\\pcg64\\LICENSE.md',
+   'DATA'),
+  ('numpy-2.5.4.dist-info\\REQUESTED',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\.venv\\Lib\\site-packages\\numpy-2.5.4.dist-info\\REQUESTED',
    'DATA'),
   ('base_library.zip',
-   'C:\\Users\\02375\\Documents\\Default Project\\Music Player\\build\\Louis '
-   'Music Player\\base_library.zip',
+   'C:\\Users\\02375\\Documents\\Default '
+   'Project\\LouisMusicPlayer\\build\\Louis Music Player\\base_library.zip',
    'DATA')],
  'python314.dll',
  False,

@@ -43,6 +43,9 @@ else:
 from .library import Track
 from .loudness import LoudnessCache
 
+from . import live_analysis
+from . import live as live_mod
+
 LOOP_OFF = "off"
 LOOP_ALL = "all"
 LOOP_ONE = "one"
@@ -64,6 +67,8 @@ class AudioEngine(QObject):
     queueChanged = Signal()
     errorOccurred = Signal(str)
     eqChanged = Signal()                        # settings / normalisation applied
+    liveChanged = Signal()                      # Live Effect settings / state
+    liveAnalysisChanged = Signal(str)            # path whose analysis finished
 
     def __init__(self, parent: QObject | None = None) -> None:
         super().__init__(parent)
@@ -100,6 +105,14 @@ class AudioEngine(QObject):
         self._stream = None
         self._loudness = LoudnessCache()
         self._analysing: set[str] = set()
+
+        # Live Effect (venue reverb + crowd reactions).
+        self._live = live_mod.LiveEngine(self._rate, CHANNELS, HOP)
+        self._live_settings = live_mod.LiveSettings()
+        self._live_cache = live_analysis.LiveAnalysisCache()
+        self._live_manual: dict[str, list[dict]] = {}
+        self._live_analysing: set[str] = set()
+        self._live_auto: dict[str, list] = {}
 
         self._thread = threading.Thread(target=self._decode_loop, daemon=True)
         self._thread.start()
@@ -166,6 +179,137 @@ class AudioEngine(QObject):
         self._refresh_normalization()
         self.eqChanged.emit()
 
+    # -- live effect ----------------------------------------------------------
+    @property
+    def live_settings(self) -> live_mod.LiveSettings:
+        return self._live_settings
+
+    def set_live_settings(self, settings: live_mod.LiveSettings) -> None:
+        self._live_settings = settings.copy()
+        self._live.set_settings(self._live_settings)
+        self._update_live_track()
+        self.liveChanged.emit()
+
+    def live_manual(self, path: str | None = None) -> list[dict]:
+        key = path if path is not None else (
+            self.current_track.path if self.current_track is not None else ""
+        )
+        return [dict(e) for e in self._live_manual.get(key, [])]
+
+    def set_live_manual(self, path: str, entries: list[dict]) -> None:
+        if not path:
+            return
+        if entries:
+            self._live_manual[path] = [dict(e) for e in entries]
+        else:
+            self._live_manual.pop(path, None)
+        if self.current_track is not None and self.current_track.path == path:
+            self._update_live_track()
+        self.liveChanged.emit()
+
+    def add_live_cheer(self, position_ms: int, kind: str = "cheer",
+                       gain: float = 0.8) -> bool:
+        track = self.current_track
+        if track is None:
+            return False
+        entries = self.live_manual(track.path)
+        entries.append({"pos": int(max(0, position_ms)), "kind": kind,
+                        "gain": float(gain)})
+        self.set_live_manual(track.path, entries)
+        return True
+
+    def live_manual_map(self) -> dict[str, list[dict]]:
+        return {path: [dict(e) for e in entries]
+                for path, entries in self._live_manual.items()}
+
+    def load_live_manual(self, mapping) -> None:
+        """Replace the whole manual-reaction table (used when restoring)."""
+        if not isinstance(mapping, dict):
+            return
+        clean: dict[str, list[dict]] = {}
+        for path, entries in mapping.items():
+            if not isinstance(entries, list):
+                continue
+            events = [live_mod.LiveEvent.from_dict(d) for d in entries
+                      if isinstance(d, dict)]
+            events = [e for e in events if e is not None]
+            if events:
+                clean[str(path)] = [
+                    {"pos": int(e.time * 1000), "kind": e.kind, "gain": e.gain}
+                    for e in events
+                ]
+        self._live_manual = clean
+
+    def remove_live_cheer(self, path: str, index: int) -> None:
+        entries = self.live_manual(path)
+        if 0 <= index < len(entries):
+            entries.pop(index)
+            self.set_live_manual(path, entries)
+
+    def clear_live_cheers(self, path: str) -> None:
+        self.set_live_manual(path, [])
+
+    def live_analysis_ready(self, path: str | None = None) -> bool:
+        key = path if path is not None else (
+            self.current_track.path if self.current_track is not None else ""
+        )
+        if not key:
+            return False
+        return self._live_cache.get(key) is not None
+
+    def live_analysing(self) -> bool:
+        track = self.current_track
+        if track is None:
+            return False
+        return track.path in self._live_analysing
+
+    def live_auto_events(self, path: str | None = None) -> list:
+        key = path if path is not None else (
+            self.current_track.path if self.current_track is not None else ""
+        )
+        return list(self._live_auto.get(key, []))
+
+    def _update_live_track(self) -> None:
+        """(Re)build the reaction timeline for the current track."""
+        track = self.current_track
+        if track is None or not self._live_settings.enabled:
+            self._live.compile_track(0, [])
+            return
+        manual: list[live_mod.LiveEvent] = []
+        for entry in self._live_manual.get(track.path, []):
+            ev = live_mod.LiveEvent.from_dict(entry)
+            if ev is not None:
+                ev.source = "manual"
+                manual.append(ev)
+        auto: list[live_mod.LiveEvent] = []
+        if self._live_settings.auto_show:
+            cached = self._live_cache.get(track.path)
+            if cached is None:
+                auto = live_analysis.provisional(self.duration())
+                self._start_live_analysis(track.path)
+            else:
+                auto = cached
+        self._live_auto[track.path] = auto
+        self._live.compile_track(self.duration(), auto + manual)
+
+    def _start_live_analysis(self, path: str) -> None:
+        if path in self._live_analysing:
+            return
+        self._live_analysing.add(path)
+        self.liveChanged.emit()
+
+        def worker() -> None:
+            events = live_analysis.analyze(path)
+            self._live_analysing.discard(path)
+            if events is not None:
+                self._live_cache.set(path, events)
+                if self.current_track is not None and self.current_track.path == path:
+                    self._live_auto[path] = events
+                    self._update_live_track()
+            self.liveAnalysisChanged.emit(path)
+
+        threading.Thread(target=worker, daemon=True).start()
+
     # -- queue management -----------------------------------------------------
     def set_queue(self, tracks: list[Track], start_index: int = 0) -> None:
         self._queue = list(tracks)
@@ -195,10 +339,12 @@ class AudioEngine(QObject):
         self._pos = max(0, int(position_ms)) / 1000.0
         self._clear_buffer()
         self._eq.reset()
+        self._live.reset()
         self._seek_sec = self._pos
         self._track_serial += 1
         self._eof_serial = -1
         self._refresh_normalization()
+        self._update_live_track()
         self.trackChanged.emit(index, self._queue[index])
 
     def append_to_queue(self, tracks: list[Track]) -> None:
@@ -247,10 +393,12 @@ class AudioEngine(QObject):
         self._duration_ms = 0
         self._clear_buffer()
         self._eq.reset()
+        self._live.reset()
         self._seek_sec = 0.0
         self._track_serial += 1
         self._eof_serial = -1
         self._refresh_normalization()
+        self._update_live_track()
         self.trackChanged.emit(index, self._queue[index])
         if ready:
             self._playing = True
@@ -293,6 +441,7 @@ class AudioEngine(QObject):
     def seek(self, ms: int) -> None:
         self._pos = max(0, int(ms)) / 1000.0
         self._eq.reset()
+        self._live.reset()
         self._seek_sec = self._pos
         self._clear_buffer()
 
@@ -443,6 +592,7 @@ class AudioEngine(QObject):
         if rate != self._rate:
             self._rate = rate
             self._eq.set_rate(rate, CHANNELS)
+            self._live.set_rate(rate, CHANNELS)
         return self._rate
 
     def _ensure_stream(self) -> bool:
@@ -503,16 +653,29 @@ class AudioEngine(QObject):
             return
         data = self._take(frames)
         n = data.shape[0]
+        live_on = self._live.active
+        if n < frames and live_on and self._live.ringing(self._pos):
+            # After the last sample the crowd is still applauding: feed silence
+            # through the effect so the reaction has somewhere to ring out.
+            if n:
+                data = np.pad(data, ((0, frames - n), (0, 0)))
+            else:
+                data = np.zeros((frames, CHANNELS), dtype=np.float32)
+            n = frames
         if n == 0:
             return
         processed = self._eq.process(data)
         if processed.shape[0] < n:
             processed = np.pad(processed, ((0, n - processed.shape[0]), (0, 0)))
+        if live_on:
+            processed = self._live.process(processed, self._pos)
+            if processed.shape[0] < n:
+                processed = np.pad(processed, ((0, n - processed.shape[0]), (0, 0)))
         gain = self._gain
         if gain != 1.0:
             processed = processed * gain
         np.clip(processed, -1.0, 1.0, out=processed)
-        outdata[:n] = processed
+        outdata[:n] = processed[:n]
         self._pos += n / self._rate
 
     # -- decoder thread -------------------------------------------------------
@@ -554,6 +717,8 @@ class AudioEngine(QObject):
             if duration_s and duration_s > 0:
                 self._duration_ms = int(duration_s * 1000)
                 self.durationChanged.emit(self._duration_ms)
+                if self._live_settings.enabled:
+                    self._update_live_track()
 
             resampler = av.AudioResampler(format="fltp", layout="stereo", rate=self._rate)
             skip_until: float | None = None
@@ -613,8 +778,12 @@ class AudioEngine(QObject):
         self.positionChanged.emit(int(self._pos * 1000))
         if not self._playing:
             return
-        if self._eof_serial == self._track_serial and self._buf_frames == 0:
-            self._on_end_of_media()
+        if self._eof_serial != self._track_serial or self._buf_frames:
+            return
+        if self._live.active and self._live.ringing(self._pos):
+            # keep playing the crowd tail before moving on
+            return
+        self._on_end_of_media()
 
     def _on_end_of_media(self) -> None:
         if self._loop_mode == LOOP_ONE and self._current >= 0:

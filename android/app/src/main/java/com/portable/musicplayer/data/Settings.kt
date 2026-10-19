@@ -185,7 +185,75 @@ class Settings(context: Context) {
         prefs.edit().putString("loudness", obj.toString()).apply()
     }
 
+    // -- live effect ----------------------------------------------------------
+    var liveEnabled: Boolean
+        get() = prefs.getBoolean("live_enabled", false)
+        set(value) = prefs.edit().putBoolean("live_enabled", value).apply()
+
+    var liveVenue: String
+        get() = prefs.getString("live_venue", "arena") ?: "arena"
+        set(value) = prefs.edit().putString("live_venue", value).apply()
+
+    var liveIntensity: Float
+        get() = prefs.getString("live_intensity", null)?.toFloatOrNull() ?: 0.6f
+        set(value) = prefs.edit().putString("live_intensity", value.toString()).apply()
+
+    var liveCrowd: Float
+        get() = prefs.getString("live_crowd", null)?.toFloatOrNull() ?: 0.5f
+        set(value) = prefs.edit().putString("live_crowd", value.toString()).apply()
+
+    var liveWidth: Float
+        get() = prefs.getString("live_width", null)?.toFloatOrNull() ?: 0.6f
+        set(value) = prefs.edit().putString("live_width", value.toString()).apply()
+
+    var liveAutoShow: Boolean
+        get() = prefs.getBoolean("live_auto_show", true)
+        set(value) = prefs.edit().putBoolean("live_auto_show", value).apply()
+
+    private fun jsonObject(rawKey: String): JSONObject {
+        val raw = prefs.getString(rawKey, "{}") ?: "{}"
+        return try {
+            JSONObject(raw)
+        } catch (_: Throwable) {
+            JSONObject()
+        }
+    }
+
+    /** Manual reactions the user placed on a track: path -> JSON array. */
+    fun liveManual(path: String): JSONArray? {
+        if (path.isEmpty()) return null
+        return jsonObject("live_manual").optJSONArray(path)
+    }
+
+    fun putLiveManual(path: String, events: JSONArray) {
+        if (path.isEmpty()) return
+        val obj = jsonObject("live_manual")
+        if (events.length() == 0) obj.remove(path) else obj.put(path, events)
+        prefs.edit().putString("live_manual", obj.toString()).apply()
+    }
+
+    /** Cached automatic analysis for a track: path -> { mtime, v, events }. */
+    fun liveAnalysis(path: String): JSONObject? {
+        if (path.isEmpty()) return null
+        return jsonObject("live_analysis").optJSONObject(path)
+    }
+
+    fun putLiveAnalysis(path: String, record: JSONObject) {
+        if (path.isEmpty()) return
+        val map = jsonObject("live_analysis")
+        map.put(path, record)
+        if (map.length() > 400) {
+            val keys = map.keys().asSequence().toList()
+            val fresh = JSONObject()
+            for (k in keys.takeLast(300)) fresh.put(k, map.get(k))
+            prefs.edit().putString("live_analysis", fresh.toString()).apply()
+            return
+        }
+        prefs.edit().putString("live_analysis", map.toString()).apply()
+    }
+
     // -- playlists ------------------------------------------------------------
+
     fun playlists(): MutableList<Playlist> {
         val raw = prefs.getString("playlists", "[]") ?: "[]"
         val out = mutableListOf<Playlist>()

@@ -11,8 +11,16 @@ import com.portable.musicplayer.player.AudioEffects
 import com.portable.musicplayer.player.EqBands
 import com.portable.musicplayer.player.EqPresets
 import com.portable.musicplayer.player.EqSettings
+import com.portable.musicplayer.player.LiveAnalyzer
+import com.portable.musicplayer.player.LiveEffects
+import com.portable.musicplayer.player.LiveEvent
+import com.portable.musicplayer.player.LiveKinds
+import com.portable.musicplayer.player.LiveSettings
+import com.portable.musicplayer.player.LiveVenues
 import com.portable.musicplayer.player.LoudnessAnalyzer
 import com.portable.musicplayer.player.PlaybackEngine
+import com.portable.musicplayer.player.liveEventsFromJson
+import com.portable.musicplayer.player.liveEventsToJson
 import com.portable.musicplayer.player.normalizationGainDb
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -22,8 +30,10 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.json.JSONObject
 import java.io.File
 import java.util.Locale
+import kotlin.math.roundToInt
 
 // -- navigation ---------------------------------------------------------------
 
@@ -35,6 +45,7 @@ sealed interface Screen {
     data class PlaylistScreen(val name: String) : Screen
     object SettingsScreen : Screen
     object EqualizerScreen : Screen
+    object LiveScreen : Screen
 }
 
 enum class RowKind { ACTION, FOLDER, TRACK, PLAYLIST, INFO }
@@ -50,6 +61,7 @@ sealed interface RowAction {
     object CycleLoop : RowAction
     object ToggleShuffle : RowAction
     object OpenEqualizer : RowAction
+    object OpenLive : RowAction
     data class AddToPlaylist(val playlist: String, val path: String) : RowAction
     data class RemoveFromPlaylist(val playlist: String, val path: String) : RowAction
 }
@@ -91,6 +103,16 @@ data class UiState(
     val eqBass: Float = 0f,
     val eqPreamp: Float = 0f,
     val eqCustomPresets: Map<String, List<Float>> = emptyMap(),
+    // live effect
+    val liveEnabled: Boolean = false,
+    val liveVenue: String = "arena",
+    val liveIntensity: Float = 0.6f,
+    val liveCrowd: Float = 0.5f,
+    val liveWidth: Float = 0.6f,
+    val liveAutoShow: Boolean = true,
+    val liveReady: Boolean = false,
+    val liveStatus: String = "",
+    val liveManual: List<LiveEvent> = emptyList(),
 )
 
 const val FORMAT_HINT =
@@ -113,6 +135,10 @@ class PlayerViewModel(app: Application) : AndroidViewModel(app) {
     private var normalizationDb = 0f
     private var normalizeJob: Job? = null
 
+    private val liveAutoCache = HashMap<String, List<LiveEvent>>()
+    private val liveManualCache = HashMap<String, MutableList<LiveEvent>>()
+    private var liveAnalysisJob: Job? = null
+
     init {
         engine.loopMode = store.loopMode
         engine.shuffle = store.shuffle
@@ -121,6 +147,9 @@ class PlayerViewModel(app: Application) : AndroidViewModel(app) {
 
         loadEqState()
         pushEq()
+        LiveEffects.init(app)
+        loadLiveState()
+        pushLive()
         engine.connect()
 
         viewModelScope.launch {
@@ -139,13 +168,24 @@ class PlayerViewModel(app: Application) : AndroidViewModel(app) {
                 if (i >= 0) {
                     store.queueIndex = i
                     updateNormalization(track)
+                    recompileLive()
                 }
                 rebuildRows()
             }
         }
         viewModelScope.launch { engine.playing.collect { p -> _state.update { it.copy(playing = p) } } }
-        viewModelScope.launch { engine.duration.collect { d -> _state.update { it.copy(durationMs = d) } } }
-        viewModelScope.launch { engine.sampleRate.collect { s -> _state.update { it.copy(sampleRate = s) } } }
+        viewModelScope.launch {
+            engine.duration.collect { d ->
+                _state.update { it.copy(durationMs = d) }
+                recompileLive()
+            }
+        }
+        viewModelScope.launch {
+            engine.sampleRate.collect { s ->
+                _state.update { it.copy(sampleRate = s) }
+                if (s > 0) LiveEffects.ensurePrepared(s, _state.value.liveVenue)
+            }
+        }
         viewModelScope.launch {
             engine.error.collect { e -> if (e != null) setHint("再生エラー: $e") }
         }
@@ -155,14 +195,18 @@ class PlayerViewModel(app: Application) : AndroidViewModel(app) {
         viewModelScope.launch {
             var ticks = 0
             while (true) {
+                val pos = engine.position()
+                LiveEffects.positionMs = pos
+                val ready = LiveEffects.ready()
                 if (_state.value.playing) {
-                    val pos = engine.position()
-                    _state.update { it.copy(positionMs = pos) }
+                    _state.update { it.copy(positionMs = pos, liveReady = ready) }
                     ticks++
                     if (ticks % 10 == 0) {
                         store.queueIndex = engine.currentIndex.coerceAtLeast(0)
                         store.queuePosition = pos
                     }
+                } else if (_state.value.liveReady != ready) {
+                    _state.update { it.copy(liveReady = ready) }
                 }
                 delay(500)
             }
@@ -247,6 +291,8 @@ class PlayerViewModel(app: Application) : AndroidViewModel(app) {
     fun seek(ms: Long) {
         engine.seek(ms)
         _state.update { it.copy(positionMs = ms) }
+        LiveEffects.positionMs = ms
+        LiveEffects.resync()
     }
 
     fun cycleLoop() {
@@ -382,11 +428,166 @@ class PlayerViewModel(app: Application) : AndroidViewModel(app) {
         showOsd("プリセット「$trimmed」を保存しました")
     }
 
+    // -- live effect ----------------------------------------------------------
+    private fun loadLiveState() {
+        val venue = store.liveVenue
+        _state.update {
+            it.copy(
+                liveEnabled = store.liveEnabled,
+                liveVenue = if (LiveVenues.VENUES.containsKey(venue)) venue else "arena",
+                liveIntensity = store.liveIntensity.coerceIn(0f, 1f),
+                liveCrowd = store.liveCrowd.coerceIn(0f, 1f),
+                liveWidth = store.liveWidth.coerceIn(0f, 1f),
+                liveAutoShow = store.liveAutoShow,
+                liveReady = LiveEffects.ready(),
+            )
+        }
+    }
+
+    /** Publish the current Live settings to the audio pipeline. */
+    private fun pushLive() {
+        val s = _state.value
+        LiveEffects.settings = LiveSettings(
+            enabled = s.liveEnabled,
+            venue = s.liveVenue,
+            intensity = s.liveIntensity,
+            crowd = s.liveCrowd,
+            width = s.liveWidth,
+            autoShow = s.liveAutoShow,
+        )
+    }
+
+    private fun updateLive(transform: (UiState) -> UiState) {
+        _state.update(transform)
+        val s = _state.value
+        store.liveEnabled = s.liveEnabled
+        store.liveVenue = s.liveVenue
+        store.liveIntensity = s.liveIntensity
+        store.liveCrowd = s.liveCrowd
+        store.liveWidth = s.liveWidth
+        store.liveAutoShow = s.liveAutoShow
+        pushLive()
+        if (s.liveEnabled) {
+            val rate = engine.sampleRate.value
+            LiveEffects.ensurePrepared(if (rate > 0) rate else 44100, s.liveVenue)
+        }
+        LiveEffects.positionMs = engine.position()
+        LiveEffects.resync()
+    }
+
+    fun setLiveEnabled(value: Boolean) = updateLive { it.copy(liveEnabled = value) }
+    fun setLiveVenue(venue: String) {
+        if (!LiveVenues.VENUES.containsKey(venue)) return
+        updateLive { it.copy(liveVenue = venue) }
+    }
+    fun setLiveIntensity(v: Float) = updateLive { it.copy(liveIntensity = v.coerceIn(0f, 1f)) }
+    fun setLiveCrowd(v: Float) = updateLive { it.copy(liveCrowd = v.coerceIn(0f, 1f)) }
+    fun setLiveWidth(v: Float) = updateLive { it.copy(liveWidth = v.coerceIn(0f, 1f)) }
+    fun setLiveAutoShow(value: Boolean) {
+        updateLive { it.copy(liveAutoShow = value) }
+        recompileLive()
+    }
+
+    private fun manualFor(path: String): MutableList<LiveEvent> {
+        liveManualCache[path]?.let { return it }
+        val arr = store.liveManual(path)
+        val list = if (arr != null) liveEventsFromJson(arr).toMutableList() else mutableListOf()
+        liveManualCache[path] = list
+        return list
+    }
+
+    private fun autoFor(path: String): List<LiveEvent> {
+        liveAutoCache[path]?.let { return it }
+        val rec = store.liveAnalysis(path)
+        if (rec != null) {
+            val mtime = rec.optLong("mtime", -1L)
+            val version = rec.optInt("v", -1)
+            if (mtime == File(path).lastModified() && version == LiveAnalyzer.VERSION) {
+                val events = liveEventsFromJson(rec.optJSONArray("events") ?: org.json.JSONArray())
+                liveAutoCache[path] = events
+                return events
+            }
+        }
+        return emptyList()
+    }
+
+    /** (Re)build the reaction list for the current track and hand it to the DSP. */
+    private fun recompileLive() {
+        val track = _state.value.current
+        if (track == null) {
+            LiveEffects.compileTrack(0L, emptyList())
+            return
+        }
+        val manual = manualFor(track.path)
+        val auto = if (_state.value.liveAutoShow) autoFor(track.path) else emptyList()
+        val events = ArrayList<LiveEvent>(auto.size + manual.size)
+        events.addAll(auto)
+        events.addAll(manual)
+        LiveEffects.compileTrack(engine.duration(), events)
+        if (_state.value.liveManual != manual.toList()) {
+            _state.update { it.copy(liveManual = manual.toList()) }
+        }
+        if (_state.value.liveAutoShow && !liveAutoCache.containsKey(track.path)) {
+            scheduleAnalysis(track.path)
+        }
+    }
+
+    private fun scheduleAnalysis(path: String) {
+        liveAnalysisJob?.cancel()
+        liveAnalysisJob = viewModelScope.launch {
+            _state.update { it.copy(liveStatus = "楽曲を解析しています…") }
+            val events = withContext(Dispatchers.IO) { LiveAnalyzer.analyze(path) } ?: emptyList()
+            store.putLiveAnalysis(
+                path,
+                JSONObject()
+                    .put("mtime", File(path).lastModified())
+                    .put("v", LiveAnalyzer.VERSION)
+                    .put("events", liveEventsToJson(events)),
+            )
+            liveAutoCache[path] = events
+            if (_state.value.current?.path == path) {
+                _state.update { it.copy(liveStatus = "") }
+                recompileLive()
+            }
+        }
+    }
+
+    fun addLiveCheer(kind: String = "cheer") {
+        val track = _state.value.current ?: return
+        val list = manualFor(track.path)
+        val posSec = maxOf(0L, _state.value.positionMs) / 1000.0
+        list.add(LiveEvent(posSec, if (kind in LiveKinds.KINDS) kind else "cheer", 0.8f, "manual"))
+        list.sortBy { it.time }
+        store.putLiveManual(track.path, liveEventsToJson(list))
+        recompileLive()
+        showOsd("歓声を追加: ${LiveKinds.label(kind)}")
+    }
+
+    fun removeLiveCheer(index: Int) {
+        val track = _state.value.current ?: return
+        val list = manualFor(track.path)
+        if (index !in list.indices) return
+        list.removeAt(index)
+        store.putLiveManual(track.path, liveEventsToJson(list))
+        recompileLive()
+    }
+
+    fun clearLiveCheers() {
+        val track = _state.value.current ?: return
+        val list = manualFor(track.path)
+        if (list.isEmpty()) return
+        list.clear()
+        store.putLiveManual(track.path, liveEventsToJson(list))
+        recompileLive()
+        showOsd("歓声をすべて削除しました")
+    }
+
     // -- navigation -----------------------------------------------------------
     fun openFoldersRoot() = goto(Screen.FoldersRoot, reset = true, active = "folders")
     fun openPlaylistsRoot() = goto(Screen.PlaylistsRoot, reset = true, active = "playlists")
     fun openSettings() = goto(Screen.SettingsScreen, reset = true, active = "settings")
     fun openEqualizer() = goto(Screen.EqualizerScreen, active = "settings")
+    fun openLive() = goto(Screen.LiveScreen, active = "settings")
     fun openFolder(path: String) = goto(Screen.Folder(path), active = "folders")
     fun openPlaylist(name: String) = goto(Screen.PlaylistScreen(name), active = "playlists")
 
@@ -401,7 +602,7 @@ class PlayerViewModel(app: Application) : AndroidViewModel(app) {
         val active = when (prev) {
             Screen.FoldersRoot, is Screen.Folder -> "folders"
             Screen.PlaylistsRoot, is Screen.PlaylistScreen -> "playlists"
-            Screen.SettingsScreen, Screen.EqualizerScreen -> "settings"
+            Screen.SettingsScreen, Screen.EqualizerScreen, Screen.LiveScreen -> "settings"
             else -> null
         }
         _state.update { it.copy(screen = prev, bottomActive = active, canGoBack = backStack.isNotEmpty()) }
@@ -426,6 +627,7 @@ class PlayerViewModel(app: Application) : AndroidViewModel(app) {
             RowAction.CycleLoop -> cycleLoop()
             RowAction.ToggleShuffle -> toggleShuffle()
             RowAction.OpenEqualizer -> openEqualizer()
+            RowAction.OpenLive -> openLive()
             is RowAction.AddToPlaylist -> addToPlaylist(a.playlist, a.path)
             is RowAction.RemoveFromPlaylist -> removeFromPlaylist(a.playlist, a.path)
             else -> Unit
@@ -596,6 +798,16 @@ class PlayerViewModel(app: Application) : AndroidViewModel(app) {
         return parts.joinToString(" ・ ")
     }
 
+    private fun liveSummary(s: UiState): String {
+        if (!s.liveEnabled) return "オフ"
+        val parts = ArrayList<String>()
+        parts.add(LiveVenues.label(s.liveVenue))
+        parts.add("強さ ${(s.liveIntensity * 100).roundToInt()}%")
+        if (s.liveCrowd > 0.05f) parts.add("歓声 ${(s.liveCrowd * 100).roundToInt()}%")
+        if (!s.liveAutoShow) parts.add("自動演出オフ")
+        return parts.joinToString(" ・ ")
+    }
+
     private fun folderName(path: String): String =
         path.trimEnd('/').substringAfterLast('/').ifBlank { path }
 
@@ -707,6 +919,7 @@ class PlayerViewModel(app: Application) : AndroidViewModel(app) {
                     RowData(RowKind.ACTION, "ループ再生", "現在: ${LoopMode.label(s.loopMode)}", icon = "repeat", action = RowAction.CycleLoop),
                     RowData(RowKind.ACTION, "シャッフル", if (s.shuffle) "オン" else "オフ", icon = "shuffle", action = RowAction.ToggleShuffle),
                     RowData(RowKind.ACTION, "音質調整（イコライザー）", eqSummary(s), icon = "eq", action = RowAction.OpenEqualizer),
+                    RowData(RowKind.ACTION, "ライブ演出（Live Effect）", liveSummary(s), icon = "volume", action = RowAction.OpenLive),
                     RowData(RowKind.INFO, "音量", "${store.volume} / 100", icon = "volume"),
                     RowData(RowKind.INFO, "対応フォーマット", FORMAT_HINT, icon = "list"),
                     RowData(RowKind.INFO, "ハイレゾ再生", "FLAC/WAV/AIFF 24bit 以上 (HR)", icon = "list"),
@@ -721,6 +934,11 @@ class PlayerViewModel(app: Application) : AndroidViewModel(app) {
                 rows = emptyList()
                 title = "イコライザー"
                 hint = "10バンド EQ / Bass Boost / 音量ノーマライズ"
+            }
+            Screen.LiveScreen -> {
+                rows = emptyList()
+                title = "ライブ演出"
+                hint = "会場の響きと歓声で臨場感を再現"
             }
             Screen.NowPlaying -> {
                 rows = s.rows

@@ -22,9 +22,12 @@ import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.TextFieldColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -37,6 +40,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -102,6 +106,21 @@ fun MusicApp(vm: PlayerViewModel = viewModel()) {
                             onResetFlat = vm::resetEqFlat,
                             onSavePreset = vm::saveEqPreset,
                         )
+                    } else if (state.screen == Screen.LiveScreen) {
+                        LiveScreen(
+                            state = state,
+                            onBack = vm::back,
+                            onEnabled = vm::setLiveEnabled,
+                            onVenue = vm::setLiveVenue,
+                            onIntensity = vm::setLiveIntensity,
+                            onCrowd = vm::setLiveCrowd,
+                            onWidth = vm::setLiveWidth,
+                            onAutoShow = vm::setLiveAutoShow,
+                            onAddCheer = vm::addLiveCheer,
+                            onRemoveCheer = vm::removeLiveCheer,
+                            onClearCheers = vm::clearLiveCheers,
+                            onSeek = vm::seek,
+                        )
                     } else if (state.screen == Screen.NowPlaying) {
                         NowPlayingScreen(
                             state = state,
@@ -111,6 +130,8 @@ fun MusicApp(vm: PlayerViewModel = viewModel()) {
                             onCycleLoop = vm::cycleLoop,
                             onToggleShuffle = vm::toggleShuffle,
                             onSeek = vm::seek,
+                            onToggleLive = { vm.setLiveEnabled(!state.liveEnabled) },
+                            onAddCheer = { vm.addLiveCheer("cheer") },
                         )
                     } else {
                         ListScreen(
@@ -161,23 +182,28 @@ fun MusicApp(vm: PlayerViewModel = viewModel()) {
     if (showCreate) {
         AlertDialog(
             onDismissRequest = { showCreate = false },
-            title = { Text("新規プレイリスト") },
+            containerColor = Palette.DialogSurface,
+            title = { Text("新規プレイリスト", color = Palette.TextPrimary) },
             text = {
                 OutlinedTextField(
                     value = newName,
                     onValueChange = { newName = it },
                     singleLine = true,
-                    label = { Text("プレイリスト名") },
+                    label = { Text("プレイリスト名", color = Palette.TextSecondary) },
+                    textStyle = TextStyle(color = Palette.TextPrimary, fontSize = 14.sp),
+                    colors = dialogFieldColors(),
                 )
             },
             confirmButton = {
                 TextButton(onClick = {
                     vm.createPlaylistFromQueue(newName)
                     showCreate = false
-                }) { Text("作成") }
+                }) { Text("作成", color = Palette.Accent) }
             },
             dismissButton = {
-                TextButton(onClick = { showCreate = false }) { Text("キャンセル") }
+                TextButton(onClick = { showCreate = false }) {
+                    Text("キャンセル", color = Palette.TextSecondary)
+                }
             },
         )
     }
@@ -185,16 +211,19 @@ fun MusicApp(vm: PlayerViewModel = viewModel()) {
     pendingDelete?.let { name ->
         AlertDialog(
             onDismissRequest = { pendingDelete = null },
-            title = { Text("削除") },
-            text = { Text("「$name」を削除しますか？") },
+            containerColor = Palette.DialogSurface,
+            title = { Text("削除", color = Palette.TextPrimary) },
+            text = { Text("「$name」を削除しますか？", color = Palette.TextSecondary) },
             confirmButton = {
                 TextButton(onClick = {
                     vm.deletePlaylist(name)
                     pendingDelete = null
-                }) { Text("削除") }
+                }) { Text("削除", color = Palette.Accent) }
             },
             dismissButton = {
-                TextButton(onClick = { pendingDelete = null }) { Text("キャンセル") }
+                TextButton(onClick = { pendingDelete = null }) {
+                    Text("キャンセル", color = Palette.TextSecondary)
+                }
             },
         )
     }
@@ -268,7 +297,10 @@ private fun RowMenuDialog(
 
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text(row.label) },
+        // The app has no Material3 color scheme, so the default (light) dialog
+        // surface would put the near-white menu text on a white background.
+        containerColor = Palette.DialogSurface,
+        title = { Text(row.label, color = Palette.TextPrimary) },
         text = {
             Column {
                 if (row.kind == RowKind.FOLDER && path != null && screen == Screen.FoldersRoot) {
@@ -276,10 +308,10 @@ private fun RowMenuDialog(
                     MenuItem("このフォルダを一覧から削除") { onHideFolder(path) }
                 }
                 if (row.kind == RowKind.TRACK && path != null) {
-                    Text("プレイリストに追加", color = Palette.TextMuted, fontSize = 12.sp,
+                    Text("プレイリストに追加", color = Palette.TextSecondary, fontSize = 12.sp,
                         modifier = Modifier.padding(vertical = 6.dp))
                     if (playlists.isEmpty()) {
-                        Text("プレイリストがありません", fontSize = 13.sp,
+                        Text("プレイリストがありません", color = Palette.TextSecondary, fontSize = 13.sp,
                             modifier = Modifier.padding(vertical = 6.dp))
                     }
                     for (pl in playlists) {
@@ -292,10 +324,21 @@ private fun RowMenuDialog(
             }
         },
         confirmButton = {
-            TextButton(onClick = onDismiss) { Text("閉じる") }
+            TextButton(onClick = onDismiss) { Text("閉じる", color = Palette.Accent) }
         },
     )
 }
+
+/** Text field colours that stay readable on the dark dialog surface. */
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun dialogFieldColors(): TextFieldColors = OutlinedTextFieldDefaults.colors(
+    focusedTextColor = Palette.TextPrimary,
+    unfocusedTextColor = Palette.TextPrimary,
+    cursorColor = Palette.Accent,
+    focusedBorderColor = Palette.TextSecondary,
+    unfocusedBorderColor = Palette.DialogOutline,
+)
 
 @Composable
 private fun MenuItem(label: String, onClick: () -> Unit) {

@@ -30,6 +30,10 @@ object Palette {
 
     val RowDivider = Color(0x14FFFFFF)
     val RowHover = Color(0x0EFFFFFF)
+
+    // dialogs / menus: dark surfaces so the light text stays readable
+    val DialogSurface = Color(0xFF12171E)
+    val DialogOutline = Color(0x33FFFFFF)
 }
 
 /** SST-JP-like stack: bundled Noto Sans JP. */

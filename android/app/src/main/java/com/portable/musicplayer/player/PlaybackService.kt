@@ -29,6 +29,8 @@ class PlaybackService : MediaSessionService() {
     override fun onCreate() {
         super.onCreate()
 
+        LiveEffects.init(this)
+
         val player = ExoPlayer.Builder(this, EqualizerRenderersFactory(this))
             .setAudioAttributes(
                 AudioAttributes.Builder()
@@ -76,7 +78,7 @@ class PlaybackService : MediaSessionService() {
 
 /**
  * Replaces the default audio sink with one that runs the 10-band equalizer
- * (and per-track gain) inside the playback pipeline.
+ * (and per-track gain) plus the Live Effect inside the playback pipeline.
  */
 @androidx.annotation.OptIn(UnstableApi::class)
 private class EqualizerRenderersFactory(context: Context) : DefaultRenderersFactory(context) {
@@ -97,6 +99,8 @@ private class EqualizerRenderersFactory(context: Context) : DefaultRenderersFact
                     DefaultAudioSink.OFFLOAD_MODE_DISABLED
                 }
             )
-            .setAudioProcessors(arrayOf<AudioProcessor>(EqualizerAudioProcessor()))
+            .setAudioProcessors(
+                arrayOf<AudioProcessor>(EqualizerAudioProcessor(), LiveAudioProcessor())
+            )
             .build()
 }

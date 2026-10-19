@@ -1,6 +1,9 @@
 package com.portable.musicplayer.ui
 
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -13,16 +16,20 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.portable.musicplayer.UiState
 import com.portable.musicplayer.fmtTime
+import com.portable.musicplayer.player.LiveVenues
 
 @Composable
 fun NowPlayingScreen(
@@ -33,6 +40,8 @@ fun NowPlayingScreen(
     onCycleLoop: () -> Unit,
     onToggleShuffle: () -> Unit,
     onSeek: (Long) -> Unit,
+    onToggleLive: () -> Unit,
+    onAddCheer: () -> Unit,
 ) {
     val track = state.current
     BoxWithConstraints(
@@ -114,6 +123,22 @@ fun NowPlayingScreen(
                 }
             }
 
+            Spacer(Modifier.height(6.dp))
+
+            // live effect + cheer
+            Row(
+                Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                LivePill(
+                    label = if (state.liveEnabled) "LIVE · ${LiveVenues.label(state.liveVenue)}" else "LIVE",
+                    active = state.liveEnabled,
+                    onClick = onToggleLive,
+                )
+                LivePill(label = "＋ 歓声", active = false, onClick = onAddCheer)
+            }
+
             Spacer(Modifier.weight(1f))
 
             // transport row
@@ -146,5 +171,31 @@ fun NowPlayingScreen(
 
             Spacer(Modifier.height(2.dp))
         }
+    }
+}
+
+@Composable
+private fun LivePill(label: String, active: Boolean, onClick: () -> Unit) {
+    Box(
+        Modifier
+            .clip(RoundedCornerShape(3.dp))
+            .background(if (active) Color(0x46CBAD77) else Color(0x14FFFFFF))
+            .border(
+                1.dp,
+                if (active) Palette.HrGold else Color(0x28FFFFFF),
+                RoundedCornerShape(3.dp),
+            )
+            .clickable(onClick = onClick)
+            .padding(horizontal = 12.dp, vertical = 5.dp),
+        contentAlignment = Alignment.Center,
+    ) {
+        Text(
+            text = label,
+            color = if (active) Palette.Accent else Palette.TextSecondary,
+            fontSize = 11.sp,
+            fontWeight = FontWeight.Medium,
+            maxLines = 1,
+            overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis,
+        )
     }
 }

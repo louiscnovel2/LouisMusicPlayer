@@ -53,6 +53,8 @@ class Store:
             "scroll": {},
             "eq": {},
             "eq_custom": {},
+            "live": {},
+            "live_manual": {},
         }
         self.load()
 

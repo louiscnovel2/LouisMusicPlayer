@@ -42,10 +42,10 @@ com.portable.musicplayer.app-lifecycle-viewmodel-2.6.2-40 C:\Users\02375\.gradle
 com.portable.musicplayer.app-animation-1.4.3-41 C:\Users\02375\.gradle\caches\transforms-3\f435105348f10d754db3b902f5d64fb1\transformed\animation-1.4.3\res
 com.portable.musicplayer.app-foundation-layout-1.4.3-42 C:\Users\02375\.gradle\caches\transforms-3\feabcad9aa0c958c9c0e12ad06a4ac29\transformed\foundation-layout-1.4.3\res
 com.portable.musicplayer.app-ui-graphics-1.4.3-43 C:\Users\02375\.gradle\caches\transforms-3\fef1d23d6f44be332920e7790b60062b\transformed\ui-graphics-1.4.3\res
-com.portable.musicplayer.app-resValues-44 C:\Users\02375\Documents\Default Project\Music Player\android\app\build\generated\res\resValues\debug
-com.portable.musicplayer.app-rs-45 C:\Users\02375\Documents\Default Project\Music Player\android\app\build\generated\res\rs\debug
-com.portable.musicplayer.app-packageDebugResources-46 C:\Users\02375\Documents\Default Project\Music Player\android\app\build\intermediates\incremental\debug\packageDebugResources\merged.dir
-com.portable.musicplayer.app-packageDebugResources-47 C:\Users\02375\Documents\Default Project\Music Player\android\app\build\intermediates\incremental\debug\packageDebugResources\stripped.dir
-com.portable.musicplayer.app-merged_res-48 C:\Users\02375\Documents\Default Project\Music Player\android\app\build\intermediates\merged_res\debug
-com.portable.musicplayer.app-debug-49 C:\Users\02375\Documents\Default Project\Music Player\android\app\src\debug\res
-com.portable.musicplayer.app-main-50 C:\Users\02375\Documents\Default Project\Music Player\android\app\src\main\res
+com.portable.musicplayer.app-resValues-44 C:\Users\02375\Documents\Default Project\LouisMusicPlayer\android\app\build\generated\res\resValues\debug
+com.portable.musicplayer.app-rs-45 C:\Users\02375\Documents\Default Project\LouisMusicPlayer\android\app\build\generated\res\rs\debug
+com.portable.musicplayer.app-packageDebugResources-46 C:\Users\02375\Documents\Default Project\LouisMusicPlayer\android\app\build\intermediates\incremental\debug\packageDebugResources\merged.dir
+com.portable.musicplayer.app-packageDebugResources-47 C:\Users\02375\Documents\Default Project\LouisMusicPlayer\android\app\build\intermediates\incremental\debug\packageDebugResources\stripped.dir
+com.portable.musicplayer.app-merged_res-48 C:\Users\02375\Documents\Default Project\LouisMusicPlayer\android\app\build\intermediates\merged_res\debug
+com.portable.musicplayer.app-debug-49 C:\Users\02375\Documents\Default Project\LouisMusicPlayer\android\app\src\debug\res
+com.portable.musicplayer.app-main-50 C:\Users\02375\Documents\Default Project\LouisMusicPlayer\android\app\src\main\res

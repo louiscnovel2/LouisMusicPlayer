@@ -17,12 +17,13 @@ from PySide6.QtWidgets import (
     QWidget,
 )
 
-from . import __version__, dsp, library
+from . import __version__, dsp, library, live
 from .audio import LOOP_ALL, LOOP_OFF, LOOP_ONE, AudioEngine
 from .library import Track
 from .store import Store
 from .ui.device import DeviceFrame
 from .ui.eq_page import EqPage
+from .ui.live_page import LivePage
 from .ui.screens import BottomBar, ListPage, NowPlayingPage, Row, cover_to_pixmap, fmt_time
 
 
@@ -67,6 +68,7 @@ class MainWindow(QWidget):
         self._scroll_key: str | None = None
         self._restoring = False
         self._eq_settings = dsp.EqSettings()
+        self._live_settings = live.LiveSettings()
 
         self._build_ui()
         self._connect()
@@ -92,9 +94,11 @@ class MainWindow(QWidget):
         self.now_page = NowPlayingPage(self.stack)
         self.list_page = ListPage("", self.stack)
         self.eq_page = EqPage(self.stack)
+        self.live_page = LivePage(self.stack)
         self.stack.addWidget(self.now_page)
         self.stack.addWidget(self.list_page)
         self.stack.addWidget(self.eq_page)
+        self.stack.addWidget(self.live_page)
 
         self.bottom = BottomBar(screen)
         slay.addWidget(self.stack, 1)
@@ -111,6 +115,7 @@ class MainWindow(QWidget):
         eng = self.engine
         eng.trackChanged.connect(self._on_track_changed)
         eng.positionChanged.connect(self.now_page.set_position)
+        eng.positionChanged.connect(self._on_position)
         eng.durationChanged.connect(self._on_duration)
         eng.playingChanged.connect(self._on_playing)
         eng.loopChanged.connect(self._on_loop)
@@ -118,6 +123,8 @@ class MainWindow(QWidget):
         eng.volumeChanged.connect(self._on_volume)
         eng.errorOccurred.connect(self._on_error)
         eng.queueChanged.connect(self._render)
+        eng.liveChanged.connect(self._on_live_changed)
+        eng.liveAnalysisChanged.connect(self._on_live_analysis)
 
         self.now_page.prevClicked.connect(eng.previous)
         self.now_page.nextClicked.connect(eng.next)
@@ -125,10 +132,19 @@ class MainWindow(QWidget):
         self.now_page.repeatClicked.connect(self._cycle_loop)
         self.now_page.shuffleClicked.connect(self._toggle_shuffle)
         self.now_page.seekRequested.connect(eng.seek)
+        self.now_page.liveToggled.connect(self._toggle_live)
+        self.now_page.cheerClicked.connect(self._add_cheer_at_position)
 
         self.eq_page.settingsChanged.connect(self._on_eq_changed)
         self.eq_page.presetSaved.connect(self._on_eq_save_preset)
         self.eq_page.backClicked.connect(self._on_back)
+
+        self.live_page.settingsChanged.connect(self._on_live_settings)
+        self.live_page.cheerAdded.connect(self._on_cheer_added)
+        self.live_page.cheerRemoved.connect(self._on_cheer_removed)
+        self.live_page.cheersCleared.connect(self._on_cheers_cleared)
+        self.live_page.seekRequested.connect(self.engine.seek)
+        self.live_page.backClicked.connect(self._on_back)
 
         self.bottom.backClicked.connect(self._on_back)
         self.bottom.foldersClicked.connect(lambda: self._goto(("folders_root",), reset=True, active="folders"))
@@ -167,6 +183,106 @@ class MainWindow(QWidget):
         self.now_page.set_shuffle(self.engine.shuffle)
         self._eq_settings = dsp.EqSettings.from_dict(s.get("eq"))
         self.engine.set_eq_settings(self._eq_settings)
+        self._live_settings = live.LiveSettings.from_dict(s.get("live"))
+        self.engine.load_live_manual(s.get("live_manual"))
+        self.engine.set_live_settings(self._live_settings)
+        self._sync_live_ui()
+
+    # -- live effect ----------------------------------------------------------
+    def _toggle_live(self, enabled: bool) -> None:
+        settings = self._live_settings.copy()
+        settings.enabled = bool(enabled)
+        self._on_live_settings(settings)
+        self.now_page.show_osd(f"Live Effect: {'オン' if enabled else 'オフ'}")
+
+    def _on_live_settings(self, settings) -> None:
+        self._live_settings = settings.copy()
+        self.engine.set_live_settings(self._live_settings)
+        self.store.settings["live"] = self._live_settings.to_dict()
+        self.store.save()
+        self._sync_live_ui()
+        if self._view[0] == "live":
+            self._render_live()
+
+    def _on_live_changed(self) -> None:
+        self._sync_live_ui()
+        if self._view[0] == "live":
+            self._render_live()
+
+    def _on_live_analysis(self, path: str) -> None:
+        self._sync_live_ui()
+        if self._view[0] == "live":
+            self._render_live()
+
+    def _sync_live_ui(self) -> None:
+        s = self.engine.live_settings
+        self.now_page.set_live(s.enabled, live.venue_label(s.venue))
+
+    def _on_position(self, ms: int) -> None:
+        if self.stack.currentWidget() is self.live_page:
+            self.live_page.set_position(ms)
+
+    def _save_live_manual(self) -> None:
+        self.store.settings["live_manual"] = self.engine.live_manual_map()
+        self.store.save()
+
+    def _add_cheer(self, position: int | None = None) -> None:
+        if self.engine.current_track is None:
+            self.list_page.hint.set_text("先に曲を選んでください")
+            return
+        pos = self.engine.position() if position is None else max(0, int(position))
+        if not self.engine.add_live_cheer(pos, "cheer", 0.8):
+            return
+        self._save_live_manual()
+        self.now_page.show_osd(f"歓声を追加: {fmt_time(pos)}")
+        if self._view[0] == "live":
+            self._render_live()
+
+    def _add_cheer_at_position(self) -> None:
+        self._add_cheer(None)
+
+    def _on_cheer_added(self, position: int) -> None:
+        self._add_cheer(None if int(position) < 0 else int(position))
+
+    def _on_cheer_removed(self, index: int) -> None:
+        track = self.engine.current_track
+        if track is None:
+            return
+        self.engine.remove_live_cheer(track.path, int(index))
+        self._save_live_manual()
+        self._render_live()
+
+    def _on_cheers_cleared(self) -> None:
+        track = self.engine.current_track
+        if track is None:
+            return
+        self.engine.clear_live_cheers(track.path)
+        self._save_live_manual()
+        self._render_live()
+
+    def _render_live(self) -> None:
+        track = self.engine.current_track
+        if self.engine.live_analysing():
+            status = "自動演出: 解析中…"
+        elif track is not None and self.engine.live_analysis_ready(track.path):
+            count = len(self.engine.live_auto_events(track.path))
+            status = f"自動演出: {count} 箇所（解析済み）"
+        elif track is not None:
+            status = "自動演出: 未解析（再生すると解析します）"
+        else:
+            status = "自動演出: 曲を選ぶと解析します"
+        self.live_page.load_state(
+            self._live_settings, self.engine.live_manual(), status,
+            track.display_title if track is not None else "",
+        )
+        self.live_page.set_position(self.engine.position())
+
+    def _live_summary(self) -> str:
+        s = self._live_settings
+        if not s.enabled:
+            return "オフ"
+        return (f"{live.venue_label(s.venue)} ・ 強さ {int(s.intensity * 100)}%"
+                f" ・ 歓声 {int(s.crowd * 100)}%")
 
     # -- equalizer ------------------------------------------------------------
     def _on_eq_changed(self, settings) -> None:
@@ -335,13 +451,15 @@ class MainWindow(QWidget):
         if view[0] == "eq":
             self.eq_page.set_presets(self.store.settings.get("eq_custom", {}))
             self.stack.setCurrentWidget(self.eq_page)
+        elif view[0] == "live":
+            self.stack.setCurrentWidget(self.live_page)
         else:
             self.stack.setCurrentWidget(self.list_page)
         self.bottom.set_active(active)
         self._render()
 
     def _on_back(self) -> None:
-        if self.stack.currentWidget() in (self.list_page, self.eq_page) and self._nav:
+        if self.stack.currentWidget() in (self.list_page, self.eq_page, self.live_page) and self._nav:
             self._view = self._nav.pop()
             self._render()
             return
@@ -371,6 +489,9 @@ class MainWindow(QWidget):
             self._render_settings()
         elif kind == "eq":
             self.eq_page.load_settings(self._eq_settings)
+            return
+        elif kind == "live":
+            self._render_live()
             return
 
         if not same_view:
@@ -493,6 +614,8 @@ class MainWindow(QWidget):
                 icon="shuffle", payload=("toggle_shuffle", None)),
             Row("action", "音質調整（イコライザー）", self._eq_summary(),
                 icon="eq", payload=("open_eq", None)),
+            Row("action", "ライブ演出（Live Effect）", self._live_summary(),
+                icon="volume", payload=("open_live", None)),
             Row("info", "音量", f"{self.engine.volume} / 100", icon="volume"),
             Row("action", "ライブラリフォルダを追加", "フォルダを選択",
                 icon="folder", payload=("add_folder", None)),
@@ -583,6 +706,8 @@ class MainWindow(QWidget):
             self._delete_playlist(data)
         elif action == "open_eq":
             self._goto(("eq",), active="settings")
+        elif action == "open_live":
+            self._goto(("live",), active="settings")
         elif action == "cycle_loop":
             self._cycle_loop()
             self._render()
