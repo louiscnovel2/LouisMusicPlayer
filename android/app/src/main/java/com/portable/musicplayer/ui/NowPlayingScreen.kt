@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -49,127 +50,244 @@ fun NowPlayingScreen(
             .fillMaxSize()
             .padding(start = 14.dp, end = 14.dp, top = 8.dp, bottom = 4.dp)
     ) {
-        val side = minOf(
-            maxWidth - 8.dp,
-            maxHeight * 0.44f,
-        ).coerceAtLeast(120.dp)
-
-        Column(Modifier.fillMaxSize(), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-            StatusBarRow(
-                playing = state.playing,
-                index = state.index,
-                total = state.total,
-                loopMode = state.loopMode,
-                shuffle = state.shuffle,
+        if (maxWidth > maxHeight) {
+            val side = minOf(maxHeight - 36.dp, maxWidth * 0.42f).coerceAtLeast(120.dp)
+            LandscapeNowPlaying(
+                state, track, side,
+                onToggle, onPrev, onNext, onCycleLoop, onToggleShuffle, onSeek,
+                onToggleLive, onAddCheer,
             )
+        } else {
+            val side = minOf(maxWidth - 8.dp, maxHeight * 0.44f).coerceAtLeast(120.dp)
+            PortraitNowPlaying(
+                state, track, side,
+                onToggle, onPrev, onNext, onCycleLoop, onToggleShuffle, onSeek,
+                onToggleLive, onAddCheer,
+            )
+        }
+    }
+}
 
-            Spacer(Modifier.height(2.dp))
+@Composable
+private fun PortraitNowPlaying(
+    state: UiState,
+    track: com.portable.musicplayer.data.Track?,
+    side: androidx.compose.ui.unit.Dp,
+    onToggle: () -> Unit,
+    onPrev: () -> Unit,
+    onNext: () -> Unit,
+    onCycleLoop: () -> Unit,
+    onToggleShuffle: () -> Unit,
+    onSeek: (Long) -> Unit,
+    onToggleLive: () -> Unit,
+    onAddCheer: () -> Unit,
+) {
+    Column(Modifier.fillMaxSize(), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+        TrackStatus(state)
 
-            Box(Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
-                CoverArt(track, Modifier.size(side))
-            }
+        Spacer(Modifier.height(2.dp))
 
-            // time row
-            Row(Modifier.fillMaxWidth()) {
-                ElideText(fmtTime(state.positionMs), 11, Palette.TextSecondary,
-                    align = TextAlign.Start, modifier = Modifier.weight(1f))
+        Box(Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
+            CoverArt(track, Modifier.size(side))
+        }
+
+        TimeLabels(state)
+        SeekBar(
+            positionMs = state.positionMs,
+            durationMs = state.durationMs,
+            onPreview = { onSeek(it) },
+            onSeek = { onSeek(it) },
+        )
+
+        Spacer(Modifier.height(2.dp))
+
+        ElideText(
+            track?.displayTitle ?: "Louis Music Player",
+            20, Palette.TextPrimary, FontWeight.Normal,
+            modifier = Modifier.fillMaxWidth(),
+        )
+        ElideText(
+            track?.displayArtist ?: "曲を選んでください",
+            14, Palette.TextSecondary,
+            modifier = Modifier.fillMaxWidth(),
+        )
+
+        AlbumLine(track, 13)
+
+        Spacer(Modifier.height(6.dp))
+        LiveControls(state, onToggleLive, onAddCheer)
+        Spacer(Modifier.weight(1f))
+        TransportControls(
+            state, onToggle, onPrev, onNext, onCycleLoop, onToggleShuffle, 18.dp,
+        )
+        Spacer(Modifier.height(2.dp))
+    }
+}
+
+@Composable
+private fun LandscapeNowPlaying(
+    state: UiState,
+    track: com.portable.musicplayer.data.Track?,
+    side: androidx.compose.ui.unit.Dp,
+    onToggle: () -> Unit,
+    onPrev: () -> Unit,
+    onNext: () -> Unit,
+    onCycleLoop: () -> Unit,
+    onToggleShuffle: () -> Unit,
+    onSeek: (Long) -> Unit,
+    onToggleLive: () -> Unit,
+    onAddCheer: () -> Unit,
+) {
+    Column(Modifier.fillMaxSize(), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+        TrackStatus(state)
+
+        Row(
+            Modifier.fillMaxWidth().weight(1f),
+            horizontalArrangement = Arrangement.spacedBy(22.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            CoverArt(track, Modifier.size(side))
+
+            Column(
+                Modifier.weight(1f).fillMaxHeight(),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
                 ElideText(
-                    if (state.total > 0)
-                        String.format(java.util.Locale.US, "%03d/%03d", state.index, state.total)
-                    else "---",
-                    11, Palette.TextSecondary, align = TextAlign.Center, modifier = Modifier.weight(1f),
+                    track?.displayTitle ?: "Louis Music Player",
+                    20, Palette.TextPrimary, FontWeight.Normal,
+                    modifier = Modifier.fillMaxWidth(),
                 )
-                ElideText(fmtTime(state.durationMs), 11, Palette.TextSecondary,
-                    align = TextAlign.End, modifier = Modifier.weight(1f))
+                ElideText(
+                    track?.displayArtist ?: "曲を選んでください",
+                    14, Palette.TextSecondary,
+                    modifier = Modifier.fillMaxWidth(),
+                )
+                Spacer(Modifier.height(2.dp))
+                AlbumLine(track, 12)
+                Spacer(Modifier.height(8.dp))
+                TimeLabels(state)
+                SeekBar(
+                    positionMs = state.positionMs,
+                    durationMs = state.durationMs,
+                    onPreview = { onSeek(it) },
+                    onSeek = { onSeek(it) },
+                )
+                Spacer(Modifier.height(2.dp))
+                LiveControls(state, onToggleLive, onAddCheer)
+                Spacer(Modifier.height(6.dp))
+                TransportControls(
+                    state, onToggle, onPrev, onNext, onCycleLoop, onToggleShuffle, 12.dp,
+                )
             }
+        }
+    }
+}
 
-            SeekBar(
-                positionMs = state.positionMs,
-                durationMs = state.durationMs,
-                onPreview = { onSeek(it) },
-                onSeek = { onSeek(it) },
+@Composable
+private fun TrackStatus(state: UiState) {
+    StatusBarRow(
+        playing = state.playing,
+        index = state.index,
+        total = state.total,
+        loopMode = state.loopMode,
+        shuffle = state.shuffle,
+    )
+}
+
+@Composable
+private fun TimeLabels(state: UiState) {
+    Row(Modifier.fillMaxWidth()) {
+        ElideText(fmtTime(state.positionMs), 11, Palette.TextSecondary,
+            align = TextAlign.Start, modifier = Modifier.weight(1f))
+        ElideText(
+            if (state.total > 0)
+                String.format(java.util.Locale.US, "%03d/%03d", state.index, state.total)
+            else "---",
+            11, Palette.TextSecondary, align = TextAlign.Center, modifier = Modifier.weight(1f),
+        )
+        ElideText(fmtTime(state.durationMs), 11, Palette.TextSecondary,
+            align = TextAlign.End, modifier = Modifier.weight(1f))
+    }
+}
+
+@Composable
+private fun AlbumLine(track: com.portable.musicplayer.data.Track?, fontSize: Int) {
+    Row(
+        Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.Center,
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Canvas(Modifier.size(18.dp)) { drawGlyph("list", Palette.TextSecondary, 1.6f) }
+        Spacer(Modifier.width(6.dp))
+        Text(
+            text = track?.displayAlbum ?: "Portable Digital Audio",
+            color = Palette.TextMuted,
+            fontSize = fontSize.sp,
+            maxLines = 1,
+            overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis,
+        )
+        if (track != null && track.isHires) {
+            Spacer(Modifier.width(8.dp))
+            Badge("HR")
+        }
+    }
+}
+
+@Composable
+private fun LiveControls(
+    state: UiState,
+    onToggleLive: () -> Unit,
+    onAddCheer: () -> Unit,
+) {
+    Row(
+        Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        LivePill(
+            label = if (state.liveEnabled) "LIVE · ${LiveVenues.label(state.liveVenue)}" else "LIVE",
+            active = state.liveEnabled,
+            onClick = onToggleLive,
+        )
+        LivePill(label = "＋ 歓声", active = false, onClick = onAddCheer)
+    }
+}
+
+@Composable
+private fun TransportControls(
+    state: UiState,
+    onToggle: () -> Unit,
+    onPrev: () -> Unit,
+    onNext: () -> Unit,
+    onCycleLoop: () -> Unit,
+    onToggleShuffle: () -> Unit,
+    spacing: androidx.compose.ui.unit.Dp,
+) {
+    Row(
+        Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.spacedBy(spacing, Alignment.CenterHorizontally),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        GlyphButton("shuffle", size = 30.dp, active = state.shuffle, onClick = onToggleShuffle)
+        TransportButton("prev", diameter = 46.dp, onClick = onPrev)
+        TransportButton(
+            if (state.playing) "pause" else "play",
+            diameter = 58.dp,
+            onClick = onToggle,
+        )
+        TransportButton("next", diameter = 46.dp, onClick = onNext)
+        Box(contentAlignment = Alignment.Center) {
+            GlyphButton(
+                if (state.loopMode == "one") "repeat_one" else "repeat",
+                size = 30.dp,
+                active = state.loopMode != "off",
+                onClick = onCycleLoop,
             )
-
-            Spacer(Modifier.height(2.dp))
-
-            ElideText(
-                track?.displayTitle ?: "Louis Music Player",
-                20, Palette.TextPrimary, FontWeight.Normal,
-                modifier = Modifier.fillMaxWidth(),
-            )
-            ElideText(
-                track?.displayArtist ?: "曲を選んでください",
-                14, Palette.TextSecondary,
-                modifier = Modifier.fillMaxWidth(),
-            )
-
-            Row(
-                Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                Canvas(Modifier.size(18.dp)) { drawGlyph("list", Palette.TextSecondary, 1.6f) }
-                Spacer(Modifier.width(6.dp))
-                Text(
-                    text = track?.displayAlbum ?: "Portable Digital Audio",
-                    color = Palette.TextMuted,
-                    fontSize = 13.sp,
-                    maxLines = 1,
-                    overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis,
-                )
-                if (track != null && track.isHires) {
-                    Spacer(Modifier.width(8.dp))
-                    Badge("HR")
-                }
+            if (state.loopMode == "one") {
+                Text("1", color = if (state.loopMode != "off") Palette.TextPrimary else Palette.TextSecondary,
+                    fontSize = 9.sp, fontWeight = FontWeight.Bold)
             }
-
-            Spacer(Modifier.height(6.dp))
-
-            // live effect + cheer
-            Row(
-                Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally),
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                LivePill(
-                    label = if (state.liveEnabled) "LIVE · ${LiveVenues.label(state.liveVenue)}" else "LIVE",
-                    active = state.liveEnabled,
-                    onClick = onToggleLive,
-                )
-                LivePill(label = "＋ 歓声", active = false, onClick = onAddCheer)
-            }
-
-            Spacer(Modifier.weight(1f))
-
-            // transport row
-            Row(
-                Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(18.dp, Alignment.CenterHorizontally),
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                GlyphButton("shuffle", size = 30.dp, active = state.shuffle, onClick = onToggleShuffle)
-                TransportButton("prev", diameter = 46.dp, onClick = onPrev)
-                TransportButton(
-                    if (state.playing) "pause" else "play",
-                    diameter = 58.dp,
-                    onClick = onToggle,
-                )
-                TransportButton("next", diameter = 46.dp, onClick = onNext)
-                Box(contentAlignment = Alignment.Center) {
-                    GlyphButton(
-                        if (state.loopMode == "one") "repeat_one" else "repeat",
-                        size = 30.dp,
-                        active = state.loopMode != "off",
-                        onClick = onCycleLoop,
-                    )
-                    if (state.loopMode == "one") {
-                        Text("1", color = if (state.loopMode != "off") Palette.TextPrimary else Palette.TextSecondary,
-                            fontSize = 9.sp, fontWeight = FontWeight.Bold)
-                    }
-                }
-            }
-
-            Spacer(Modifier.height(2.dp))
         }
     }
 }

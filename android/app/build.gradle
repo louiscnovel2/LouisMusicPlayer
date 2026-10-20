@@ -11,8 +11,8 @@ android {
         applicationId "com.portable.musicplayer"
         minSdk 24
         targetSdk 33
-        versionCode 9
-        versionName "1.4.2"
+        versionCode 10
+        versionName "1.4.3"
         vectorDrawables {
             useSupportLibrary true
         }

@@ -8,6 +8,7 @@ from dataclasses import dataclass, field
 from PySide6.QtCore import QRectF, Qt, QTimer, Signal
 from PySide6.QtGui import QBrush, QColor, QFont, QPainter, QPen, QPixmap
 from PySide6.QtWidgets import (
+    QBoxLayout,
     QHBoxLayout,
     QLabel,
     QListWidget,
@@ -165,11 +166,11 @@ class NowPlayingPage(QWidget):
         self._osd_timer.timeout.connect(self.osd.hide)
 
         self.cover = CoverArt(self)
-        self.cover.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
-        root.addWidget(self.cover, 0, Qt.AlignmentFlag.AlignHCenter)
+        self.cover.setSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
 
         # time row
-        time_row = QHBoxLayout()
+        self._time_box = QWidget(self)
+        time_row = QHBoxLayout(self._time_box)
         time_row.setContentsMargins(2, 0, 2, 0)
         self.time_now = ElidedLabel("00:00", 9, color=theme.TEXT_SECONDARY,
                                     align=Qt.AlignmentFlag.AlignLeft)
@@ -179,22 +180,20 @@ class NowPlayingPage(QWidget):
                                       align=Qt.AlignmentFlag.AlignRight)
         for lbl in (self.time_now, self.time_mid, self.time_total):
             time_row.addWidget(lbl, 1)
-        root.addLayout(time_row)
 
         self.seek = SeekBar(self)
         self.seek.previewChanged.connect(self._on_preview)
         self.seek.seekRequested.connect(self._on_seek)
-        root.addWidget(self.seek)
 
         # text block
         self.title = ElidedLabel("No Track", 15, QFont.Weight.Normal, theme.TEXT_PRIMARY,
                                  Qt.AlignmentFlag.AlignHCenter, self)
         self.artist = ElidedLabel("", 11, QFont.Weight.Normal, theme.TEXT_SECONDARY,
                                   Qt.AlignmentFlag.AlignHCenter, self)
-        root.addWidget(self.title)
-        root.addWidget(self.artist)
 
-        album_row = QHBoxLayout()
+        self._album_box = QWidget(self)
+        album_row = QHBoxLayout(self._album_box)
+        album_row.setContentsMargins(0, 0, 0, 0)
         album_row.setSpacing(6)
         album_row.addStretch(1)
         self.spec_icon = Glyph("list", 18, theme.TEXT_SECONDARY, self)
@@ -207,12 +206,11 @@ class NowPlayingPage(QWidget):
         album_row.addWidget(self.album)
         album_row.addWidget(self.hr)
         album_row.addStretch(1)
-        root.addLayout(album_row)
-
-        root.addSpacing(2)
 
         # transport row
-        transport = QHBoxLayout()
+        self._transport_box = QWidget(self)
+        transport = QHBoxLayout(self._transport_box)
+        transport.setContentsMargins(0, 0, 0, 0)
         transport.setSpacing(18)
         self.repeat_btn = _GlyphButton("repeat", 30, self)
         self.shuffle_btn = _GlyphButton("shuffle", 30, self)
@@ -233,11 +231,11 @@ class NowPlayingPage(QWidget):
         transport.addWidget(self.next_btn)
         transport.addWidget(self.repeat_btn)
         transport.addStretch(1)
-        root.addLayout(transport)
 
         # live effect row
-        live_row = QHBoxLayout()
-        live_row.setContentsMargins(16, 2, 16, 0)
+        self._live_box = QWidget(self)
+        live_row = QHBoxLayout(self._live_box)
+        live_row.setContentsMargins(0, 0, 0, 0)
         live_row.setSpacing(8)
         self.live_btn = QPushButton("LIVE")
         self.live_btn.setCheckable(True)
@@ -256,7 +254,70 @@ class NowPlayingPage(QWidget):
         live_row.addWidget(self.live_btn)
         live_row.addWidget(self.live_venue, 1)
         live_row.addWidget(self.cheer_btn)
-        root.addLayout(live_row)
+
+        # portrait: cover above details / landscape: cover left of details
+        self._middle = QBoxLayout(QBoxLayout.Direction.TopToBottom)
+        self._middle.setContentsMargins(0, 0, 0, 0)
+        self._middle.setSpacing(6)
+        root.addLayout(self._middle, 1)
+
+        self._details = QVBoxLayout()
+        self._details.setContentsMargins(0, 0, 0, 0)
+        self._details.setSpacing(6)
+        self._middle.addWidget(self.cover, 0, Qt.AlignmentFlag.AlignHCenter)
+        self._middle.addLayout(self._details, 1)
+
+        self._landscape: bool | None = None
+        self._apply_orientation(False)
+
+    # -- orientation ----------------------------------------------------------
+    def _apply_orientation(self, landscape: bool) -> None:
+        if self._landscape == landscape:
+            return
+        self._landscape = landscape
+
+        while self._details.count():
+            self._details.takeAt(0)
+
+        if landscape:
+            self._middle.setDirection(QBoxLayout.Direction.LeftToRight)
+            self._middle.setSpacing(24)
+            self._middle.setAlignment(self.cover, Qt.AlignmentFlag.AlignVCenter)
+            self.title.set_font_size(20)
+            self.artist.set_font_size(14)
+            self._details.setSpacing(6)
+            self._details.addStretch(1)
+            for widget in (self.title, self.artist, self._album_box):
+                self._details.addWidget(widget)
+            self._details.addSpacing(8)
+            self._details.addWidget(self._time_box)
+            self._details.addWidget(self.seek)
+            self._details.addWidget(self._live_box)
+            self._details.addSpacing(4)
+            self._details.addWidget(self._transport_box)
+            self._details.addStretch(1)
+        else:
+            self._middle.setDirection(QBoxLayout.Direction.TopToBottom)
+            self._middle.setSpacing(6)
+            self._middle.setAlignment(self.cover, Qt.AlignmentFlag.AlignHCenter)
+            self.title.set_font_size(15)
+            self.artist.set_font_size(11)
+            self._details.setSpacing(6)
+            for widget in (self._time_box, self.seek, self.title, self.artist,
+                           self._album_box, self._transport_box, self._live_box):
+                self._details.addWidget(widget)
+            self._details.addStretch(1)
+        self._update_cover_size()
+
+    def _update_cover_size(self) -> None:
+        if self.width() <= 0 or self.height() <= 0:
+            return
+        if self._landscape:
+            side = min(self.height() - 64, int(self.width() * 0.42))
+        else:
+            side = min(self.width() - 28, int(self.height() * 0.46))
+        side = max(120, side)
+        self.cover.setFixedSize(side, side)
 
     # -- live effect ----------------------------------------------------------
     def set_live(self, enabled: bool, venue: str = "") -> None:
@@ -269,10 +330,8 @@ class NowPlayingPage(QWidget):
     # -- sizing ---------------------------------------------------------------
     def resizeEvent(self, event) -> None:
         super().resizeEvent(event)
-        available_w = self.width() - 28
-        available_h = int(self.height() * 0.46)
-        side = max(120, min(available_w, available_h))
-        self.cover.setFixedSize(side, side)
+        self._apply_orientation(self.width() > self.height())
+        self._update_cover_size()
         self._center_osd()
 
     def _center_osd(self) -> None:

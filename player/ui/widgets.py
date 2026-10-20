@@ -373,6 +373,13 @@ class ElidedLabel(QWidget):
         self._color = color
         self.update()
 
+    def set_font_size(self, size: int) -> None:
+        if self._font.pointSize() == size:
+            return
+        self._font.setPointSize(size)
+        self.setMinimumHeight(self._font.pointSize() + 10)
+        self.update()
+
     def paintEvent(self, event) -> None:
         p = QPainter(self)
         p.setRenderHint(QPainter.RenderHint.TextAntialiasing, True)
