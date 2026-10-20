@@ -68,6 +68,7 @@ class DeviceFrame(QWidget):
         super().__init__(parent)
         self.setMinimumSize(360, 640)
         self._content = None
+        self._wheel_volume = False
         self._overlay = VolumeOverlay(self)
         self._vol_timer = QTimer(self)
         self._vol_timer.setSingleShot(True)
@@ -102,6 +103,10 @@ class DeviceFrame(QWidget):
         self._layout_content()
 
     # -- volume -----------------------------------------------------------
+    def set_wheel_volume_enabled(self, enabled: bool) -> None:
+        """Allow the mouse wheel to change volume (now-playing screen only)."""
+        self._wheel_volume = bool(enabled)
+
     def flash_volume(self, value: int):
         self._overlay.set_value(value)
         self._place_overlay()
@@ -110,6 +115,9 @@ class DeviceFrame(QWidget):
         self._vol_timer.start()
 
     def wheelEvent(self, event):
+        if not self._wheel_volume:
+            event.ignore()
+            return
         delta = event.angleDelta().y()
         if delta:
             self.volumeStepRequested.emit(2 if delta > 0 else -2)

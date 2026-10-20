@@ -99,12 +99,14 @@ class MainWindow(QWidget):
         self.stack.addWidget(self.list_page)
         self.stack.addWidget(self.eq_page)
         self.stack.addWidget(self.live_page)
+        self.stack.currentChanged.connect(self._sync_wheel_volume)
 
         self.bottom = BottomBar(screen)
         slay.addWidget(self.stack, 1)
         slay.addWidget(self.bottom, 0)
 
         self.frame.attach(screen)
+        self._sync_wheel_volume()
 
         # neutral placeholder shown before a track is selected
         self.now_page.title.set_text("Louis Music Player")
@@ -382,6 +384,10 @@ class MainWindow(QWidget):
     def _toggle_shuffle(self) -> None:
         on = self.engine.toggle_shuffle()
         self.now_page.show_osd(f"シャッフル再生: {'オン' if on else 'オフ'}")
+
+    def _sync_wheel_volume(self, _index: int | None = None) -> None:
+        """Volume wheel is active only while the now-playing screen is shown."""
+        self.frame.set_wheel_volume_enabled(self.stack.currentWidget() is self.now_page)
 
     def _update_status(self) -> None:
         total = len(self.engine.queue)
