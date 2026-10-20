@@ -4,8 +4,8 @@ from __future__ import annotations
 
 import os
 
-from PySide6.QtCore import Qt, QThread, Signal
-from PySide6.QtGui import QKeySequence, QShortcut
+from PySide6.QtCore import Qt, QThread, QUrl, Signal
+from PySide6.QtGui import QDesktopServices, QKeySequence, QShortcut
 from PySide6.QtWidgets import (
     QApplication,
     QFileDialog,
@@ -487,6 +487,8 @@ class MainWindow(QWidget):
             self._render_playlist(view[1])
         elif kind == "settings":
             self._render_settings()
+        elif kind == "licenses":
+            self._render_licenses()
         elif kind == "eq":
             self.eq_page.load_settings(self._eq_settings)
             return
@@ -616,6 +618,8 @@ class MainWindow(QWidget):
                 icon="eq", payload=("open_eq", None)),
             Row("action", "ライブ演出（Live Effect）", self._live_summary(),
                 icon="volume", payload=("open_live", None)),
+            Row("action", "ライセンス", "効果音クレジット / オープンソース",
+                icon="list", payload=("open_licenses", None)),
             Row("info", "音量", f"{self.engine.volume} / 100", icon="volume"),
             Row("action", "ライブラリフォルダを追加", "フォルダを選択",
                 icon="folder", payload=("add_folder", None)),
@@ -628,6 +632,34 @@ class MainWindow(QWidget):
             Row("info", "操作", "Space 再生 / Ctrl+←→ 曲送り / ↑↓ 音量", icon="back"),
         ]
         self.list_page.set_header("設定", "Louis Music Player for Windows 11")
+        self.list_page.set_rows(rows)
+
+    def _render_licenses(self) -> None:
+        rows = [
+            Row("action", "OtoLogic", "歓声・拍手の効果音 (CC BY 4.0)",
+                icon="list", payload=("open_url", "https://otologic.jp/")),
+            Row("action", "OtoLogic 利用規約", "クレジット表記で無料利用",
+                icon="list", payload=("open_url", "https://otologic.jp/free/license.html")),
+            Row("action", "CC BY 4.0", "クリエイティブ・コモンズ 表示 4.0",
+                icon="list",
+                payload=("open_url", "https://creativecommons.org/licenses/by/4.0/deed.ja")),
+            Row("info", "会場の残響・環境音", "アプリ内で合成 (Louis Music Player)", icon="list"),
+            Row("action", "PySide6 / Qt", "LGPLv3",
+                icon="list", payload=("open_url", "https://www.qt.io/qt-6/lgpl/")),
+            Row("action", "NumPy", "BSD 3-Clause",
+                icon="list", payload=("open_url", "https://numpy.org/doc/stable/license.html")),
+            Row("action", "PyAV (FFmpeg)", "BSD 3-Clause",
+                icon="list",
+                payload=("open_url", "https://github.com/PyAV-Org/PyAV/blob/main/LICENSE.txt")),
+            Row("action", "sounddevice", "MIT License",
+                icon="list",
+                payload=("open_url", "https://github.com/spatialaudio/python-sounddevice/blob/master/LICENSE")),
+            Row("action", "Mutagen", "GPL-2.0-or-later",
+                icon="list", payload=("open_url", "https://github.com/quodlibet/mutagen/blob/main/COPYING")),
+            Row("action", "Python", "PSF License",
+                icon="list", payload=("open_url", "https://docs.python.org/3/license.html")),
+        ]
+        self.list_page.set_header("ライセンス", "クリックで該当ページを開きます")
         self.list_page.set_rows(rows)
 
     def _track_row(self, track: Track) -> Row:
@@ -708,6 +740,10 @@ class MainWindow(QWidget):
             self._goto(("eq",), active="settings")
         elif action == "open_live":
             self._goto(("live",), active="settings")
+        elif action == "open_licenses":
+            self._goto(("licenses",), active="settings")
+        elif action == "open_url":
+            QDesktopServices.openUrl(QUrl(str(data)))
         elif action == "cycle_loop":
             self._cycle_loop()
             self._render()

@@ -10,9 +10,11 @@ The effect makes a studio recording sound like a live show:
 * **3D** – the reverb is decorrelated between the channels and every crowd
   voice is panned inside the stereo field; ``width`` scales the spread.
 
-Everything is generated from noise inside the app (no third-party samples).
-The realtime part only does numpy work on ``(frames, 2)`` blocks, mirroring the
-equalizer so it can run inside the sounddevice callback.
+Crowd reactions use the free OtoLogic applause / cheer recordings (CC BY 4.0,
+https://otologic.jp/). Venue reverb, the ambient bed and the riser are still
+generated inside the app. The realtime part only does numpy work on
+``(frames, 2)`` blocks, mirroring the equalizer so it can run inside the
+sounddevice callback.
 """
 
 from __future__ import annotations
@@ -21,14 +23,17 @@ import hashlib
 import math
 import os
 import threading
+import wave
 from dataclasses import dataclass
 
 import numpy as np
 
+from .resources import resource_path
 from .store import config_dir
 
 IR_VERSION = 4
-TEXTURE_VERSION = 4
+TEXTURE_VERSION = 5
+SAMPLE_VERSION = 1
 
 # Impulse responses are cached on disk per venue / sample rate.
 _CACHE_DIRNAME = "live"
@@ -87,12 +92,28 @@ EVENT_PAN = {
 
 TEXTURE_KINDS = ["bed", "applause", "cheer", "big_cheer", "build"]
 
+# Crowd reactions are real recordings from OtoLogic (CC BY 4.0). Each kind has
+# one or more takes; the engine picks one at random for every reaction.
+SAMPLE_FILES = {
+    "applause": [
+        "assets/otologic/applause_01.wav",
+        "assets/otologic/applause_02.wav",
+    ],
+    "cheer": [
+        "assets/otologic/cheer_01.wav",
+        "assets/otologic/cheer_02.wav",
+    ],
+    "big_cheer": [
+        "assets/otologic/big_cheer_01.wav",
+    ],
+}
+
 # Approximate texture lengths (seconds) - used to keep the tail playing until
 # the last reaction has finished ringing out.
 EVENT_LENGTH = {
-    "applause": 5.0,
-    "cheer": 4.6,
-    "big_cheer": 5.5,
+    "applause": 8.0,
+    "cheer": 6.5,
+    "big_cheer": 8.5,
     "build": 1.9,
 }
 
@@ -415,6 +436,67 @@ def _claps(n: int, rate: int, rng, count: int, gain: float = 0.7) -> np.ndarray:
     return hp * env
 
 
+def _decode_wav(path: str) -> tuple[np.ndarray, int]:
+    """Read a PCM WAV file as ``(samples, 2)`` float32 plus its sample rate."""
+    with wave.open(path, "rb") as src:
+        channels = int(src.getnchannels())
+        width = int(src.getsampwidth())
+        rate = int(src.getframerate())
+        raw = src.readframes(src.getnframes())
+    if width == 2:
+        data = np.frombuffer(raw, dtype="<i2").astype(np.float32) / 32768.0
+    elif width == 1:
+        data = (np.frombuffer(raw, dtype=np.uint8).astype(np.float32) - 128.0) / 128.0
+    elif width == 3:
+        buf = np.frombuffer(raw, dtype=np.uint8).reshape(-1, 3)
+        ints = (buf[:, 0].astype(np.int32)
+                | (buf[:, 1].astype(np.int32) << 8)
+                | (buf[:, 2].astype(np.int32) << 16))
+        ints = np.where(ints & 0x800000, ints - 0x1000000, ints)
+        data = ints.astype(np.float32) / 8388608.0
+    elif width == 4:
+        data = np.frombuffer(raw, dtype="<i4").astype(np.float32) / 2147483648.0
+    else:
+        raise ValueError(f"unsupported WAV sample width: {width}")
+
+    if channels <= 0:
+        raise ValueError("WAV has no channels")
+    data = data.reshape(-1, channels)
+    if channels == 1:
+        data = np.repeat(data, 2, axis=1)
+    elif channels > 2:
+        data = data[:, :2]
+    return data.astype(np.float32), rate
+
+
+def _resample(x: np.ndarray, src_rate: int, dst_rate: int) -> np.ndarray:
+    if src_rate == dst_rate or x.shape[0] == 0:
+        return x.astype(np.float32)
+    n_out = max(1, int(round(x.shape[0] * dst_rate / src_rate)))
+    src_pos = np.arange(n_out, dtype=np.float64) * (src_rate / dst_rate)
+    idx = np.arange(x.shape[0], dtype=np.float64)
+    out = np.empty((n_out, x.shape[1]), dtype=np.float32)
+    for c in range(x.shape[1]):
+        out[:, c] = np.interp(src_pos, idx, x[:, c])
+    return out
+
+
+def _standardize(x: np.ndarray) -> np.ndarray:
+    """Match the perceived level of all OtoLogic takes without clipping."""
+    peak = float(np.max(np.abs(x))) if x.size else 0.0
+    rms = float(np.sqrt(np.mean(x.astype(np.float64) ** 2))) if x.size else 0.0
+    if peak < 1e-9 or rms < 1e-9:
+        return x.astype(np.float32)
+    gain = min(0.12 / rms, 0.98 / peak)
+    return (x * gain).astype(np.float32)
+
+
+def build_sample(rel: str, rate: int) -> np.ndarray:
+    """Load one OtoLogic WAV and resample / normalise it for the engine."""
+    data, src_rate = _decode_wav(resource_path(rel))
+    return _standardize(_resample(data, src_rate, rate))
+
+
 def build_texture(kind: str, rate: int) -> np.ndarray:
     """Synthesise one stereo crowd texture (``(samples, 2)`` float32)."""
     seed = int(hashlib.md5(f"{kind}:{TEXTURE_VERSION}".encode()).hexdigest()[:8], 16)
@@ -538,6 +620,38 @@ def load_texture(kind: str, rate: int) -> np.ndarray:
     return data
 
 
+def _sample_cache_path(rel: str, rate: int) -> str:
+    stem = os.path.splitext(os.path.basename(rel))[0]
+    return os.path.join(cache_dir(), f"sample_{stem}_{rate}_{SAMPLE_VERSION}.npy")
+
+
+def load_sample(rel: str, rate: int) -> np.ndarray:
+    path = _sample_cache_path(rel, rate)
+    try:
+        data = np.load(path)
+        if data.ndim == 2 and data.shape[1] == 2:
+            return data.astype(np.float32)
+    except (OSError, ValueError):
+        pass
+    data = build_sample(rel, rate)
+    try:
+        np.save(path, data)
+    except OSError:
+        pass
+    return data
+
+
+def load_texture_set(kind: str, rate: int) -> list[np.ndarray]:
+    """All takes for one crowd kind (sample based, with synth fallback)."""
+    files = SAMPLE_FILES.get(kind)
+    if files:
+        try:
+            return [load_sample(rel, rate) for rel in files]
+        except (OSError, ValueError, wave.Error):
+            pass
+    return [load_texture(kind, rate)]
+
+
 # -- realtime engine ----------------------------------------------------------
 
 
@@ -584,7 +698,7 @@ class LiveEngine:
         self._gen = 0
         self._counter = 0
         self._conv: PartitionedConvolver | None = None
-        self._textures: dict[str, np.ndarray] = {}
+        self._textures: dict[str, list[np.ndarray]] = {}
         self._rt: dict = {}
         self._prepare_token = 0
         self._preparing = False
@@ -660,7 +774,7 @@ class LiveEngine:
             try:
                 ir = load_ir(rate, venue)
                 conv = PartitionedConvolver(ir, self._hop)
-                textures = {k: load_texture(k, rate) for k in TEXTURE_KINDS}
+                textures = {k: load_texture_set(k, rate) for k in TEXTURE_KINDS}
             except Exception:
                 self._preparing = False
                 return
@@ -688,7 +802,7 @@ class LiveEngine:
             if end > tail_end:
                 tail_end = end
         if duration > 0:
-            tail_end = min(tail_end, duration + 5.8)
+            tail_end = min(tail_end, duration + 10.0)
         self._counter += 1
         self._state = _State(
             gen=self._counter,
@@ -710,7 +824,7 @@ class LiveEngine:
         self._bed = None
         if self._conv is not None:
             self._conv.reset()
-        bed = self._textures.get("bed")
+        bed = (self._textures.get("bed") or [None])[0]
         if bed is not None and st.bed_gain > 0.001:
             self._bed = _Voice(bed, st.bed_gain, 0.0, loop=True)
             self._voices = [self._bed]
@@ -757,8 +871,8 @@ class LiveEngine:
         return out
 
     def _spawn(self, ev: LiveEvent, st: _State, t: float) -> None:
-        tex = self._textures.get(ev.kind)
-        if tex is None or st.crowd <= 0.001:
+        variants = self._textures.get(ev.kind)
+        if not variants or st.crowd <= 0.001:
             return
         base = EVENT_GAIN.get(ev.kind, 0.7)
         gain = base * ev.gain * st.crowd * (0.45 + 0.95 * st.intensity)
@@ -766,6 +880,7 @@ class LiveEngine:
         rng = _thread_rng()
         pan = float(rng.uniform(-1.0, 1.0)) * spread
         offset = int(max(0.0, (ev.time - t)) * self._rate)
+        tex = variants[int(rng.integers(len(variants)))]
         self._voices.append(_Voice(tex, gain, pan, offset=offset))
 
     def _mix(self, out: np.ndarray, n: int) -> None:
@@ -800,4 +915,4 @@ def warm_cache(rate: int = 44100, venue: str = "arena") -> None:
     """Build the venue IR + crowd textures ahead of time (UI thread)."""
     load_ir(rate, venue)
     for kind in TEXTURE_KINDS:
-        load_texture(kind, rate)
+        load_texture_set(kind, rate)

@@ -1,0 +1,20 @@
+Crowd sound effects
+===================
+
+The applause and cheer recordings in this folder are from OtoLogic.
+
+  Site:    https://otologic.jp/
+  Library: https://otologic.jp/free/se/applause-cheer01.html
+  Terms:   https://otologic.jp/free/license.html
+  License: Creative Commons Attribution 4.0 International (CC BY 4.0)
+           https://creativecommons.org/licenses/by/4.0/
+
+Credit: OtoLogic
+
+Files (trimmed and level-matched for Louis Music Player):
+
+  applause_01.wav   <- Applause-Crowd02-1(Long).mp3
+  applause_02.wav   <- Applause-Crowd03-1(Long).mp3
+  cheer_01.wav      <- Cheer-Crowd01-1(Low-Long).mp3
+  cheer_02.wav      <- Cheer-Crowd01-4(High-Long).mp3
+  big_cheer_01.wav  <- Cheer-Crowd02-1(Long).mp3

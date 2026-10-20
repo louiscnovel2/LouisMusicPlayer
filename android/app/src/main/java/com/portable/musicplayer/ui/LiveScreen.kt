@@ -179,7 +179,7 @@ fun LiveScreen(
         }
 
         Text(
-            text = "会場の響きと歓声はアプリ内で合成しています。曲を解析してサビや盛り上がりに自動で喝采を配置します。OFF のときは原音のまま再生します。",
+            text = "会場の響きはアプリ内で合成し、歓声・拍手は OtoLogic の音源 (CC BY 4.0) を使用しています。曲を解析してサビや盛り上がりに自動で喝采を配置します。OFF のときは原音のまま再生します。",
             color = Palette.TextMuted,
             fontSize = 10.sp,
             modifier = Modifier.fillMaxWidth().padding(horizontal = 12.dp, vertical = 8.dp),

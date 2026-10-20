@@ -31,7 +31,8 @@ import kotlin.random.Random
 
 const val LIVE_HOP = 1024
 const val LIVE_IR_VERSION = 4
-const val LIVE_TEXTURE_VERSION = 4
+const val LIVE_TEXTURE_VERSION = 5
+const val LIVE_SAMPLE_VERSION = 1
 
 /** Acoustic profile of one venue (mirrors the desktop `VENUES` table). */
 data class Venue(
@@ -79,9 +80,9 @@ object LiveKinds {
         "build" to 0.0f,
     )
     private val LENGTH = mapOf(
-        "applause" to 5.0f,
-        "cheer" to 4.6f,
-        "big_cheer" to 5.5f,
+        "applause" to 8.0f,
+        "cheer" to 6.5f,
+        "big_cheer" to 8.5f,
         "build" to 1.9f,
     )
     fun label(kind: String): String = LABELS[kind] ?: kind
@@ -254,7 +255,7 @@ class LivePrepared(
     val sampleRate: Int,
     val venue: String,
     val kernel: ConvolverKernel,
-    val textures: Map<String, Array<FloatArray>>,
+    val textures: Map<String, List<Array<FloatArray>>>,
 )
 
 // -- synthesis ----------------------------------------------------------------
@@ -263,12 +264,166 @@ internal object LiveSynthesis {
 
     private val TEXTURE_KINDS = listOf("bed", "applause", "cheer", "big_cheer", "build")
 
+    // Free applause / cheer recordings by OtoLogic (CC BY 4.0).
+    // https://otologic.jp/free/se/applause-cheer01.html
+    private val SAMPLE_FILES = mapOf(
+        "applause" to listOf("otologic/applause_01.wav", "otologic/applause_02.wav"),
+        "cheer" to listOf("otologic/cheer_01.wav", "otologic/cheer_02.wav"),
+        "big_cheer" to listOf("otologic/big_cheer_01.wav"),
+    )
+
     fun build(context: Context, rate: Int, venue: String): LivePrepared {
         val ir = loadIr(context, rate, venue)
         val kernel = ConvolverKernel.build(ir, LIVE_HOP, rate)
-        val textures = HashMap<String, Array<FloatArray>>()
-        for (k in TEXTURE_KINDS) textures[k] = loadTexture(context, rate, k)
+        val textures = HashMap<String, List<Array<FloatArray>>>()
+        for (k in TEXTURE_KINDS) textures[k] = loadTextureSet(context, rate, k)
         return LivePrepared(rate, venue, kernel, textures)
+    }
+
+    // -- OtoLogic samples -----------------------------------------------------
+
+    private fun readWav(stream: java.io.InputStream): Pair<Array<FloatArray>, Int> {
+        val bytes = stream.use { it.readBytes() }
+        require(bytes.size > 44) { "WAV too short" }
+        require(String(bytes, 0, 4, Charsets.US_ASCII) == "RIFF") { "not a RIFF file" }
+        require(String(bytes, 8, 4, Charsets.US_ASCII) == "WAVE") { "not a WAVE file" }
+
+        fun u16(off: Int): Int =
+            (bytes[off].toInt() and 0xFF) or ((bytes[off + 1].toInt() and 0xFF) shl 8)
+
+        fun u32(off: Int): Long =
+            (u16(off).toLong()) or (u16(off + 2).toLong() shl 16)
+
+        var pos = 12
+        var format = 1
+        var channels = 2
+        var sampleRate = 44100
+        var bits = 16
+        var dataOffset = -1
+        var dataSize = 0
+        while (pos + 8 <= bytes.size) {
+            val id = String(bytes, pos, 4, Charsets.US_ASCII)
+            val size = u32(pos + 4).toInt()
+            val body = pos + 8
+            if (id == "fmt " && body + 16 <= bytes.size) {
+                format = u16(body)
+                channels = u16(body + 2)
+                sampleRate = u32(body + 4).toInt()
+                bits = u16(body + 14)
+                if (format == 0xFFFE && body + 26 <= bytes.size) {
+                    format = u16(body + 24)
+                }
+            } else if (id == "data") {
+                dataOffset = body
+                dataSize = min(size, bytes.size - body)
+            }
+            val advance = size + (size and 1)
+            if (advance <= 0) break
+            pos = body + advance
+        }
+        require(dataOffset >= 0 && dataSize > 0) { "WAV has no data chunk" }
+        require(channels > 0) { "WAV has no channels" }
+
+        val bytesPerSample = max(1, bits / 8)
+        val frames = dataSize / (bytesPerSample * channels)
+        val out = Array(2) { FloatArray(frames) }
+        for (i in 0 until frames) {
+            for (c in 0 until min(2, channels)) {
+                val base = dataOffset + (i * channels + c) * bytesPerSample
+                val v: Float = when {
+                    format == 3 && bits == 32 ->
+                        Float.fromBits(
+                            (bytes[base].toInt() and 0xFF) or
+                                ((bytes[base + 1].toInt() and 0xFF) shl 8) or
+                                ((bytes[base + 2].toInt() and 0xFF) shl 16) or
+                                ((bytes[base + 3].toInt() and 0xFF) shl 24)
+                        )
+                    bits == 16 -> {
+                        val s = (bytes[base].toInt() and 0xFF) or
+                            ((bytes[base + 1].toInt() and 0xFF) shl 8)
+                        (if (s >= 0x8000) s - 0x10000 else s) / 32768f
+                    }
+                    bits == 24 -> {
+                        var s = (bytes[base].toInt() and 0xFF) or
+                            ((bytes[base + 1].toInt() and 0xFF) shl 8) or
+                            ((bytes[base + 2].toInt() and 0xFF) shl 16)
+                        if (s and 0x800000 != 0) s = s or -0x1000000
+                        s / 8388608f
+                    }
+                    bits == 32 -> {
+                        var s = (bytes[base].toInt() and 0xFF) or
+                            ((bytes[base + 1].toInt() and 0xFF) shl 8) or
+                            ((bytes[base + 2].toInt() and 0xFF) shl 16) or
+                            ((bytes[base + 3].toInt() and 0xFF) shl 24)
+                        s / 2147483648f
+                    }
+                    bits == 8 -> ((bytes[base].toInt() and 0xFF) - 128) / 128f
+                    else -> 0f
+                }
+                out[c][i] = v
+            }
+        }
+        if (channels == 1) out[1] = out[0].copyOf()
+        return out to sampleRate
+    }
+
+    private fun resample(src: Array<FloatArray>, srcRate: Int, dstRate: Int): Array<FloatArray> {
+        if (srcRate == dstRate || src[0].isEmpty()) return src
+        val n = src[0].size
+        val nOut = max(1, (n.toDouble() * dstRate / srcRate).toInt())
+        val step = srcRate.toDouble() / dstRate
+        return Array(2) { c ->
+            val from = src[c]
+            FloatArray(nOut) { i ->
+                val p = i * step
+                val i0 = p.toInt()
+                if (i0 >= n - 1) from[n - 1]
+                else {
+                    val f = (p - i0).toFloat()
+                    from[i0] * (1f - f) + from[i0 + 1] * f
+                }
+            }
+        }
+    }
+
+    /** Match the perceived level of the different OtoLogic takes. */
+    private fun standardize(x: Array<FloatArray>): Array<FloatArray> {
+        var peak = 0f
+        var sum = 0.0
+        var count = 0
+        for (c in x) for (v in c) {
+            val a = abs(v)
+            if (a > peak) peak = a
+            sum += v.toDouble() * v
+            count++
+        }
+        val rms = if (count > 0) sqrt(sum / count) else 0.0
+        if (peak < 1e-9f || rms < 1e-9) return x
+        val gain = min(0.12 / rms, 0.98 / peak).toFloat()
+        for (c in x) for (i in c.indices) c[i] *= gain
+        return x
+    }
+
+    private fun loadSample(context: Context, rate: Int, rel: String): Array<FloatArray> {
+        val stem = rel.substringAfterLast('/').substringBeforeLast('.')
+        val file = File(liveDir(context), "sample_${stem}_${rate}_$LIVE_SAMPLE_VERSION.bin")
+        readChannels(file, 2, 1)?.let { return it }
+        val (data, srcRate) = readWav(context.assets.open(rel))
+        val tex = standardize(resample(data, srcRate, rate))
+        writeChannels(file, tex)
+        return tex
+    }
+
+    private fun loadTextureSet(context: Context, rate: Int, kind: String): List<Array<FloatArray>> {
+        val files = SAMPLE_FILES[kind]
+        if (files != null) {
+            try {
+                return files.map { loadSample(context, rate, it) }
+            } catch (_: Throwable) {
+                // fall through to the synthesised texture
+            }
+        }
+        return listOf(loadTexture(context, rate, kind))
     }
 
     // -- impulse response -----------------------------------------------------
@@ -1024,7 +1179,7 @@ class LiveAudioProcessor : BaseAudioProcessor() {
         val p = convPrepared ?: return
         val g = 0.16f * settings.crowd.coerceIn(0f, 1f)
         if (g <= 0.001f) return
-        val tex = p.textures["bed"] ?: return
+        val tex = p.textures["bed"]?.firstOrNull() ?: return
         val v = Voice(tex, g, 0.70710678f, 0.70710678f, 0, true)
         bed = v
         voices.add(v)
@@ -1071,7 +1226,9 @@ class LiveAudioProcessor : BaseAudioProcessor() {
     private fun spawn(ev: LiveEvent, t: Double, fade: Float) {
         if (crowd <= 0.001f) return
         val p = convPrepared ?: return
-        val tex = p.textures[ev.kind] ?: return
+        val variants = p.textures[ev.kind]
+        if (variants.isNullOrEmpty()) return
+        val tex = variants[rng.nextInt(variants.size)]
         val base = LiveKinds.gain(ev.kind)
         val gain = base * ev.gain * crowd * (0.45f + 0.95f * intensity) * fade
         val spread = LiveKinds.pan(ev.kind) * (0.25f + 0.85f * width)

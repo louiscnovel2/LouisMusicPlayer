@@ -154,7 +154,7 @@ class LivePage(QWidget):
         note = QLabel(
             "再生画面の「歓声を追加」ボタンでも、いま鳴っている位置に追加できます。\n"
             "自動演出の内容: 開始（拍手）／ サビ前（盛り上げ）／ サビ入り（歓声）／ 曲末（大歓声）\n"
-            "会場の響きは原音と別に合成するため、元の音はそのまま残ります。"
+            "会場の響きはアプリ内で合成し、歓声・拍手は OtoLogic の音源 (CC BY 4.0) を使用しています。"
         )
         note.setFont(theme.font(8))
         note.setWordWrap(True)

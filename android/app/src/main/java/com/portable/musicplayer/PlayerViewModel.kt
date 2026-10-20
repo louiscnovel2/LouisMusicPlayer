@@ -1,6 +1,8 @@
 package com.portable.musicplayer
 
 import android.app.Application
+import android.content.Intent
+import android.net.Uri
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.portable.musicplayer.data.LoopMode
@@ -46,6 +48,7 @@ sealed interface Screen {
     object SettingsScreen : Screen
     object EqualizerScreen : Screen
     object LiveScreen : Screen
+    object LicensesScreen : Screen
 }
 
 enum class RowKind { ACTION, FOLDER, TRACK, PLAYLIST, INFO }
@@ -62,6 +65,8 @@ sealed interface RowAction {
     object ToggleShuffle : RowAction
     object OpenEqualizer : RowAction
     object OpenLive : RowAction
+    object OpenLicenses : RowAction
+    data class OpenUrl(val url: String) : RowAction
     data class AddToPlaylist(val playlist: String, val path: String) : RowAction
     data class RemoveFromPlaylist(val playlist: String, val path: String) : RowAction
 }
@@ -121,6 +126,7 @@ const val FORMAT_HINT =
 /** Owns the library, playback engine, playlists and the navigation stack. */
 class PlayerViewModel(app: Application) : AndroidViewModel(app) {
 
+    private val appContext: Application = app
     private val repo = MediaRepository(app)
     private val store = Settings(app)
     val engine = PlaybackEngine(app)
@@ -588,6 +594,7 @@ class PlayerViewModel(app: Application) : AndroidViewModel(app) {
     fun openSettings() = goto(Screen.SettingsScreen, reset = true, active = "settings")
     fun openEqualizer() = goto(Screen.EqualizerScreen, active = "settings")
     fun openLive() = goto(Screen.LiveScreen, active = "settings")
+    fun openLicenses() = goto(Screen.LicensesScreen, active = "settings")
     fun openFolder(path: String) = goto(Screen.Folder(path), active = "folders")
     fun openPlaylist(name: String) = goto(Screen.PlaylistScreen(name), active = "playlists")
 
@@ -602,7 +609,8 @@ class PlayerViewModel(app: Application) : AndroidViewModel(app) {
         val active = when (prev) {
             Screen.FoldersRoot, is Screen.Folder -> "folders"
             Screen.PlaylistsRoot, is Screen.PlaylistScreen -> "playlists"
-            Screen.SettingsScreen, Screen.EqualizerScreen, Screen.LiveScreen -> "settings"
+            Screen.SettingsScreen, Screen.EqualizerScreen, Screen.LiveScreen,
+            Screen.LicensesScreen -> "settings"
             else -> null
         }
         _state.update { it.copy(screen = prev, bottomActive = active, canGoBack = backStack.isNotEmpty()) }
@@ -628,9 +636,21 @@ class PlayerViewModel(app: Application) : AndroidViewModel(app) {
             RowAction.ToggleShuffle -> toggleShuffle()
             RowAction.OpenEqualizer -> openEqualizer()
             RowAction.OpenLive -> openLive()
+            RowAction.OpenLicenses -> openLicenses()
+            is RowAction.OpenUrl -> openUrl(a.url)
             is RowAction.AddToPlaylist -> addToPlaylist(a.playlist, a.path)
             is RowAction.RemoveFromPlaylist -> removeFromPlaylist(a.playlist, a.path)
             else -> Unit
+        }
+    }
+
+    private fun openUrl(url: String) {
+        try {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            appContext.startActivity(intent)
+        } catch (_: Throwable) {
+            showOsd("リンクを開けませんでした")
         }
     }
 
@@ -843,6 +863,7 @@ class PlayerViewModel(app: Application) : AndroidViewModel(app) {
             Screen.PlaylistsRoot -> "playlists"
             is Screen.PlaylistScreen -> "playlist:${sc.name}"
             Screen.SettingsScreen -> "settings"
+            Screen.LicensesScreen -> "licenses"
             else -> ""
         }
         when (val screen = s.screen) {
@@ -920,6 +941,7 @@ class PlayerViewModel(app: Application) : AndroidViewModel(app) {
                     RowData(RowKind.ACTION, "シャッフル", if (s.shuffle) "オン" else "オフ", icon = "shuffle", action = RowAction.ToggleShuffle),
                     RowData(RowKind.ACTION, "音質調整（イコライザー）", eqSummary(s), icon = "eq", action = RowAction.OpenEqualizer),
                     RowData(RowKind.ACTION, "ライブ演出（Live Effect）", liveSummary(s), icon = "volume", action = RowAction.OpenLive),
+                    RowData(RowKind.ACTION, "ライセンス", "効果音クレジット / オープンソース", icon = "list", action = RowAction.OpenLicenses),
                     RowData(RowKind.INFO, "音量", "${store.volume} / 100", icon = "volume"),
                     RowData(RowKind.INFO, "対応フォーマット", FORMAT_HINT, icon = "list"),
                     RowData(RowKind.INFO, "ハイレゾ再生", "FLAC/WAV/AIFF 24bit 以上 (HR)", icon = "list"),
@@ -939,6 +961,27 @@ class PlayerViewModel(app: Application) : AndroidViewModel(app) {
                 rows = emptyList()
                 title = "ライブ演出"
                 hint = "会場の響きと歓声で臨場感を再現"
+            }
+            Screen.LicensesScreen -> {
+                rows = listOf(
+                    RowData(RowKind.ACTION, "OtoLogic", "歓声・拍手の効果音 (CC BY 4.0)", icon = "list",
+                        action = RowAction.OpenUrl("https://otologic.jp/")),
+                    RowData(RowKind.ACTION, "OtoLogic 利用規約", "クレジット表記で無料利用", icon = "list",
+                        action = RowAction.OpenUrl("https://otologic.jp/free/license.html")),
+                    RowData(RowKind.ACTION, "CC BY 4.0", "クリエイティブ・コモンズ 表示 4.0", icon = "list",
+                        action = RowAction.OpenUrl("https://creativecommons.org/licenses/by/4.0/deed.ja")),
+                    RowData(RowKind.INFO, "会場の残響・環境音", "アプリ内で合成 (Louis Music Player)", icon = "list"),
+                    RowData(RowKind.ACTION, "AndroidX / Jetpack Compose", "Apache License 2.0", icon = "list",
+                        action = RowAction.OpenUrl("https://www.apache.org/licenses/LICENSE-2.0")),
+                    RowData(RowKind.ACTION, "AndroidX Media3", "Apache License 2.0", icon = "list",
+                        action = RowAction.OpenUrl("https://www.apache.org/licenses/LICENSE-2.0")),
+                    RowData(RowKind.ACTION, "Kotlin", "Apache License 2.0", icon = "list",
+                        action = RowAction.OpenUrl("https://www.apache.org/licenses/LICENSE-2.0")),
+                    RowData(RowKind.ACTION, "Noto Sans JP", "SIL Open Font License 1.1", icon = "list",
+                        action = RowAction.OpenUrl("https://openfontlicense.org/")),
+                )
+                title = "ライセンス"
+                hint = "タップで該当ページを開きます"
             }
             Screen.NowPlaying -> {
                 rows = s.rows
