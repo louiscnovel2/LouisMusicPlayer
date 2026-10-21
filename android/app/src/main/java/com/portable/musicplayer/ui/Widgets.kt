@@ -182,7 +182,10 @@ fun SeekBar(
         modifier
             .fillMaxWidth()
             .height(26.dp)
-            .pointerInput(Unit) {
+            // `max` must be part of the key: otherwise the tap handler keeps
+            // the duration captured on first composition (0 -> 1 ms) and every
+            // tap seeks back to the start instead of the tapped position.
+            .pointerInput(max, density) {
                 detectTapGestures { offset ->
                     val m = with(density) { 8.dp.toPx() }
                     val trackW = (size.width - m * 2).coerceAtLeast(1f)

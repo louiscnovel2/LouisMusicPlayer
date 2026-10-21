@@ -323,6 +323,10 @@ class MainWindow(QWidget):
         self.now_page.set_playing(False)
         self.stack.setCurrentWidget(self.now_page)
         self._update_status()
+        # The queue is rebuilt without covers to keep startup fast. Load the
+        # embedded artwork afterwards so a paused-then-closed session comes back
+        # with its jacket instead of the placeholder.
+        self._load_covers_async("restore", [t.path for t in tracks])
 
     def _save_queue(self) -> None:
         if self._restoring:

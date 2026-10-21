@@ -161,7 +161,10 @@ class PlayerViewModel(app: Application) : AndroidViewModel(app) {
         viewModelScope.launch {
             engine.queue.collect { q ->
                 _state.update { it.copy(total = q.size) }
-                store.queuePaths = q.map { it.path }
+                // Only persist a real queue. The StateFlow starts empty, so an
+                // unconditional write here would erase the saved session before
+                // tryRestoreQueue() had a chance to read it on app launch.
+                if (q.isNotEmpty()) store.queuePaths = q.map { it.path }
                 rebuildRows()
             }
         }
@@ -206,13 +209,16 @@ class PlayerViewModel(app: Application) : AndroidViewModel(app) {
                 val ready = LiveEffects.ready()
                 if (_state.value.playing) {
                     _state.update { it.copy(positionMs = pos, liveReady = ready) }
-                    ticks++
-                    if (ticks % 10 == 0) {
-                        store.queueIndex = engine.currentIndex.coerceAtLeast(0)
-                        store.queuePosition = pos
-                    }
                 } else if (_state.value.liveReady != ready) {
                     _state.update { it.copy(liveReady = ready) }
+                }
+                // Persist while paused as well, otherwise closing the app right
+                // after pausing would restore a stale index / position.
+                ticks++
+                val currentIndex = engine.currentIndex
+                if (currentIndex >= 0 && ticks % 2 == 0) {
+                    store.queueIndex = currentIndex
+                    store.queuePosition = pos
                 }
                 delay(500)
             }
@@ -247,7 +253,10 @@ class PlayerViewModel(app: Application) : AndroidViewModel(app) {
 
         val paths = store.queuePaths
         if (paths.isEmpty()) return
-        val tracks = paths.mapNotNull { p -> byPath[p]?.takeIf { File(p).exists() } }
+        // Resolve through MediaStore instead of File.exists(): on scoped-storage
+        // devices the DATA path may be unreadable even though the media item is
+        // perfectly valid, which used to drop the whole restored queue.
+        val tracks = paths.mapNotNull { p -> byPath[p] }
         if (tracks.isEmpty()) {
             store.clearQueue()
             return
@@ -299,6 +308,10 @@ class PlayerViewModel(app: Application) : AndroidViewModel(app) {
         _state.update { it.copy(positionMs = ms) }
         LiveEffects.positionMs = ms
         LiveEffects.resync()
+        if (engine.currentIndex >= 0) {
+            store.queueIndex = engine.currentIndex
+            store.queuePosition = ms
+        }
     }
 
     fun cycleLoop() {
@@ -704,6 +717,11 @@ class PlayerViewModel(app: Application) : AndroidViewModel(app) {
 
     private fun startQueue(tracks: List<Track>, start: Int) {
         engine.setQueue(tracks, start)
+        // Store the whole session immediately, so even a fast pause + swipe
+        // away keeps the selected track and queue for the next launch.
+        store.queuePaths = tracks.map { it.path }
+        store.queueIndex = start.coerceAtLeast(0)
+        store.queuePosition = 0L
         showNowPlaying()
         _state.update { it.copy(current = engine.currentTrack(), total = tracks.size, index = start + 1) }
         rebuildRows()
@@ -1002,11 +1020,21 @@ class PlayerViewModel(app: Application) : AndroidViewModel(app) {
         engine.setVolume(v)
     }
 
+    /** Write the current queue / track / position so the next launch resumes it. */
+    fun persistSession() {
+        val queue = engine.queue.value
+        if (queue.isNotEmpty()) store.queuePaths = queue.map { it.path }
+        val index = engine.currentIndex
+        if (index >= 0) {
+            store.queueIndex = index
+            store.queuePosition = engine.position()
+        }
+    }
+
     override fun onCleared() {
         super.onCleared()
         store.volume = engine.volumePercent()
-        store.queueIndex = engine.currentIndex.coerceAtLeast(0)
-        store.queuePosition = engine.position()
+        persistSession()
         // Detach from the service; playback keeps running in the background.
         engine.release()
     }

@@ -443,6 +443,9 @@ class AudioEngine(QObject):
         self._eq.reset()
         self._live.reset()
         self._seek_sec = self._pos
+        # A seek invalidates a previous end-of-stream marker; otherwise the
+        # transport could think the track had finished and restart it from 0.
+        self._eof_serial = -1
         self._clear_buffer()
 
     def next(self) -> None:
@@ -724,7 +727,11 @@ class AudioEngine(QObject):
             skip_until: float | None = None
             if seek_sec:
                 try:
-                    container.seek(int(seek_sec / tb), backward=True)
+                    # The offset must be expressed in the *stream's* time base;
+                    # the container's default is av.time_base (microseconds), so
+                    # pass the stream explicitly or seeking lands at the wrong
+                    # timestamp and playback restarts from the wrong place.
+                    container.seek(int(seek_sec / tb), backward=True, stream=stream)
                     skip_until = float(seek_sec)
                 except Exception:
                     skip_until = None
