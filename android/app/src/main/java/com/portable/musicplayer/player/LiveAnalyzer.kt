@@ -8,12 +8,19 @@ import java.nio.ByteBuffer
 import java.nio.ByteOrder
 import kotlin.math.abs
 import kotlin.math.ceil
+import kotlin.math.exp
 import kotlin.math.floor
 import kotlin.math.ln
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.roundToInt
 import kotlin.math.sqrt
+
+/** Automatic reactions plus the point where the track's audio has faded out. */
+data class LiveAnalysis(
+    val events: List<LiveEvent>,
+    val audibleEnd: Double,
+)
 
 /**
  * Decodes a track and turns its loudness contour into crowd reactions, mirroring
@@ -22,7 +29,7 @@ import kotlin.math.sqrt
  */
 object LiveAnalyzer {
 
-    const val VERSION = 1
+    const val VERSION = 3
 
     private const val HOP = 1024
     private const val MAX_SECONDS = 420.0
@@ -31,12 +38,12 @@ object LiveAnalyzer {
     private const val DEQUEUE_TIMEOUT_US = 10_000L
     private const val MAX_STALLS = 200
 
-    /** Returns the automatic reaction list, or `null` if analysis failed. */
-    fun analyze(path: String): List<LiveEvent>? {
+    /** Returns the automatic reactions and audible end, or `null` on failure. */
+    fun analyze(path: String): LiveAnalysis? {
         val env = decodeEnvelopes(path) ?: return null
         if (env.onset.size < 4) return null
         return try {
-            analyzeEnvelopes(env)
+            LiveAnalysis(analyzeEnvelopes(env), audibleEnd(env))
         } catch (_: Throwable) {
             null
         }
@@ -47,6 +54,7 @@ object LiveAnalyzer {
         val onset: FloatArray,
         val rate: Int,
         val duration: Double,
+        val containerDuration: Double,
     )
 
     // -- decoding -------------------------------------------------------------
@@ -173,7 +181,16 @@ object LiveAnalyzer {
 
             val duration = totalSamples.toDouble() / sampleRate
             if (duration < 1.0) return null
-            return EnvData(collector.energy(), collector.onset(), sampleRate, duration)
+            val containerDuration = runCatching {
+                format.getLong(MediaFormat.KEY_DURATION) / 1_000_000.0
+            }.getOrDefault(duration)
+            return EnvData(
+                collector.energy(),
+                collector.onset(),
+                sampleRate,
+                duration,
+                containerDuration,
+            )
         } catch (_: Throwable) {
             return null
         } finally {
@@ -211,6 +228,38 @@ object LiveAnalyzer {
     // -- analysis -------------------------------------------------------------
 
     private class Section(val start: Double, val end: Double, val level: Double)
+
+    /**
+     * Last audible frame, measured relative to the loud part of the track.
+     * Trailing silence is skipped so the post-roll follows the fade instead of
+     * the container duration; endings within 0.75 s keep the natural timing.
+     */
+    private fun audibleEnd(env: EnvData): Double {
+        val duration = env.duration
+        if (env.containerDuration > duration + 0.5) {
+            // Analysis stops at 7 minutes; use the real ending for long tracks.
+            return env.containerDuration
+        }
+        val n = env.energy.size
+        if (n < 2) return duration
+        val hopRate = env.rate.toDouble() / HOP
+        val rms = FloatArray(n) {
+            (exp(env.energy[it].toDouble()) - 1e-6).toFloat().coerceAtLeast(0f)
+        }
+        val sm = smooth(rms, max(1, (hopRate * 0.12).toInt()))
+        val sorted = sm.copyOf()
+        sorted.sort()
+        val ref = percentile(sorted, 92.0)
+        if (ref <= 1e-7) return duration
+        val threshold = ref * Math.pow(10.0, -45.0 / 20.0)
+        var last = -1
+        for (i in sm.indices) {
+            if (sm[i] >= threshold) last = i
+        }
+        if (last < 0) return duration
+        val end = min(duration, (last + 1) * HOP / env.rate.toDouble())
+        return if (duration - end <= 0.75) duration else max(0.0, end)
+    }
 
     private fun analyzeEnvelopes(env: EnvData): List<LiveEvent> {
         val rate = env.rate
@@ -379,9 +428,8 @@ object LiveAnalyzer {
             if (t > 8.0 && t < duration - 10.0) candidates.add(Cand(t, "cheer", 0.35f))
         }
 
-        val endT = snap(max(0.0, duration - 3.0), period, phase)
-        candidates.add(Cand(endT, "applause", 0.6f))
-        candidates.add(Cand(max(0.0, duration - 0.15), "big_cheer", 0.95f))
+        // The ending uses the service's dedicated post-roll (fade in, hold,
+        // fade out) instead of a reaction placed just before the last sample.
         if (quietAfter && duration > 40) {
             candidates.add(Cand(snap(duration * 0.5, period, phase), "applause", 0.3f))
         }

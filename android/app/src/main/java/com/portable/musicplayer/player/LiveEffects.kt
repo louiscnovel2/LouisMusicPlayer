@@ -34,6 +34,11 @@ const val LIVE_IR_VERSION = 4
 const val LIVE_TEXTURE_VERSION = 5
 const val LIVE_SAMPLE_VERSION = 1
 
+/** Post-roll that plays after the last sample of a track. */
+private const val OUTRO_FADE_IN = 1.2f
+private const val OUTRO_FADE_OUT = 2.8f
+private const val OUTRO_SECONDS = 8.7f
+
 /** Acoustic profile of one venue (mirrors the desktop `VENUES` table). */
 data class Venue(
     val label: String,
@@ -738,6 +743,20 @@ internal object LiveSynthesis {
 
 private fun lerp(a: Float, b: Float, t: Float): Float = a + (b - a) * t
 
+private fun fadeEnvelope(n: Int, rate: Int, fadeIn: Float, fadeOut: Float): FloatArray {
+    val env = FloatArray(n) { 1f }
+    if (n <= 0) return env
+    val a = min(n, max(0, (fadeIn * rate).toInt()))
+    if (a > 1) {
+        for (i in 0 until a) env[i] = sin((Math.PI / 2.0) * i / (a - 1)).toFloat()
+    }
+    val r = min(n - a, max(0, (fadeOut * rate).toInt()))
+    if (r > 1) {
+        for (i in 0 until r) env[n - r + i] = cos((Math.PI / 2.0) * i / (r - 1)).toFloat()
+    }
+    return env
+}
+
 private class OnePoleLP(freq: Float, fs: Float) {
     private val a = exp(-2.0 * Math.PI * freq / fs).toFloat()
     private val b = 1f - a
@@ -807,6 +826,10 @@ object LiveEffects {
     @Volatile
     var events: List<LiveEvent> = emptyList()
 
+    /** Where the post-roll should begin (audible fade-out, or track end). */
+    @Volatile
+    var outroAtMs: Long = 0L
+
     @Volatile
     private var preparedValue: LivePrepared? = null
 
@@ -847,9 +870,15 @@ object LiveEffects {
     }
 
     /** New track / seek: replace the reactions and force a DSP resync. */
-    fun compileTrack(durationMs: Long, events: List<LiveEvent>) {
-        this.durationMs = max(0L, durationMs)
+    fun compileTrack(durationMs: Long, events: List<LiveEvent>, outroAt: Long? = null) {
+        val duration = max(0L, durationMs)
+        this.durationMs = duration
         this.events = events.sortedBy { it.time }
+        this.outroAtMs = when {
+            duration <= 0L -> 0L
+            outroAt == null -> duration
+            else -> outroAt.coerceIn(0L, duration)
+        }
         syncToken++
     }
 
@@ -857,7 +886,96 @@ object LiveEffects {
     fun resync() {
         syncToken++
     }
+
+    /** Called by the service so it can pause at the end of a track for the tail. */
+    @Volatile
+    var settingsListener: ((Boolean) -> Unit)? = null
+
+    fun notifySettingsChanged() {
+        settingsListener?.invoke(settings.enabled)
+    }
+
+    /**
+     * Render the post-roll crowd (fade in, hold, fade out) as an interleaved
+     * stereo buffer that the service can play through a small AudioTrack after
+     * the track has ended.
+     */
+    fun buildOutro(settings: LiveSettings): OutroBuffer? {
+        val p = preparedValue ?: return null
+        val rate = p.sampleRate
+        val crowd = settings.crowd.coerceIn(0f, 1f)
+        val intensity = settings.intensity.coerceIn(0f, 1f)
+        val width = settings.width.coerceIn(0f, 1f)
+        val scale = crowd * (0.45f + 0.95f * intensity)
+        if (scale <= 0.001f) return null
+
+        data class Layer(
+            val kind: String,
+            val base: Float,
+            val delay: Float,
+            val fadeIn: Float,
+            val fadeOut: Float,
+        )
+
+        data class Mix(
+            val data: Array<FloatArray>,
+            val start: Int,
+            val gain: Float,
+            val gl: Float,
+            val gr: Float,
+            val fadeIn: Float,
+            val fadeOut: Float,
+        )
+
+        val layers = listOf(
+            Layer("big_cheer", LiveKinds.gain("big_cheer"), 0.0f, OUTRO_FADE_IN, OUTRO_FADE_OUT),
+            Layer("applause", LiveKinds.gain("applause"), 0.55f, 0.9f, 2.4f),
+        )
+        val rng = Random(System.nanoTime())
+        val mixes = ArrayList<Mix>(layers.size)
+        for (layer in layers) {
+            val variants = p.textures[layer.kind] ?: continue
+            if (variants.isEmpty()) continue
+            val data = variants[rng.nextInt(variants.size)]
+            if (data.size < 2 || data[0].isEmpty()) continue
+            val spread = LiveKinds.pan(layer.kind) * (0.25f + 0.85f * width)
+            val pan = (rng.nextFloat() * 2f - 1f) * spread
+            val theta = (pan.coerceIn(-1f, 1f) + 1f) * (Math.PI.toFloat() / 4f)
+            mixes.add(
+                Mix(
+                    data = data,
+                    start = (layer.delay * rate).toInt(),
+                    gain = layer.base * scale,
+                    gl = cos(theta),
+                    gr = sin(theta),
+                    fadeIn = layer.fadeIn,
+                    fadeOut = layer.fadeOut,
+                )
+            )
+        }
+        if (mixes.isEmpty()) return null
+
+        var total = (OUTRO_SECONDS * rate).toInt()
+        for (m in mixes) total = max(total, m.start + m.data[0].size)
+
+        val out = FloatArray(total * 2)
+        for (m in mixes) {
+            val n = m.data[0].size
+            val env = fadeEnvelope(n, rate, m.fadeIn, m.fadeOut)
+            for (i in 0 until n) {
+                val g = env[i] * m.gain
+                val o = (m.start + i) * 2
+                out[o] += m.data[0][i] * g * m.gl
+                out[o + 1] += m.data[1][i] * g * m.gr
+            }
+        }
+        for (i in out.indices) out[i] = out[i].coerceIn(-1f, 1f)
+        return OutroBuffer(out, rate)
+    }
 }
+
+/** Interleaved stereo PCM for the post-roll crowd. */
+class OutroBuffer(val data: FloatArray, val sampleRate: Int)
 
 // -- convolution runtime ------------------------------------------------------
 

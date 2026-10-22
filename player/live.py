@@ -117,6 +117,15 @@ EVENT_LENGTH = {
     "build": 1.9,
 }
 
+# Post-roll after the last sample of a track: fade the crowd in, keep it going
+# long enough to feel like a real audience, then fade it out before the next
+# track starts. The big cheer sample is 8.5 s, so the fades leave ~4.5 s at full
+# level (>= the 4-5 s the show should sound natural for).
+OUTRO_FADE_IN = 1.2
+OUTRO_FADE_OUT = 2.8
+OUTRO_SECONDS = 8.7
+OUTRO_PAD = 0.35
+
 
 def venue_label(key: str) -> str:
     return VENUES.get(key, VENUES["arena"])["label"]
@@ -416,6 +425,20 @@ def _attack_release(n: int, rate: int, attack: float, release: float,
     return env.astype(np.float32)
 
 
+def _fade_envelope(n: int, rate: int, fade_in: float, fade_out: float) -> np.ndarray:
+    """Smooth equal-power fade in / fade out for the post-roll crowd."""
+    env = np.ones(max(0, int(n)), dtype=np.float32)
+    if env.size == 0:
+        return env
+    a = min(env.size, max(0, int(fade_in * rate)))
+    if a > 1:
+        env[:a] = np.sin(np.linspace(0.0, np.pi / 2.0, a, dtype=np.float32))
+    r = min(env.size - a, max(0, int(fade_out * rate)))
+    if r > 1:
+        env[-r:] = np.cos(np.linspace(0.0, np.pi / 2.0, r, dtype=np.float32))
+    return env
+
+
 def _band_mask(freqs: np.ndarray, lo: float, hi: float, slope: float = 2.0) -> np.ndarray:
     lo_w = 1.0 / (1.0 + (lo / np.maximum(freqs, 1e-6)) ** slope)
     hi_w = 1.0 / (1.0 + (freqs / hi) ** slope)
@@ -664,17 +687,19 @@ class _State:
     width: float
     crowd: float
     intensity: float
-    events: tuple
+    events: tuple[LiveEvent, ...]
     duration: float
+    outro_start: float
     tail_end: float
     bed_gain: float
+    outro: bool
 
 
 class _Voice:
-    __slots__ = ("data", "pos", "n", "gain", "gl", "gr", "offset", "loop")
+    __slots__ = ("data", "pos", "n", "gain", "gl", "gr", "offset", "loop", "env")
 
     def __init__(self, data: np.ndarray, gain: float, pan: float, offset: int = 0,
-                 loop: bool = False) -> None:
+                 loop: bool = False, env: np.ndarray | None = None) -> None:
         self.data = data
         self.pos = 0
         self.n = data.shape[0]
@@ -684,6 +709,7 @@ class _Voice:
         self.gr = math.sin(theta)
         self.offset = max(0, int(offset))
         self.loop = loop
+        self.env = env
 
 
 class LiveEngine:
@@ -695,6 +721,7 @@ class LiveEngine:
         self._hop = int(hop)
         self._settings = LiveSettings()
         self._state: _State | None = None
+        self._outro_at_ms = 0
         self._gen = 0
         self._counter = 0
         self._conv: PartitionedConvolver | None = None
@@ -705,6 +732,7 @@ class LiveEngine:
         self._pending_idx = 0
         self._voices: list[_Voice] = []
         self._bed: _Voice | None = None
+        self._outro_spawned = False
 
     # -- configuration --------------------------------------------------------
     @property
@@ -737,10 +765,15 @@ class LiveEngine:
         if settings.enabled:
             self._schedule_prepare()
 
-    def compile_track(self, duration_ms: int, events: list[LiveEvent]) -> None:
-        """Set the reactions for the current track (sorted defensively)."""
+    def compile_track(self, duration_ms: int, events: list[LiveEvent],
+                      outro_at_ms: int | None = None) -> None:
+        """Set the reactions and the end-of-song crowd start."""
         self._events = sorted(events, key=lambda e: e.time)
         self._duration_ms = max(0, int(duration_ms))
+        if outro_at_ms is None:
+            self._outro_at_ms = self._duration_ms
+        else:
+            self._outro_at_ms = max(0, min(int(outro_at_ms), self._duration_ms))
         self._compile()
 
     def reset(self, t: float = 0.0) -> None:
@@ -793,16 +826,34 @@ class LiveEngine:
         events = tuple(getattr(self, "_events", ()))
         duration = getattr(self, "_duration_ms", 0) / 1000.0
         intensity = _clamp01(s.intensity)
+        crowd = _clamp01(s.crowd)
         wet = float(cfg["wet"]) * (0.35 + 1.15 * intensity)
         wet = min(0.65, wet)
+        outro_at = self._outro_at_ms / 1000.0
+        if duration > 0 and duration - outro_at <= 0.75:
+            outro_at = duration
+        outro_at = max(0.0, min(outro_at, duration))
+        outro = bool(s.enabled and duration > 0 and crowd > 0.001)
+        if outro:
+            # The end of the song is covered by the post-roll instead of a
+            # reaction placed a fraction of a second before the last sample
+            # (which used to be cut off when the next track started).
+            cutoff = outro_at - 0.9
+            events = tuple(
+                ev for ev in events
+                if not (ev.source == "auto" and ev.time >= cutoff)
+            )
         tail = min(2.5, float(cfg["rt60"])) + 0.5
         tail_end = duration + tail if duration > 0 else 0.0
         for ev in events:
             end = ev.time + EVENT_LENGTH.get(ev.kind, 4.0) + 0.4
             if end > tail_end:
                 tail_end = end
+        if outro:
+            tail_end = max(tail_end, outro_at + OUTRO_SECONDS + OUTRO_PAD)
         if duration > 0:
-            tail_end = min(tail_end, duration + 10.0)
+            limit = max(duration + 10.0, outro_at + OUTRO_SECONDS + OUTRO_PAD)
+            tail_end = min(tail_end, limit)
         self._counter += 1
         self._state = _State(
             gen=self._counter,
@@ -810,18 +861,21 @@ class LiveEngine:
             venue=s.venue,
             wet=wet if s.enabled else 0.0,
             width=_clamp01(s.width),
-            crowd=_clamp01(s.crowd),
+            crowd=crowd,
             intensity=intensity,
             events=events,
             duration=duration,
+            outro_start=outro_at,
             tail_end=tail_end,
-            bed_gain=0.16 * _clamp01(s.crowd),
+            bed_gain=0.16 * crowd,
+            outro=outro,
         )
 
     def _reset_runtime(self, st: _State) -> None:
         self._pending_idx = 0
         self._voices = []
         self._bed = None
+        self._outro_spawned = False
         if self._conv is not None:
             self._conv.reset()
         bed = (self._textures.get("bed") or [None])[0]
@@ -864,10 +918,20 @@ class LiveEngine:
             self._spawn(ev, st, tt)
             self._pending_idx = i + 1
 
+        if st.outro and not self._outro_spawned and tt + n / rate >= st.outro_start:
+            self._spawn_outro(st, max(0.0, st.outro_start - tt))
+            self._outro_spawned = True
+
         if self._voices:
             if out is block:
                 out = np.array(block, dtype=np.float32, copy=True)
-            self._mix(out, n)
+            tail_fade = None
+            if st.outro and tt + n / rate > st.tail_end - 0.8:
+                idx = np.arange(n, dtype=np.float32)
+                tail_fade = np.clip(
+                    (st.tail_end - (tt + idx / rate)) / 0.8, 0.0, 1.0
+                )
+            self._mix(out, n, tail_fade)
         return out
 
     def _spawn(self, ev: LiveEvent, st: _State, t: float) -> None:
@@ -883,7 +947,32 @@ class LiveEngine:
         tex = variants[int(rng.integers(len(variants)))]
         self._voices.append(_Voice(tex, gain, pan, offset=offset))
 
-    def _mix(self, out: np.ndarray, n: int) -> None:
+    def _spawn_outro(self, st: _State, offset: float) -> None:
+        """Crowd that starts after the track has ended (fade in / hold / out)."""
+        if st.crowd <= 0.001:
+            return
+        rng = _thread_rng()
+        scale = st.crowd * (0.45 + 0.95 * st.intensity)
+        layers = (
+            ("big_cheer", EVENT_GAIN["big_cheer"], 0.0, OUTRO_FADE_IN, OUTRO_FADE_OUT),
+            ("applause", EVENT_GAIN["applause"], 0.55, 0.9, 2.4),
+        )
+        for kind, base, delay, fade_in, fade_out in layers:
+            variants = self._textures.get(kind)
+            if not variants:
+                continue
+            tex = variants[int(rng.integers(len(variants)))]
+            env = _fade_envelope(tex.shape[0], self._rate, fade_in, fade_out)
+            spread = EVENT_PAN.get(kind, 0.5) * (0.25 + 0.85 * st.width)
+            pan = float(rng.uniform(-1.0, 1.0)) * spread
+            gain = base * scale
+            start = int(max(0.0, offset + delay) * self._rate)
+            self._voices.append(
+                _Voice(tex, gain, pan, offset=start, env=env)
+            )
+
+    def _mix(self, out: np.ndarray, n: int,
+             tail_fade: np.ndarray | None = None) -> None:
         keep: list[_Voice] = []
         for v in self._voices:
             a = v.offset
@@ -892,6 +981,10 @@ class LiveEngine:
                 m = min(n - a, v.n - v.pos)
                 if m > 0:
                     seg = v.data[v.pos:v.pos + m]
+                    if v.env is not None:
+                        seg = seg * v.env[v.pos:v.pos + m, None]
+                    if tail_fade is not None:
+                        seg = seg * tail_fade[a:a + m, None]
                     out[a:a + m, 0] += seg[:, 0] * (v.gain * v.gl)
                     out[a:a + m, 1] += seg[:, 1] * (v.gain * v.gr)
                     v.pos += m

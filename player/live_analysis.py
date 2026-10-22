@@ -21,6 +21,7 @@ from __future__ import annotations
 import json
 import os
 import threading
+from dataclasses import dataclass
 
 import numpy as np
 
@@ -38,16 +39,25 @@ MAX_SECONDS = 420.0
 MIN_GAP = 7.0
 MAX_EVENTS = 24
 
-_VERSION = 3
+_VERSION = 5
+
+
+@dataclass(frozen=True)
+class LiveAnalysis:
+    """Automatic reactions plus where the actual audio fades to silence."""
+
+    events: list[LiveEvent]
+    audible_end: float
 
 
 def _provisional(duration_ms: int) -> list[LiveEvent]:
-    """Events used before (or instead of) the analysis."""
+    """Events used before (or instead of) the analysis.
+
+    The end of the track is not scheduled here: the Live engine adds a dedicated
+    post-roll (fade in, hold, fade out) after the last sample instead.
+    """
     dur = max(0, int(duration_ms)) / 1000.0
     events = [LiveEvent(0.9, "applause", 0.45, "auto")]
-    if dur > 20:
-        events.append(LiveEvent(max(1.0, dur - 4.0), "cheer", 0.6, "auto"))
-        events.append(LiveEvent(max(1.0, dur - 0.2), "big_cheer", 0.9, "auto"))
     events.extend(_auto_bed(dur))
     return events
 
@@ -67,7 +77,7 @@ def _auto_bed(duration: float) -> list[LiveEvent]:
 # -- decoding -----------------------------------------------------------------
 
 
-def _decode_mono(path: str) -> tuple[np.ndarray, int] | None:
+def _decode_mono(path: str) -> tuple[np.ndarray, int, float] | None:
     if av is None:
         return None
     try:
@@ -75,6 +85,12 @@ def _decode_mono(path: str) -> tuple[np.ndarray, int] | None:
     except Exception:
         return None
     try:
+        full_duration = 0.0
+        try:
+            if container.duration:
+                full_duration = float(container.duration) / 1_000_000.0
+        except Exception:
+            pass
         stream = container.streams.audio[0]
         resampler = av.AudioResampler(format="flt", layout="mono", rate=ANALYSIS_RATE)
         chunks: list[np.ndarray] = []
@@ -95,7 +111,7 @@ def _decode_mono(path: str) -> tuple[np.ndarray, int] | None:
         data = np.concatenate(chunks)
         if data.shape[0] < ANALYSIS_RATE:
             return None
-        return data.astype(np.float32), ANALYSIS_RATE
+        return data.astype(np.float32), ANALYSIS_RATE, full_duration
     except Exception:
         return None
     finally:
@@ -125,6 +141,34 @@ def _envelopes(x: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
     hf = np.sqrt(np.mean(np.square(diff, dtype=np.float64), axis=1) + 1e-12)
     onset = np.maximum(0.0, np.diff(np.log(hf + 1e-6), prepend=0.0))
     return energy, onset
+
+
+def _audible_end(x: np.ndarray, rate: int, duration: float) -> float:
+    """Where the last audible part of the track fades below the noise floor.
+
+    A fixed track-duration end is wrong for songs with trailing silence: the
+    crowd would only start after that silence.  The threshold is relative to
+    the loud part of the song, so quiet outros are kept while a real fade-out
+    is followed immediately by the crowd.
+    """
+    frames = _frames_of(x, HOP)
+    if frames.shape[0] < 2:
+        return duration
+    rms = np.sqrt(np.mean(np.square(frames, dtype=np.float64), axis=1) + 1e-12)
+    rms = _smooth(rms, max(1, int(rate / HOP * 0.12)))
+    ref = float(np.percentile(rms, 92.0))
+    if ref <= 1e-7:
+        return duration
+    threshold = ref * (10.0 ** (-45.0 / 20.0))
+    above = np.flatnonzero(rms >= threshold)
+    if above.size == 0:
+        return duration
+    end = min(duration, float(above[-1] + 1) * HOP / rate)
+    # A stream that ends at its nominal duration should keep the natural
+    # immediate transition instead of being nudged a fraction earlier.
+    if duration - end <= 0.75:
+        return duration
+    return max(0.0, end)
 
 
 def _smooth(x: np.ndarray, win: int) -> np.ndarray:
@@ -210,7 +254,7 @@ def _sections(energy: np.ndarray, rate: float) -> list[tuple[float, float, float
     return [(a / hop_rate, b / hop_rate, level) for a, b, level in chunks]
 
 
-def analyze_array(x: np.ndarray, rate: int) -> list[LiveEvent]:
+def analyze_array(x: np.ndarray, rate: int) -> LiveAnalysis:
     duration = x.shape[0] / rate
     energy, onset = _envelopes(x)
     period, conf = _tempo(onset, rate)
@@ -239,10 +283,9 @@ def analyze_array(x: np.ndarray, rate: int) -> list[LiveEvent]:
         if 8.0 < t < duration - 10.0:
             candidates.append((t, "cheer", 0.35))
 
-    # the ending
-    end_t = _snap(max(0.0, duration - 3.0), period, phase)
-    candidates.append((end_t, "applause", 0.6))
-    candidates.append((max(0.0, duration - 0.15), "big_cheer", 0.95))
+    # The ending is handled by the Live engine's post-roll crowd (fade in,
+    # hold for several seconds, fade out) instead of a reaction placed right
+    # before the last sample. A quiet middle of a long song still gets one.
     if quiet_after and duration > 40:
         candidates.append((_snap(duration * 0.5, period, phase), "applause", 0.3))
 
@@ -273,7 +316,7 @@ def analyze_array(x: np.ndarray, rate: int) -> list[LiveEvent]:
         events.append(LiveEvent(t, kind, gain, "auto"))
     events.sort(key=lambda e: e.time)
     events = _thin(events)
-    return events
+    return LiveAnalysis(events, _audible_end(x, rate, duration))
 
 
 def _thin(events: list[LiveEvent]) -> list[LiveEvent]:
@@ -286,15 +329,21 @@ def _thin(events: list[LiveEvent]) -> list[LiveEvent]:
     return head + middle[::step] + tail
 
 
-def analyze(path: str) -> list[LiveEvent] | None:
+def analyze(path: str) -> LiveAnalysis | None:
     decoded = _decode_mono(path)
     if decoded is None:
         return None
-    data, rate = decoded
+    data, rate, full_duration = decoded
     try:
-        return analyze_array(data, rate)
+        analysis = analyze_array(data, rate)
     except Exception:
         return None
+    decoded_duration = data.shape[0] / rate
+    if full_duration > decoded_duration + 0.5:
+        # The 7-minute analysis limit would otherwise put the crowd near the
+        # cutoff of a longer track; fall back to its real ending.
+        return LiveAnalysis(analysis.events, full_duration)
+    return analysis
 
 
 # -- cache --------------------------------------------------------------------
@@ -325,7 +374,7 @@ class LiveAnalysisCache:
         except OSError:
             return 0
 
-    def get(self, path: str) -> list[LiveEvent] | None:
+    def get_analysis(self, path: str) -> LiveAnalysis | None:
         with self._lock:
             rec = self._data.get(path)
         if not isinstance(rec, dict):
@@ -338,14 +387,25 @@ class LiveAnalysisCache:
         if not isinstance(raw, list):
             return None
         events = [e for e in (LiveEvent.from_dict(d) for d in raw) if e is not None]
-        return events
+        try:
+            audible_end = float(rec.get("end", 0.0))
+        except (TypeError, ValueError):
+            return None
+        if not np.isfinite(audible_end) or audible_end <= 0:
+            return None
+        return LiveAnalysis(events, audible_end)
 
-    def set(self, path: str, events: list[LiveEvent]) -> None:
+    def get(self, path: str) -> list[LiveEvent] | None:
+        analysis = self.get_analysis(path)
+        return analysis.events if analysis is not None else None
+
+    def set(self, path: str, analysis: LiveAnalysis) -> None:
         with self._lock:
             self._data[path] = {
                 "mtime": self._mtime(path),
                 "v": _VERSION,
-                "events": [e.to_dict() for e in events],
+                "end": float(analysis.audible_end),
+                "events": [e.to_dict() for e in analysis.events],
             }
         self.save()
 

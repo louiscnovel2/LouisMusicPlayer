@@ -8,7 +8,7 @@
   <Identity
       Name="LouisCNovel.LouisMusicPlayer"
       Publisher="CN=185A154A-A844-46E5-9341-6089D3CAE1D7"
-      Version="1.4.4.0"
+      Version="1.4.6.0"
       ProcessorArchitecture="x64" />
 
   <Properties>

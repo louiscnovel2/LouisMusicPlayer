@@ -8,7 +8,7 @@
   <Identity
       Name="LouisMusicPlayer.Desktop"
       Publisher="CN=Louis Music Player"
-      Version="1.4.4.0"
+      Version="1.4.6.0"
       ProcessorArchitecture="x64" />
 
   <Properties>

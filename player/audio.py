@@ -282,15 +282,17 @@ class AudioEngine(QObject):
                 ev.source = "manual"
                 manual.append(ev)
         auto: list[live_mod.LiveEvent] = []
+        outro_at_ms: int | None = None
         if self._live_settings.auto_show:
-            cached = self._live_cache.get(track.path)
+            cached = self._live_cache.get_analysis(track.path)
             if cached is None:
                 auto = live_analysis.provisional(self.duration())
                 self._start_live_analysis(track.path)
             else:
-                auto = cached
+                auto = cached.events
+                outro_at_ms = int(round(cached.audible_end * 1000.0))
         self._live_auto[track.path] = auto
-        self._live.compile_track(self.duration(), auto + manual)
+        self._live.compile_track(self.duration(), auto + manual, outro_at_ms)
 
     def _start_live_analysis(self, path: str) -> None:
         if path in self._live_analysing:
@@ -299,12 +301,12 @@ class AudioEngine(QObject):
         self.liveChanged.emit()
 
         def worker() -> None:
-            events = live_analysis.analyze(path)
+            analysis = live_analysis.analyze(path)
             self._live_analysing.discard(path)
-            if events is not None:
-                self._live_cache.set(path, events)
+            if analysis is not None:
+                self._live_cache.set(path, analysis)
                 if self.current_track is not None and self.current_track.path == path:
-                    self._live_auto[path] = events
+                    self._live_auto[path] = analysis.events
                     self._update_live_track()
             self.liveAnalysisChanged.emit(path)
 
@@ -724,6 +726,7 @@ class AudioEngine(QObject):
                     self._update_live_track()
 
             resampler = av.AudioResampler(format="fltp", layout="stereo", rate=self._rate)
+            decoded_frames = 0
             skip_until: float | None = None
             if seek_sec:
                 try:
@@ -752,6 +755,7 @@ class AudioEngine(QObject):
                     skip_until = None
                 for rf in resampler.resample(frame):
                     self._push(rf)
+                    decoded_frames += int(rf.samples)
                 while self._buf_frames > self._rate:
                     if self._quit or serial != self._track_serial or self._seek_sec is not None:
                         return
@@ -761,6 +765,16 @@ class AudioEngine(QObject):
                 if self._quit or serial != self._track_serial or self._seek_sec is not None:
                     return
                 self._push(rf)
+                decoded_frames += int(rf.samples)
+
+            if self._duration_ms <= 0 and decoded_frames > 0:
+                # Containers without a duration header would otherwise skip the
+                # post-roll (the tail length is relative to the track length).
+                base = float(seek_sec or 0.0)
+                self._duration_ms = int((base + decoded_frames / self._rate) * 1000)
+                self.durationChanged.emit(self._duration_ms)
+                if self._live_settings.enabled:
+                    self._update_live_track()
         finally:
             try:
                 container.close()
@@ -782,7 +796,10 @@ class AudioEngine(QObject):
 
     # -- ui timer -------------------------------------------------------------
     def _on_tick(self) -> None:
-        self.positionChanged.emit(int(self._pos * 1000))
+        pos_ms = int(self._pos * 1000)
+        if self._duration_ms > 0:
+            pos_ms = min(pos_ms, self._duration_ms)
+        self.positionChanged.emit(pos_ms)
         if not self._playing:
             return
         if self._eof_serial != self._track_serial or self._buf_frames:

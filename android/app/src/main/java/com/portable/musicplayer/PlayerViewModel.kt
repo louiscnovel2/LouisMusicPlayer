@@ -13,6 +13,7 @@ import com.portable.musicplayer.player.AudioEffects
 import com.portable.musicplayer.player.EqBands
 import com.portable.musicplayer.player.EqPresets
 import com.portable.musicplayer.player.EqSettings
+import com.portable.musicplayer.player.LiveAnalysis
 import com.portable.musicplayer.player.LiveAnalyzer
 import com.portable.musicplayer.player.LiveEffects
 import com.portable.musicplayer.player.LiveEvent
@@ -36,6 +37,7 @@ import org.json.JSONObject
 import java.io.File
 import java.util.Locale
 import kotlin.math.roundToInt
+import kotlin.math.roundToLong
 
 // -- navigation ---------------------------------------------------------------
 
@@ -142,6 +144,7 @@ class PlayerViewModel(app: Application) : AndroidViewModel(app) {
     private var normalizeJob: Job? = null
 
     private val liveAutoCache = HashMap<String, List<LiveEvent>>()
+    private val liveEndCache = HashMap<String, Double>()
     private val liveManualCache = HashMap<String, MutableList<LiveEvent>>()
     private var liveAnalysisJob: Job? = null
 
@@ -474,6 +477,7 @@ class PlayerViewModel(app: Application) : AndroidViewModel(app) {
             width = s.liveWidth,
             autoShow = s.liveAutoShow,
         )
+        LiveEffects.notifySettingsChanged()
     }
 
     private fun updateLive(transform: (UiState) -> UiState) {
@@ -515,19 +519,28 @@ class PlayerViewModel(app: Application) : AndroidViewModel(app) {
         return list
     }
 
-    private fun autoFor(path: String): List<LiveEvent> {
-        liveAutoCache[path]?.let { return it }
+    private fun analysisFor(path: String): LiveAnalysis? {
+        val cachedEvents = liveAutoCache[path]
+        val cachedEnd = liveEndCache[path]
+        if (cachedEvents != null && cachedEnd != null) {
+            return LiveAnalysis(cachedEvents, cachedEnd)
+        }
         val rec = store.liveAnalysis(path)
         if (rec != null) {
             val mtime = rec.optLong("mtime", -1L)
             val version = rec.optInt("v", -1)
-            if (mtime == File(path).lastModified() && version == LiveAnalyzer.VERSION) {
+            val end = rec.optDouble("end", 0.0)
+            if (mtime == File(path).lastModified() &&
+                version == LiveAnalyzer.VERSION &&
+                end.isFinite() && end > 0.0
+            ) {
                 val events = liveEventsFromJson(rec.optJSONArray("events") ?: org.json.JSONArray())
                 liveAutoCache[path] = events
-                return events
+                liveEndCache[path] = end
+                return LiveAnalysis(events, end)
             }
         }
-        return emptyList()
+        return null
     }
 
     /** (Re)build the reaction list for the current track and hand it to the DSP. */
@@ -538,15 +551,20 @@ class PlayerViewModel(app: Application) : AndroidViewModel(app) {
             return
         }
         val manual = manualFor(track.path)
-        val auto = if (_state.value.liveAutoShow) autoFor(track.path) else emptyList()
+        val analysis = if (_state.value.liveAutoShow) analysisFor(track.path) else null
+        val auto = analysis?.events ?: emptyList()
         val events = ArrayList<LiveEvent>(auto.size + manual.size)
         events.addAll(auto)
         events.addAll(manual)
-        LiveEffects.compileTrack(engine.duration(), events)
+        LiveEffects.compileTrack(
+            engine.duration(),
+            events,
+            analysis?.let { (it.audibleEnd * 1000.0).roundToLong() },
+        )
         if (_state.value.liveManual != manual.toList()) {
             _state.update { it.copy(liveManual = manual.toList()) }
         }
-        if (_state.value.liveAutoShow && !liveAutoCache.containsKey(track.path)) {
+        if (_state.value.liveAutoShow && analysis == null) {
             scheduleAnalysis(track.path)
         }
     }
@@ -555,15 +573,22 @@ class PlayerViewModel(app: Application) : AndroidViewModel(app) {
         liveAnalysisJob?.cancel()
         liveAnalysisJob = viewModelScope.launch {
             _state.update { it.copy(liveStatus = "楽曲を解析しています…") }
-            val events = withContext(Dispatchers.IO) { LiveAnalyzer.analyze(path) } ?: emptyList()
-            store.putLiveAnalysis(
-                path,
-                JSONObject()
-                    .put("mtime", File(path).lastModified())
-                    .put("v", LiveAnalyzer.VERSION)
-                    .put("events", liveEventsToJson(events)),
-            )
-            liveAutoCache[path] = events
+            val analysis = withContext(Dispatchers.IO) { LiveAnalyzer.analyze(path) }
+            if (analysis == null) {
+                liveAutoCache[path] = emptyList()
+                liveEndCache[path] = 0.0
+            } else {
+                store.putLiveAnalysis(
+                    path,
+                    JSONObject()
+                        .put("mtime", File(path).lastModified())
+                        .put("v", LiveAnalyzer.VERSION)
+                        .put("end", analysis.audibleEnd)
+                        .put("events", liveEventsToJson(analysis.events)),
+                )
+                liveAutoCache[path] = analysis.events
+                liveEndCache[path] = analysis.audibleEnd
+            }
             if (_state.value.current?.path == path) {
                 _state.update { it.copy(liveStatus = "") }
                 recompileLive()
